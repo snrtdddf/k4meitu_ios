@@ -17,9 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    
     
     MainTabBarViewController *rooterVC = [[MainTabBarViewController alloc]init];
     UINavigationController *rooterNav = [[UINavigationController alloc]initWithRootViewController:rooterVC];
