@@ -17,6 +17,8 @@ typedef void(^Failed)(NSError *error);
 @interface DealGoldRequestManager : NSObject
 
 
++ (void)registerUser:(Succeed)succeed failed:(Failed)failed;
+
 
 /**
  获取登录状态

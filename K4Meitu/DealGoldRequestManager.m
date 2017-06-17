@@ -19,19 +19,10 @@
 #pragma mark
 #pragma mark -------------------------个人信息接口-----------------------------------
 #pragma mark 退出当前账户
-/**
- *  退出当前账户
- */
-+ (void)logoutAccoutSucceed:(Succeed)succeed failed:(Failed)failed{
-    NSDictionary *paraDict = @{@"method":@"t.user.userLogout",
-                               @"channel":APPCHANNEL,
-                               @"ip":getIpAddress,
-                               @"userId":userId,
-                               @"loginSign":loginSign,
-                               @"version":URLVersion
-                               };
-   
-    PostMethod;
+
+
++ (void)registerUser:(Succeed)succeed failed:(Failed)failed{
+    
 }
 
 
