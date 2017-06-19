@@ -8,6 +8,10 @@
 
 #import "AppDelegate.h"
 #import "LoadingViewController.h"
+#import <IQKeyboardManager.h>
+#import "SPUncaughtExceptionHandler.h"
+#import "AFNetworking.h"
+#import "Header.h"
 @interface AppDelegate ()
 
 @end
@@ -24,6 +28,70 @@
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     //------------------------------------------------------------------
+    //--------------------------网络状态检测------------------------------
+    
+    [UserDefaults removeObjectForKey:@"isNetReachable"];
+    [UserDefaults synchronize];
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        switch (status)
+        {
+            case AFNetworkReachabilityStatusUnknown:
+            {
+                
+                [UserDefaults setValue:@"NO" forKey:@"isNetReachable"];
+                NSLog(@"isNetOK:Unknown");
+                break;
+            }
+                
+            case AFNetworkReachabilityStatusNotReachable:
+            {
+                NSLog(@"isNetOK:NotReachable");
+                [UserDefaults setValue:@"NO" forKey:@"isNetReachable"];
+                break;
+            }
+                
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            {
+               NSLog(@"isNetOK:4G/3G");
+                NSString *ipAddress = [GetIPAddress getIPAddress:YES];
+                [UserDefaults setValue:@"YES" forKey:@"isNetReachable"];
+                [UserDefaults setValue:ipAddress forKey:@"ipAddress"];
+                [UserDefaults synchronize];
+                break;
+            }
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+            {
+                NSLog(@"isNetOK:WiFi");
+                [UserDefaults setValue:@"YES" forKey:@"isNetReachable"];
+                NSString *ipAddress = [GetIPAddress getIPAddress:YES];
+                [UserDefaults setValue:ipAddress forKey:@"ipAddress"];
+                [UserDefaults synchronize];
+                break;
+            }
+                
+            default:
+                break;
+        }
+        
+    }];
+    //------------------------------------------------------------------
+    
+    
+    //-----------------------IQKeyboardManager使用------------------------
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable = YES; // 控制整个功能是否启用。
+    manager.shouldResignOnTouchOutside = YES; // 控制点击背景是否收起键盘
+    manager.shouldToolbarUsesTextFieldTintColor = YES; // 控制键盘上的工具条文字颜色是否用户自定义
+    manager.enableAutoToolbar = YES; // 控制是否显示键盘上的工具条
+    manager.toolbarManageBehaviour = IQAutoToolbarByTag; // 最新版的设置键盘的returnKey的关键字 ,可以点击键盘上的next键，自动跳转到下一个输入框，最后一个输入框点击完成，自动收起键盘。
+    //------------------------------------------------------------------
+    
+    
+    InstallUncaughtExceptionHandler();//异常捕捉，防闪退
+    
 
     return YES;
 }

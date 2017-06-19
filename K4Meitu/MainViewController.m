@@ -7,7 +7,8 @@
 //
 
 #import "MainViewController.h"
-
+#import "RequestManager.h"
+#import "Header.h"
 @interface MainViewController ()
 
 @end
@@ -17,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning {

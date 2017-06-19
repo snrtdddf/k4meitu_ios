@@ -9,7 +9,7 @@
 #import "Connection.h"
 #import "AFNetworking.h"
 #import "LGAlertView.h"
-#import "DealGoldRequestManager.h"
+#import "RequestManager.h"
 #import "FMDB.h"
 #import "SDImageCache.h"
 #import "commonTools.h"

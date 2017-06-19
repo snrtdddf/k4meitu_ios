@@ -25,7 +25,7 @@
     [btn setBackgroundColor:Red_COLOR];
     [btn setTitle:title forState:UIControlStateNormal];
     btn.center = CGPointMake(IPHONE_WIDTH / 2, Y);
-    btn.titleLabel.font = [UIFont fontWithName:YouYuan size:fontsize];
+   
     
     return btn;
 

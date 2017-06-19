@@ -34,7 +34,6 @@
 		7DA2062F1EF4D99800AA4056 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA2062C1EF4D99800AA4056 /* BaseViewController.m */; };
 		7DA206301EF4D99800AA4056 /* NSString+isContainEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA2062E1EF4D99800AA4056 /* NSString+isContainEmoji.m */; };
 		7DA206341EF4D9DA00AA4056 /* GetIPAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206331EF4D9DA00AA4056 /* GetIPAddress.m */; };
-		7DA206391EF4DA0B00AA4056 /* DealGoldRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206381EF4DA0B00AA4056 /* DealGoldRequestManager.m */; };
 		7DA2063C1EF4DA1800AA4056 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA2063B1EF4DA1800AA4056 /* Connection.m */; };
 		7DA206431EF4DB8000AA4056 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206421EF4DB8000AA4056 /* MainViewController.m */; };
 		7DA206461EF4DB9D00AA4056 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206451EF4DB9D00AA4056 /* SecondViewController.m */; };
@@ -61,6 +60,7 @@
 		7DA206741EF504CF00AA4056 /* shopping_unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA2066C1EF504CF00AA4056 /* shopping_unselect.png */; };
 		7DA206751EF504CF00AA4056 /* shopping_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA2066D1EF504CF00AA4056 /* shopping_unselect@2x.png */; };
 		7DA206781EF5085C00AA4056 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206771EF5085C00AA4056 /* LoadingViewController.m */; };
+		7DA2067B1EF5206F00AA4056 /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA2067A1EF5206F00AA4056 /* RequestManager.m */; };
 		7DDDF44E1EF4CE8400830CA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF44D1EF4CE8400830CA8 /* main.m */; };
 		7DDDF4511EF4CE8400830CA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF4501EF4CE8400830CA8 /* AppDelegate.m */; };
 		7DDDF4541EF4CE8400830CA8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF4531EF4CE8400830CA8 /* ViewController.m */; };
@@ -122,8 +122,6 @@
 		7DA2062E1EF4D99800AA4056 /* NSString+isContainEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+isContainEmoji.m"; sourceTree = "<group>"; };
 		7DA206321EF4D9DA00AA4056 /* GetIPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetIPAddress.h; sourceTree = "<group>"; };
 		7DA206331EF4D9DA00AA4056 /* GetIPAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetIPAddress.m; sourceTree = "<group>"; };
-		7DA206371EF4DA0B00AA4056 /* DealGoldRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealGoldRequestManager.h; sourceTree = "<group>"; };
-		7DA206381EF4DA0B00AA4056 /* DealGoldRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealGoldRequestManager.m; sourceTree = "<group>"; };
 		7DA2063A1EF4DA1800AA4056 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
 		7DA2063B1EF4DA1800AA4056 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
 		7DA206411EF4DB8000AA4056 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -156,6 +154,8 @@
 		7DA2066D1EF504CF00AA4056 /* shopping_unselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping_unselect@2x.png"; sourceTree = "<group>"; };
 		7DA206761EF5085C00AA4056 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
 		7DA206771EF5085C00AA4056 /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
+		7DA206791EF5206F00AA4056 /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManager.h; sourceTree = "<group>"; };
+		7DA2067A1EF5206F00AA4056 /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManager.m; sourceTree = "<group>"; };
 		7DDDF4491EF4CE8400830CA8 /* K4Meitu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = K4Meitu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DDDF44D1EF4CE8400830CA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7DDDF44F1EF4CE8400830CA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -286,8 +286,8 @@
 		7DA206361EF4D9FB00AA4056 /* RequestManager */ = {
 			isa = PBXGroup;
 			children = (
-				7DA206371EF4DA0B00AA4056 /* DealGoldRequestManager.h */,
-				7DA206381EF4DA0B00AA4056 /* DealGoldRequestManager.m */,
+				7DA206791EF5206F00AA4056 /* RequestManager.h */,
+				7DA2067A1EF5206F00AA4056 /* RequestManager.m */,
 			);
 			name = RequestManager;
 			sourceTree = "<group>";
@@ -688,9 +688,9 @@
 				7DA2064C1EF4DBB100AA4056 /* FourthViewController.m in Sources */,
 				7DA206191EF4D90700AA4056 /* Base64.m in Sources */,
 				7DA2063C1EF4DA1800AA4056 /* Connection.m in Sources */,
-				7DA206391EF4DA0B00AA4056 /* DealGoldRequestManager.m in Sources */,
 				7DA2061B1EF4D90700AA4056 /* SecureData.m in Sources */,
 				7DA206281EF4D92D00AA4056 /* TabBar.m in Sources */,
+				7DA2067B1EF5206F00AA4056 /* RequestManager.m in Sources */,
 				7DA206461EF4DB9D00AA4056 /* SecondViewController.m in Sources */,
 				7DA206051EF4D8DD00AA4056 /* NSString+ASCIILength.m in Sources */,
 				7DA206291EF4D92D00AA4056 /* UpDownButton.m in Sources */,

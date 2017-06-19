@@ -12,37 +12,23 @@
 //*******************************网络请求相关宏**********************
 //网络请求 上传图片的地址也要换
 
-//test http://puc.24k.cn/goldwallet/api.do?
-//pre https://jlwl.24k.cn/goldwallet/api.do?
-#define URLPrefix @"https://jlhz.24k.cn/goldwallet/api.do?"
+#define URLPrefix @"http://snrtdddf.hopto.org:8080/pic/api.action?"
 
-//test http://mmj.24k.com/business-web/business-api?
-//pre https://jlwl.24k.cn/business-web/business-api?
-#define URLPrefixDealGold @"https://jlhz.24k.cn/business-web/business-api?"
-
-//域名
-#define Domain [UserDefaults valueForKey:@"domain"]
 
 //渠道编号
-#define APPCHANNEL @"8020"
-#define ChannelDG @"app"
-//接口版本
-#define URLVersion @"1.0"
-#define URLVersionDG @"1.00.00"
-//商户id
-#define MerchantID [UserDefaults valueForKey:@"merchantId"]
+#define APPCHANNEL @"iOS"
+
 //ip地址
-#define getIpAddress [UserDefaults valueForKey:@"ipAddress"]==nil?@"192.168.1.1":[UserDefaults valueForKey:@"ipAddress"]
-//#define getIpAddress [UserDefaults valueForKey:@"ipAddress"]?[UserDefaults valueForKey:@"ipAddress"]:@"0.0.0.0" //正式环境中，在检测网络时将ip写入沙盒
+#define getIpAddress [UserDefaults valueForKey:@"ipAddress"]==nil?@"192.168.1.1":[UserDefaults valueForKey:@"ipAddress"] //正式环境中，在检测网络时将ip写入沙盒
 //#define getIpAddress @"192.168.10.38"
-//手机号
-#define mobile @"18671260832"
-//loginSign
-#define loginSign [UserDefaults valueForKey:@"loginSign"]
+
 //userId
 #define userId [UserDefaults valueForKey:@"userId"]
-//userName
-#define myUserName [UserDefaults valueForKey:@"userName"]
+
+//Channel&IP
+#define ParamDictNeed  @"channel":APPCHANNEL,@"ip":getIpAddress
+//请求结果dict
+#define resSuccess resDict[@"success"]
 //weakself
 #define myWeakSelf __weak __typeof(self)weakSelf = self
 //Connection

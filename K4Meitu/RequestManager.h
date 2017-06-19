@@ -1,9 +1,9 @@
 //
-//  DealGoldRequestManager.h
-//  DealGold
+//  RequestManager.h
+//  K4Meitu
 //
-//  Created by simpleem on 16/9/7.
-//  Copyright © 2016年 China_Gold_Infomation. All rights reserved.
+//  Created by simpleem on 6/17/17.
+//  Copyright © 2017 YangLei. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,21 +11,26 @@
 typedef void(^Succeed)(NSData * data);
 typedef void(^Failed)(NSError *error);
 
-// simpleem------
-//typedef void(^Succeed2)(id data);
 
-@interface DealGoldRequestManager : NSObject
+@interface RequestManager : NSObject
 
 
+/**
+ 用户注册
+ 
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
 + (void)registerUser:(Succeed)succeed failed:(Failed)failed;
 
 
 /**
  获取登录状态
-
+ 
  @param succeed <#succeed description#>
  @param failed <#failed description#>
  */
-+ (void)getLoginSign:(Succeed)succeed failed:(Failed)failed;
++ (void)userLogin:(Succeed)succeed failed:(Failed)failed;
+
 
 @end

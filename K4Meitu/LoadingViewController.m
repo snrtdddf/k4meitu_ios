@@ -9,6 +9,8 @@
 #import "LoadingViewController.h"
 #import "MainViewController.h"
 #import "MainTabBarViewController.h"
+#import "RequestManager.h"
+#import "Header.h"
 @interface LoadingViewController ()
 
 @end
@@ -18,13 +20,56 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    MainTabBarViewController *rooterVC = [[MainTabBarViewController alloc]init];
-    UINavigationController *rooterNav = [[UINavigationController alloc]initWithRootViewController:rooterVC];
-    [UIApplication sharedApplication].keyWindow.rootViewController = rooterNav;
-    MainViewController *VC = [[MainViewController alloc] init];
-    [self.navigationController pushViewController:VC animated:YES];
-
+    [NSTimer scheduledTimerWithTimeInterval:1.0F repeats:NO block:^(NSTimer * _Nonnull timer) {
+        
+        if (userId == nil) {
+            [self registerUser];
+            NSLog(@"用户不存在，正在注册");
+        }else{
+            [self loginUser];
+            NSLog(@"正在登录");
+        }
+        
+        
+        
+        MainTabBarViewController *rooterVC = [[MainTabBarViewController alloc]init];
+        UINavigationController *rooterNav = [[UINavigationController alloc]initWithRootViewController:rooterVC];
+        [UIApplication sharedApplication].keyWindow.rootViewController = rooterNav;
+        MainViewController *VC = [[MainViewController alloc] init];
+        [self.navigationController pushViewController:VC animated:YES];
+        [timer invalidate];
+    }];
     
+   
+    
+    
+}
+
+- (void)registerUser{
+    [RequestManager registerUser:^(NSData *data) {
+        NSDictionary *resDict = myJsonSerialization;
+        NSLog(@"%@",resDict);
+        
+        if ([resSuccess boolValue]) {
+            NSString *uId = resDict[@"res"][@"userInfo"][@"userId"];
+            [UserDefaults setValue:uId forKey:@"userId"];
+        }
+        
+    } failed:^(NSError *error) {
+        
+    }];
+}
+
+- (void)loginUser{
+    [RequestManager userLogin:^(NSData *data) {
+        NSDictionary *resDict = myJsonSerialization;
+        NSLog(@"%@",resDict);
+        if ([resSuccess boolValue]) {
+            
+        }
+    } failed:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
