@@ -33,4 +33,12 @@ typedef void(^Failed)(NSError *error);
 + (void)userLogin:(Succeed)succeed failed:(Failed)failed;
 
 
+/**
+ 获取首页的图片
+http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&type=1&groupid=222&ip=192.168.1.1&channel=iOS&curPage=10&pCount=10
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)getMainPagePicListCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed;
+
 @end

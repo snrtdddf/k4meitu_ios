@@ -63,6 +63,10 @@
 #define IPHONE_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SPW(WIDTH)  WIDTH/375.0*IPHONE_WIDTH
 #define SPH(HEIGHT) HEIGHT/667.0*IPHONE_HEIGHT
+
+#define SWIDTH self.frame.size.width
+#define SHEIGHT self.frame.size.height
+
 //*****************************************************************
 
 

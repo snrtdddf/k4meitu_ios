@@ -11,7 +11,7 @@
 
 @implementation GetCurrentTime
 
--(NSString *)GetTimeFromTimeStamp:(NSString *)timeStamp andReturnTimeType:(TimeType)TimeType
++(NSString *)GetTimeFromTimeStamp:(NSString *)timeStamp andReturnTimeType:(TimeType)TimeType
 {
  
     NSUInteger date = [timeStamp longLongValue];
@@ -46,33 +46,6 @@
 
 }
 
--(NSString *)GetCurrentBeijingTimeandReturnTimeType:(TimeType)TimeType
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-
-    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-    long long int date = (long long int)time;
-
-    NSDate *date_c = [NSDate dateWithTimeIntervalSince1970:date];
-
-    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
-    [dateFormatter setTimeZone:timeZone];
-    
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    NSString *BeijingTime = [dateFormatter stringFromDate:date_c];
-    NSString *Year = [BeijingTime componentsSeparatedByString:@" "][0];
-    NSString *Hour = [BeijingTime componentsSeparatedByString:@" "][1];
-    if (TimeType == YYYY_MM_DD) {
-        return Year;
-    }else if(TimeType == HH_MM_SS){
-        return Hour;
-    }else if(TimeType == YYYY_MM_DD_and_HH_MM_SS){
-        return BeijingTime;
-    }
-    return BeijingTime;
-
-}
 
 + (NSString *)GetCurrentBeijingTimeandReturnTimeType:(TimeType)TimeType
 {

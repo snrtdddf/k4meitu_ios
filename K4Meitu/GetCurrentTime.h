@@ -19,8 +19,8 @@ typedef NS_ENUM (NSInteger,TimeType)
 
 @interface GetCurrentTime : NSObject
 
-- (NSString *)GetTimeFromTimeStamp:(NSString *)timeStamp andReturnTimeType:(TimeType)TimeType;
-- (NSString *)GetCurrentBeijingTimeandReturnTimeType:(TimeType)TimeType;
++ (NSString *)GetTimeFromTimeStamp:(NSString *)timeStamp andReturnTimeType:(TimeType)TimeType;
++ (NSString *)GetCurrentBeijingTimeandReturnTimeType:(TimeType)TimeType;
 
 + (NSString *)GetCurrentBeijingTimeandReturnTimeType:(TimeType)TimeType;
 
