@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DACircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FLAnimatedImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -34,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PYPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-K4Meitu.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -48,11 +63,6 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>02AA622AC4E524381693B0157215133B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>07715E4742D0B886749E6477AAEC370E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,6 +82,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>53F8571E2D572C4069860E38654A566A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>60E082AA0FB5C100D67AAE123A0F86AB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
 		<dict>
 			<key>primary</key>
@@ -82,7 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC7125CAFA6D96C33190B48CD45CCA46</key>
+		<key>A587FECFE45D5C235BC4A67C4774175A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C791F0A928C1A8FE97074DFC9ACF4E75</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E23C69A56C1491BBFCF7EE4704A5A517</key>
 		<dict>
 			<key>primary</key>
 			<true/>

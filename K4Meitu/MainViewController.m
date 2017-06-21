@@ -66,6 +66,14 @@
 
 - (void)refreshData{
     self.picTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    self.picTable.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        myWeakSelf;
+         [weakSelf.picTable.mj_header endRefreshing];
+        weakSelf.curPage = 0;
+        [weakSelf.dataArr removeAllObjects];
+        [weakSelf requestData];
+       
+    }];
 }
 
 - (void)loadMoreData{
