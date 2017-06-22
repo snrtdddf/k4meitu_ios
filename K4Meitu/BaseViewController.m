@@ -15,6 +15,7 @@
 {
     void(^cacheBlock)(void);
 }
+
 @end
 
 @implementation BaseViewController

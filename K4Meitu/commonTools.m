@@ -669,4 +669,8 @@
     return [pre evaluateWithObject:num];
 }
 
+
++ (void)HideActivityIndicator{
+    [MBManager hideAlert];
+}
 @end

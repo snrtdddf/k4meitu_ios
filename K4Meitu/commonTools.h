@@ -207,4 +207,7 @@ typedef NS_ENUM(NSInteger, TextFiledNumType) {
 //是否是整型数字
 + (BOOL)isIntNumber:(NSString *)num;
 
+//隐藏菊花
++ (void)HideActivityIndicator;
+
 @end

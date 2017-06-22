@@ -17,6 +17,7 @@
 #import "MJRefresh.h"
 #import "commonTools.h"
 #import "mainPageRequest.h"
+#import "PicGroupDetailVC.h"
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *picTable;
@@ -118,6 +119,13 @@
     
     
     return [mainPageRequest returnMainPagePicCell:cell Model:model];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    MainPagePicModel *model = self.dataArr[indexPath.row];
+    PicGroupDetailVC *vc = [[PicGroupDetailVC alloc] init];
+    vc.groupId = model.groupId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)requestData{

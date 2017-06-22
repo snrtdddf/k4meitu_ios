@@ -15,6 +15,8 @@
     
 }
 
+@property (nonatomic, strong) NSMutableArray *dataArray;
+
 //- (void)showTabBar;  //显示工具栏
 //
 //- (void)hiddenTabBar; //隐藏工具条

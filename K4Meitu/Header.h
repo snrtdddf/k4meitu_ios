@@ -40,7 +40,10 @@
 //*****************************系统配置*****************************
 //判断是否已经登录过
 #define logined [UserDefaults valueForKey:@"logined"]
-
+//WhiteColor
+#define White_COLOR [UIColor whiteColor]//白色
+//ErrorMsg
+#define ErrorMsg resDict[@"ErrorMsg"]
 //*****************************************************************
 
 

@@ -61,6 +61,22 @@
     PostMethod;
 }
 
+
+/**
+ 获取图组图片详情
+ 
+ @param groupId 图组Id
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)getMainPagePicListDetailGroupId:(NSString *)groupId success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.main.getGroupDetail",
+                               @"groupId":groupId,
+                                ParamDictNeed
+                               };
+    PostMethod;
+}
+
 #pragma mark ------------------------------END---------------------------------
 @end
 

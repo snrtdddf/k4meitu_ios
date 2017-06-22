@@ -69,6 +69,11 @@
 		7DA206991EF9018800AA4056 /* imgCount.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206971EF9018800AA4056 /* imgCount.png */; };
 		7DA206A31EF91DC300AA4056 /* tagMain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206A21EF91DC200AA4056 /* tagMain@2x.png */; };
 		7DA206AB1EF91E9600AA4056 /* clockMain@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206A91EF91E9600AA4056 /* clockMain@3x.png */; };
+		7DA206B31EFA48BC00AA4056 /* PicGroupDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206B21EFA48BC00AA4056 /* PicGroupDetailVC.m */; };
+		7DA206B61EFA51EE00AA4056 /* PicGroupDetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206B51EFA51EE00AA4056 /* PicGroupDetailRequest.m */; };
+		7DA206B91EFA56F400AA4056 /* PicGroupDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206B81EFA56F400AA4056 /* PicGroupDetailModel.m */; };
+		7DA206BB1EFA5F0C00AA4056 /* BackButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206BA1EFA5F0C00AA4056 /* BackButton@3x.png */; };
+		7DA206BD1EFA68EA00AA4056 /* starSky_bg_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206BC1EFA68EA00AA4056 /* starSky_bg_2.jpg */; };
 		7DDDF44E1EF4CE8400830CA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF44D1EF4CE8400830CA8 /* main.m */; };
 		7DDDF4511EF4CE8400830CA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF4501EF4CE8400830CA8 /* AppDelegate.m */; };
 		7DDDF4541EF4CE8400830CA8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF4531EF4CE8400830CA8 /* ViewController.m */; };
@@ -175,6 +180,14 @@
 		7DA206971EF9018800AA4056 /* imgCount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imgCount.png; sourceTree = "<group>"; };
 		7DA206A21EF91DC200AA4056 /* tagMain@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tagMain@2x.png"; sourceTree = "<group>"; };
 		7DA206A91EF91E9600AA4056 /* clockMain@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clockMain@3x.png"; sourceTree = "<group>"; };
+		7DA206B11EFA48BC00AA4056 /* PicGroupDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupDetailVC.h; sourceTree = "<group>"; };
+		7DA206B21EFA48BC00AA4056 /* PicGroupDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupDetailVC.m; sourceTree = "<group>"; };
+		7DA206B41EFA51EE00AA4056 /* PicGroupDetailRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupDetailRequest.h; sourceTree = "<group>"; };
+		7DA206B51EFA51EE00AA4056 /* PicGroupDetailRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupDetailRequest.m; sourceTree = "<group>"; };
+		7DA206B71EFA56F400AA4056 /* PicGroupDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupDetailModel.h; sourceTree = "<group>"; };
+		7DA206B81EFA56F400AA4056 /* PicGroupDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupDetailModel.m; sourceTree = "<group>"; };
+		7DA206BA1EFA5F0C00AA4056 /* BackButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackButton@3x.png"; sourceTree = "<group>"; };
+		7DA206BC1EFA68EA00AA4056 /* starSky_bg_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = starSky_bg_2.jpg; sourceTree = "<group>"; };
 		7DDDF4491EF4CE8400830CA8 /* K4Meitu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = K4Meitu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DDDF44D1EF4CE8400830CA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7DDDF44F1EF4CE8400830CA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -435,6 +448,8 @@
 		7DA206AD1EFA037000AA4056 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7DA206B71EFA56F400AA4056 /* PicGroupDetailModel.h */,
+				7DA206B81EFA56F400AA4056 /* PicGroupDetailModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -449,6 +464,8 @@
 		7DA206AF1EFA037D00AA4056 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7DA206B11EFA48BC00AA4056 /* PicGroupDetailVC.h */,
+				7DA206B21EFA48BC00AA4056 /* PicGroupDetailVC.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -456,6 +473,8 @@
 		7DA206B01EFA03A100AA4056 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				7DA206B41EFA51EE00AA4056 /* PicGroupDetailRequest.h */,
+				7DA206B51EFA51EE00AA4056 /* PicGroupDetailRequest.m */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -513,8 +532,10 @@
 		7DDDF4631EF4CEE500830CA8 /* 图片 */ = {
 			isa = PBXGroup;
 			children = (
+				7DA206BA1EFA5F0C00AA4056 /* BackButton@3x.png */,
 				7DA206A91EF91E9600AA4056 /* clockMain@3x.png */,
 				7DA206A21EF91DC200AA4056 /* tagMain@2x.png */,
+				7DA206BC1EFA68EA00AA4056 /* starSky_bg_2.jpg */,
 				7DA206871EF7FF3E00AA4056 /* photo.png */,
 				7DA206961EF9018800AA4056 /* clockMain.png */,
 				7DA206971EF9018800AA4056 /* imgCount.png */,
@@ -697,6 +718,7 @@
 				7DA206631EF5042A00AA4056 /* fansSay_select@2x.png in Resources */,
 				7DA206AB1EF91E9600AA4056 /* clockMain@3x.png in Resources */,
 				7DA206741EF504CF00AA4056 /* shopping_unselect.png in Resources */,
+				7DA206BD1EFA68EA00AA4056 /* starSky_bg_2.jpg in Resources */,
 				7DA2065A1EF5041D00AA4056 /* me_select.png in Resources */,
 				7DDDF45C1EF4CE8500830CA8 /* LaunchScreen.storyboard in Resources */,
 				7DA2065C1EF5041D00AA4056 /* me_unselect.png in Resources */,
@@ -708,6 +730,7 @@
 				7DA206991EF9018800AA4056 /* imgCount.png in Resources */,
 				7DA206521EF5041000AA4056 /* mainPage_select.png in Resources */,
 				7DA206881EF7FF3E00AA4056 /* photo.png in Resources */,
+				7DA206BB1EFA5F0C00AA4056 /* BackButton@3x.png in Resources */,
 				7DA206711EF504CF00AA4056 /* shopping_select@2x.png in Resources */,
 				7DA206751EF504CF00AA4056 /* shopping_unselect@2x.png in Resources */,
 				7DA206731EF504CF00AA4056 /* shopping_un@2x.png in Resources */,
@@ -777,7 +800,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DA205E11EF4D76D00AA4056 /* MBManager.m in Sources */,
+				7DA206B61EFA51EE00AA4056 /* PicGroupDetailRequest.m in Sources */,
 				7DA2068B1EF8C55D00AA4056 /* mainPageRequest.m in Sources */,
+				7DA206B31EFA48BC00AA4056 /* PicGroupDetailVC.m in Sources */,
 				7DA206831EF7E78100AA4056 /* MainPagePicCell.m in Sources */,
 				7DA206041EF4D8DD00AA4056 /* NSArray+Log.m in Sources */,
 				7DA2062A1EF4D92D00AA4056 /* VersionedImage.m in Sources */,
@@ -791,6 +816,7 @@
 				7DDDF4541EF4CE8400830CA8 /* ViewController.m in Sources */,
 				7DDDF4511EF4CE8400830CA8 /* AppDelegate.m in Sources */,
 				7DA205EC1EF4D8CE00AA4056 /* GetCurrentTime.m in Sources */,
+				7DA206B91EFA56F400AA4056 /* PicGroupDetailModel.m in Sources */,
 				7DA206121EF4D8FD00AA4056 /* Header.m in Sources */,
 				7DA206081EF4D8DD00AA4056 /* UIDevice+DeviceModel.m in Sources */,
 				7DA205E51EF4D79100AA4056 /* SPUncaughtExceptionHandler.m in Sources */,

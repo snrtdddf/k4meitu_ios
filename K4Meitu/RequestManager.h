@@ -41,4 +41,14 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
  */
 + (void)getMainPagePicListCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed;
 
+
+/**
+ 获取图组图片详情
+
+ @param groupId 图组Id
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)getMainPagePicListDetailGroupId:(NSString *)groupId success:(Succeed)succeed failed:(Failed)failed;
+
 @end
