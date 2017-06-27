@@ -40,7 +40,7 @@
  */
 + (void)userLogin:(Succeed)succeed failed:(Failed)failed{
     NSDictionary *paraDict = @{@"method":@"p.user.login",
-                               @"userId":userId,
+                               @"userId":userID,
                                ParamDictNeed
                                };
     PostMethod;
@@ -48,7 +48,7 @@
 
 /**
  获取首页的图片
- http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&type=1&groupid=222&ip=192.168.1.1&channel=iOS&curPage=10&pCount=10
+ 
  @param succeed <#succeed description#>
  @param failed <#failed description#>
  */
@@ -75,6 +75,26 @@
                                 ParamDictNeed
                                };
     PostMethod;
+}
+
+/**
+ 获取评论
+ 
+ @param groupId <#groupId description#>
+ @param curPage <#curPage description#>
+ @param pCount <#pCount description#>
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)getPicGroupCommentGroupId:(NSString *)groupId CurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.comment.getComment",
+                               @"groupId":groupId,
+                               @"curPage":curPage,
+                               @"pCount":pCount,
+                               ParamDictNeed
+                               };
+    PostMethod_NO_Indicator;
+
 }
 
 #pragma mark ------------------------------END---------------------------------

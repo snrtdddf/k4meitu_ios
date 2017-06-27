@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
   - DACircularProgress (2.3.1)
+  - DateTools (2.0.0)
   - FLAnimatedImage (1.0.12)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
@@ -39,6 +40,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (= 3.0.4)
   - DACircularProgress (= 2.3.1)
+  - DateTools
   - FMDB (= 2.5)
   - IQKeyboardManager (= 3.3.5)
   - LGAlertView (= 2.0.13)
@@ -50,6 +52,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   IQKeyboardManager: 128bcb96b3ec03ff87942cdd7fa7f44491aa3d08
@@ -59,6 +62,6 @@ SPEC CHECKSUMS:
   PYPhotoBrowser: eb140689619b10843beaad9e532581825ad7f542
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
-PODFILE CHECKSUM: 44a0bd219f32a581caa5b142586e5bb43268537b
+PODFILE CHECKSUM: cbf88ea6b375a06a91d794848352dee684fe8506
 
 COCOAPODS: 1.1.1

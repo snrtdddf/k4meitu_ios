@@ -11,7 +11,19 @@
 #import "PYPhotoBrowser.h"
 #import "PicGroupDetailRequest.h"
 #import "PicGroupDetailModel.h"
-@interface PicGroupDetailVC ()
+#import "PicGroupCommentModel.h"
+#import "PicGroupCommentCell.h"
+#import "GetCurrentTime.h" 
+#import "PicGroupDetailTitleView.h"
+#import "commonTools.h"
+#import "MJRefresh.h"
+@interface PicGroupDetailVC () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+@property (strong, nonatomic) UITableView *commentTable;
+@property (strong, nonatomic) UIView *headerView;
+@property (strong, nonatomic) UIView *titleDetailView;
+@property (assign, nonatomic) CGFloat photosHeight;
+@property (strong, nonatomic) UITextField *commentTF;
+
 
 @end
 
@@ -28,35 +40,125 @@
     [self addStatusBlackBackground];
     [self addTitleWithName:@"套图" wordNun:4];
     self.view.backgroundColor = [UIColor darkGrayColor];
+    self.dataArray = [NSMutableArray array];
+    self.headerView = [[PicGroupDetailTitleView alloc]init];
     
+    [self initCommentTable];
     [self requestData];
+    [self addfloatBackButton];
     
-}
-- (UIButton *)addfloatBackButton{
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(IPHONE_WIDTH*0.8, IPHONE_HEIGHT*0.9, SPW(30), SPW(50));
-    backBtn.titleLabel.text = @"返回主页";
-    backBtn.backgroundColor = [UIColor whiteColor];
     
-    return backBtn;
 }
 
 - (void)requestData{
 
     [PicGroupDetailRequest requestData:self.groupId dataBlock:^(NSMutableArray *dataArr) {
-        myWeakSelf;
+       // myWeakSelf;
         NSMutableArray *imgUrls = nil;
         imgUrls = [[NSMutableArray alloc] init];
         for (PicGroupDetailModel *model in dataArr) {
             [imgUrls addObject:model.imgUrl];
         }
-        //缩略图列表
-        UIScrollView *scroll = [PicGroupDetailRequest imgScrollView:imgUrls];
         
-        [weakSelf.view addSubview:scroll];
+        
+        //缩略图列表
+        PYPhotosView *photosView = [PicGroupDetailRequest imgScrollView:imgUrls];
+        
+        
+        [PicGroupDetailRequest requestCommentData:@"2222017971" CurPage:@0 pcout:@10 dataBlock:^(NSMutableArray *dataArr) {
+            myWeakSelf;
+            weakSelf.dataArray = dataArr;
+            NSLog(@"count:%ld",dataArr.count);
+            weakSelf.headerView.frame = CGRectMake(0, 0, IPHONE_WIDTH, photosView.frame.size.height+100+SPH(60));
+            weakSelf.titleDetailView = [PicGroupDetailRequest titleDetailView];
+            [weakSelf.headerView addSubview:[PicGroupDetailRequest commentLab:CGRectMake(0, photosView.frame.size.height+100+SPH(20), IPHONE_WIDTH, SPH(40))]];
+            weakSelf.photosHeight = photosView.frame.size.height;
+            
+            [weakSelf.headerView addSubview:weakSelf.titleDetailView];
+            
+            [weakSelf.headerView addSubview:photosView];
+            weakSelf.commentTable.tableHeaderView = weakSelf.headerView;
+            [weakSelf.view addSubview:weakSelf.commentTable];
+            [weakSelf.view sendSubviewToBack:weakSelf.commentTable];
+            [weakSelf.commentTable reloadData];
+            
+        }];
        
     }];
 }
+
+- (void)initCommentTable{
+    self.commentTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT-64) style:UITableViewStylePlain];
+    self.commentTable.delegate = self;
+    self.commentTable.dataSource = self;
+    [self.commentTable registerNib:[UINib nibWithNibName:@"PicGroupCommentCell" bundle:nil]forCellReuseIdentifier:@"commentCell"];
+   
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+{
+    
+    if (scrollView.contentOffset.y > self.photosHeight*0.83) {
+        if (self.commentTF == nil) {
+            self.commentTF = [[UITextField alloc] initWithFrame:CGRectMake(0, IPHONE_HEIGHT*0.9-64, IPHONE_WIDTH, IPHONE_HEIGHT*0.1)];
+            self.commentTF.backgroundColor = White_COLOR;
+             self.commentTable.frame = CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT*0.9-64);
+            self.commentTF.placeholder = @"皇上！！牌子都翻完了，不评论一下吗？";
+            [self.view addSubview:self.commentTF];
+            [self.view bringSubviewToFront:self.commentTF];
+        }
+    }else{
+        if (self.commentTF != nil) {
+            [self.commentTF removeFromSuperview];
+            self.commentTF = nil;
+             self.commentTable.frame = CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT-64);
+        }
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    PicGroupCommentModel *model = self.dataArray[indexPath.row];
+    CGSize labelSize = {0,0};
+    labelSize = [model.imgComment sizeWithFont:[UIFont systemFontOfSize:15.0f] constrainedToSize:CGSizeMake(IPHONE_WIDTH*0.9, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+
+    return labelSize.height + SPH(60);
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.dataArray.count != 0 ? self.dataArray.count : 1;
+}
+
+- (PicGroupCommentCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    PicGroupCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell"];
+    if (cell == nil) {
+        cell = [[PicGroupCommentCell alloc] init];
+    }
+    if (self.dataArray.count != 0) {
+        PicGroupCommentModel *model = self.dataArray[indexPath.row];
+        cell.userName.text = model.userId.length == 32?[NSString stringWithFormat:@"用户:***%@",[model.userId substringFromIndex:28]]:@"游客:****";
+        cell.userName.numberOfLines = 0;
+        [cell.userName sizeToFit];
+        cell.date.text = model.date;
+        cell.comment.text = model.imgComment;
+    }
+
+    return cell;
+}
+- (void)addfloatBackButton{
+
+    UIButton *backBtn = [PicGroupDetailRequest addBackBtn];
+    [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backBtn];
+    [self.view bringSubviewToFront:backBtn];
+}
+
+- (void)backBtnClick{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

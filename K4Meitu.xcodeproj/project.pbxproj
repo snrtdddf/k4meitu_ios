@@ -61,7 +61,6 @@
 		7DA206751EF504CF00AA4056 /* shopping_unselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA2066D1EF504CF00AA4056 /* shopping_unselect@2x.png */; };
 		7DA206781EF5085C00AA4056 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206771EF5085C00AA4056 /* LoadingViewController.m */; };
 		7DA2067B1EF5206F00AA4056 /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA2067A1EF5206F00AA4056 /* RequestManager.m */; };
-		7DA206831EF7E78100AA4056 /* MainPagePicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206821EF7E78100AA4056 /* MainPagePicCell.m */; };
 		7DA206861EF7EE4A00AA4056 /* MainPagePicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206851EF7EE4A00AA4056 /* MainPagePicModel.m */; };
 		7DA206881EF7FF3E00AA4056 /* photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206871EF7FF3E00AA4056 /* photo.png */; };
 		7DA2068B1EF8C55D00AA4056 /* mainPageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA2068A1EF8C55D00AA4056 /* mainPageRequest.m */; };
@@ -74,6 +73,19 @@
 		7DA206B91EFA56F400AA4056 /* PicGroupDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206B81EFA56F400AA4056 /* PicGroupDetailModel.m */; };
 		7DA206BB1EFA5F0C00AA4056 /* BackButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206BA1EFA5F0C00AA4056 /* BackButton@3x.png */; };
 		7DA206BD1EFA68EA00AA4056 /* starSky_bg_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206BC1EFA68EA00AA4056 /* starSky_bg_2.jpg */; };
+		7DA206C01EFB703400AA4056 /* PicGroupCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206BF1EFB703400AA4056 /* PicGroupCommentModel.m */; };
+		7DA206C91EFBA6A600AA4056 /* PicGroupCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206C71EFBA6A600AA4056 /* PicGroupCommentCell.m */; };
+		7DA206CA1EFBA6A600AA4056 /* PicGroupCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206C81EFBA6A600AA4056 /* PicGroupCommentCell.xib */; };
+		7DA206CD1EFCA23900AA4056 /* PicGroupDetailTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206CC1EFCA23900AA4056 /* PicGroupDetailTitleView.m */; };
+		7DA206D21EFCBBA600AA4056 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206CE1EFCBBA600AA4056 /* Default-568h@2x.png */; };
+		7DA206D31EFCBBA600AA4056 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206CF1EFCBBA600AA4056 /* Default-667h@2x.png */; };
+		7DA206D41EFCBBA600AA4056 /* Default-736h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206D01EFCBBA600AA4056 /* Default-736h@2x.png */; };
+		7DA206D51EFCBBA600AA4056 /* default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206D11EFCBBA600AA4056 /* default@2x.png */; };
+		7DA206D91F00A1B000AA4056 /* MainPicGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206D71F00A1B000AA4056 /* MainPicGroupCell.m */; };
+		7DA206DA1F00A1B000AA4056 /* MainPicGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206D81F00A1B000AA4056 /* MainPicGroupCell.xib */; };
+		7DA206DD1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206DC1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m */; };
+		7DA206DF1F00FF5D00AA4056 /* PicGroupDetailTitleDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206DE1F00FF5D00AA4056 /* PicGroupDetailTitleDetailView.xib */; };
+		7DA206E21F0250CA00AA4056 /* PicGroupCMTTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206E11F0250CA00AA4056 /* PicGroupCMTTextFieldView.m */; };
 		7DDDF44E1EF4CE8400830CA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF44D1EF4CE8400830CA8 /* main.m */; };
 		7DDDF4511EF4CE8400830CA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF4501EF4CE8400830CA8 /* AppDelegate.m */; };
 		7DDDF4541EF4CE8400830CA8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF4531EF4CE8400830CA8 /* ViewController.m */; };
@@ -169,8 +181,6 @@
 		7DA206771EF5085C00AA4056 /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
 		7DA206791EF5206F00AA4056 /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManager.h; sourceTree = "<group>"; };
 		7DA2067A1EF5206F00AA4056 /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManager.m; sourceTree = "<group>"; };
-		7DA206811EF7E78100AA4056 /* MainPagePicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPagePicCell.h; sourceTree = "<group>"; };
-		7DA206821EF7E78100AA4056 /* MainPagePicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPagePicCell.m; sourceTree = "<group>"; };
 		7DA206841EF7EE4A00AA4056 /* MainPagePicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPagePicModel.h; sourceTree = "<group>"; };
 		7DA206851EF7EE4A00AA4056 /* MainPagePicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPagePicModel.m; sourceTree = "<group>"; };
 		7DA206871EF7FF3E00AA4056 /* photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo.png; sourceTree = "<group>"; };
@@ -188,6 +198,25 @@
 		7DA206B81EFA56F400AA4056 /* PicGroupDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupDetailModel.m; sourceTree = "<group>"; };
 		7DA206BA1EFA5F0C00AA4056 /* BackButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackButton@3x.png"; sourceTree = "<group>"; };
 		7DA206BC1EFA68EA00AA4056 /* starSky_bg_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = starSky_bg_2.jpg; sourceTree = "<group>"; };
+		7DA206BE1EFB703400AA4056 /* PicGroupCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupCommentModel.h; sourceTree = "<group>"; };
+		7DA206BF1EFB703400AA4056 /* PicGroupCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupCommentModel.m; sourceTree = "<group>"; };
+		7DA206C61EFBA6A600AA4056 /* PicGroupCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupCommentCell.h; sourceTree = "<group>"; };
+		7DA206C71EFBA6A600AA4056 /* PicGroupCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupCommentCell.m; sourceTree = "<group>"; };
+		7DA206C81EFBA6A600AA4056 /* PicGroupCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PicGroupCommentCell.xib; sourceTree = "<group>"; };
+		7DA206CB1EFCA23900AA4056 /* PicGroupDetailTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupDetailTitleView.h; sourceTree = "<group>"; };
+		7DA206CC1EFCA23900AA4056 /* PicGroupDetailTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupDetailTitleView.m; sourceTree = "<group>"; };
+		7DA206CE1EFCBBA600AA4056 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		7DA206CF1EFCBBA600AA4056 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
+		7DA206D01EFCBBA600AA4056 /* Default-736h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@2x.png"; sourceTree = "<group>"; };
+		7DA206D11EFCBBA600AA4056 /* default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default@2x.png"; sourceTree = "<group>"; };
+		7DA206D61F00A1B000AA4056 /* MainPicGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPicGroupCell.h; sourceTree = "<group>"; };
+		7DA206D71F00A1B000AA4056 /* MainPicGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPicGroupCell.m; sourceTree = "<group>"; };
+		7DA206D81F00A1B000AA4056 /* MainPicGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainPicGroupCell.xib; sourceTree = "<group>"; };
+		7DA206DB1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupDetailTitleDetailView.h; sourceTree = "<group>"; };
+		7DA206DC1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupDetailTitleDetailView.m; sourceTree = "<group>"; };
+		7DA206DE1F00FF5D00AA4056 /* PicGroupDetailTitleDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PicGroupDetailTitleDetailView.xib; sourceTree = "<group>"; };
+		7DA206E01F0250CA00AA4056 /* PicGroupCMTTextFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupCMTTextFieldView.h; sourceTree = "<group>"; };
+		7DA206E11F0250CA00AA4056 /* PicGroupCMTTextFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupCMTTextFieldView.m; sourceTree = "<group>"; };
 		7DDDF4491EF4CE8400830CA8 /* K4Meitu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = K4Meitu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DDDF44D1EF4CE8400830CA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7DDDF44F1EF4CE8400830CA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -410,8 +439,9 @@
 		7DA2067E1EF7E3C300AA4056 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7DA206811EF7E78100AA4056 /* MainPagePicCell.h */,
-				7DA206821EF7E78100AA4056 /* MainPagePicCell.m */,
+				7DA206D61F00A1B000AA4056 /* MainPicGroupCell.h */,
+				7DA206D71F00A1B000AA4056 /* MainPicGroupCell.m */,
+				7DA206D81F00A1B000AA4056 /* MainPicGroupCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -450,6 +480,8 @@
 			children = (
 				7DA206B71EFA56F400AA4056 /* PicGroupDetailModel.h */,
 				7DA206B81EFA56F400AA4056 /* PicGroupDetailModel.m */,
+				7DA206BE1EFB703400AA4056 /* PicGroupCommentModel.h */,
+				7DA206BF1EFB703400AA4056 /* PicGroupCommentModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -457,6 +489,16 @@
 		7DA206AE1EFA037700AA4056 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7DA206C61EFBA6A600AA4056 /* PicGroupCommentCell.h */,
+				7DA206C71EFBA6A600AA4056 /* PicGroupCommentCell.m */,
+				7DA206C81EFBA6A600AA4056 /* PicGroupCommentCell.xib */,
+				7DA206CB1EFCA23900AA4056 /* PicGroupDetailTitleView.h */,
+				7DA206CC1EFCA23900AA4056 /* PicGroupDetailTitleView.m */,
+				7DA206DB1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.h */,
+				7DA206DC1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m */,
+				7DA206DE1F00FF5D00AA4056 /* PicGroupDetailTitleDetailView.xib */,
+				7DA206E01F0250CA00AA4056 /* PicGroupCMTTextFieldView.h */,
+				7DA206E11F0250CA00AA4056 /* PicGroupCMTTextFieldView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -532,6 +574,10 @@
 		7DDDF4631EF4CEE500830CA8 /* 图片 */ = {
 			isa = PBXGroup;
 			children = (
+				7DA206CE1EFCBBA600AA4056 /* Default-568h@2x.png */,
+				7DA206CF1EFCBBA600AA4056 /* Default-667h@2x.png */,
+				7DA206D01EFCBBA600AA4056 /* Default-736h@2x.png */,
+				7DA206D11EFCBBA600AA4056 /* default@2x.png */,
 				7DA206BA1EFA5F0C00AA4056 /* BackButton@3x.png */,
 				7DA206A91EF91E9600AA4056 /* clockMain@3x.png */,
 				7DA206A21EF91DC200AA4056 /* tagMain@2x.png */,
@@ -715,6 +761,7 @@
 				7DA206641EF5042A00AA4056 /* fansSay_unselect.png in Resources */,
 				7DA206541EF5041000AA4056 /* mainPage_unselect.png in Resources */,
 				7DA2065B1EF5041D00AA4056 /* me_select@2x.png in Resources */,
+				7DA206CA1EFBA6A600AA4056 /* PicGroupCommentCell.xib in Resources */,
 				7DA206631EF5042A00AA4056 /* fansSay_select@2x.png in Resources */,
 				7DA206AB1EF91E9600AA4056 /* clockMain@3x.png in Resources */,
 				7DA206741EF504CF00AA4056 /* shopping_unselect.png in Resources */,
@@ -723,11 +770,14 @@
 				7DDDF45C1EF4CE8500830CA8 /* LaunchScreen.storyboard in Resources */,
 				7DA2065C1EF5041D00AA4056 /* me_unselect.png in Resources */,
 				7DA2066F1EF504CF00AA4056 /* shopping_s@2x.png in Resources */,
+				7DA206D21EFCBBA600AA4056 /* Default-568h@2x.png in Resources */,
 				7DA206621EF5042A00AA4056 /* fansSay_select.png in Resources */,
+				7DA206DA1F00A1B000AA4056 /* MainPicGroupCell.xib in Resources */,
 				7DA206701EF504CF00AA4056 /* shopping_select.png in Resources */,
 				7DDDF4591EF4CE8500830CA8 /* Assets.xcassets in Resources */,
 				7DDDF4571EF4CE8400830CA8 /* Main.storyboard in Resources */,
 				7DA206991EF9018800AA4056 /* imgCount.png in Resources */,
+				7DA206D31EFCBBA600AA4056 /* Default-667h@2x.png in Resources */,
 				7DA206521EF5041000AA4056 /* mainPage_select.png in Resources */,
 				7DA206881EF7FF3E00AA4056 /* photo.png in Resources */,
 				7DA206BB1EFA5F0C00AA4056 /* BackButton@3x.png in Resources */,
@@ -735,9 +785,12 @@
 				7DA206751EF504CF00AA4056 /* shopping_unselect@2x.png in Resources */,
 				7DA206731EF504CF00AA4056 /* shopping_un@2x.png in Resources */,
 				7DA206981EF9018800AA4056 /* clockMain.png in Resources */,
+				7DA206D51EFCBBA600AA4056 /* default@2x.png in Resources */,
+				7DA206DF1F00FF5D00AA4056 /* PicGroupDetailTitleDetailView.xib in Resources */,
 				7DA2066E1EF504CF00AA4056 /* shopping_s.png in Resources */,
 				7DA206531EF5041000AA4056 /* mainPage_select@2x.png in Resources */,
 				7DA206721EF504CF00AA4056 /* shopping_un.png in Resources */,
+				7DA206D41EFCBBA600AA4056 /* Default-736h@2x.png in Resources */,
 				7DA2065D1EF5041D00AA4056 /* me_unselect@2x.png in Resources */,
 				7DA206651EF5042A00AA4056 /* fansSay_unselect@2x.png in Resources */,
 				7DA206551EF5041000AA4056 /* mainPage_unselect@2x.png in Resources */,
@@ -803,19 +856,21 @@
 				7DA206B61EFA51EE00AA4056 /* PicGroupDetailRequest.m in Sources */,
 				7DA2068B1EF8C55D00AA4056 /* mainPageRequest.m in Sources */,
 				7DA206B31EFA48BC00AA4056 /* PicGroupDetailVC.m in Sources */,
-				7DA206831EF7E78100AA4056 /* MainPagePicCell.m in Sources */,
 				7DA206041EF4D8DD00AA4056 /* NSArray+Log.m in Sources */,
 				7DA2062A1EF4D92D00AA4056 /* VersionedImage.m in Sources */,
 				7DA206071EF4D8DD00AA4056 /* CALayer+Transition.m in Sources */,
 				7DA2061A1EF4D90700AA4056 /* CocoaSecurity.m in Sources */,
 				7DA2062F1EF4D99800AA4056 /* BaseViewController.m in Sources */,
 				7DA206491EF4DBA700AA4056 /* ThirdViewController.m in Sources */,
+				7DA206DD1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m in Sources */,
 				7DA2060F1EF4D8DD00AA4056 /* NSString+fontSizeValue.m in Sources */,
 				7DA2060E1EF4D8DD00AA4056 /* UIView+Line.m in Sources */,
 				7DA206341EF4D9DA00AA4056 /* GetIPAddress.m in Sources */,
 				7DDDF4541EF4CE8400830CA8 /* ViewController.m in Sources */,
 				7DDDF4511EF4CE8400830CA8 /* AppDelegate.m in Sources */,
+				7DA206C01EFB703400AA4056 /* PicGroupCommentModel.m in Sources */,
 				7DA205EC1EF4D8CE00AA4056 /* GetCurrentTime.m in Sources */,
+				7DA206C91EFBA6A600AA4056 /* PicGroupCommentCell.m in Sources */,
 				7DA206B91EFA56F400AA4056 /* PicGroupDetailModel.m in Sources */,
 				7DA206121EF4D8FD00AA4056 /* Header.m in Sources */,
 				7DA206081EF4D8DD00AA4056 /* UIDevice+DeviceModel.m in Sources */,
@@ -826,12 +881,15 @@
 				7DA206861EF7EE4A00AA4056 /* MainPagePicModel.m in Sources */,
 				7DA206781EF5085C00AA4056 /* LoadingViewController.m in Sources */,
 				7DA206301EF4D99800AA4056 /* NSString+isContainEmoji.m in Sources */,
+				7DA206D91F00A1B000AA4056 /* MainPicGroupCell.m in Sources */,
 				7DA2060D1EF4D8DD00AA4056 /* UILabel+LineSpace.m in Sources */,
 				7DDDF44E1EF4CE8400830CA8 /* main.m in Sources */,
+				7DA206E21F0250CA00AA4056 /* PicGroupCMTTextFieldView.m in Sources */,
 				7DA206431EF4DB8000AA4056 /* MainViewController.m in Sources */,
 				7DA2064C1EF4DBB100AA4056 /* FourthViewController.m in Sources */,
 				7DA206191EF4D90700AA4056 /* Base64.m in Sources */,
 				7DA2063C1EF4DA1800AA4056 /* Connection.m in Sources */,
+				7DA206CD1EFCA23900AA4056 /* PicGroupDetailTitleView.m in Sources */,
 				7DA2061B1EF4D90700AA4056 /* SecureData.m in Sources */,
 				7DA206281EF4D92D00AA4056 /* TabBar.m in Sources */,
 				7DA2067B1EF5206F00AA4056 /* RequestManager.m in Sources */,
@@ -969,6 +1027,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = YangLei.K4Meitu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -983,6 +1042,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = YangLei.K4Meitu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

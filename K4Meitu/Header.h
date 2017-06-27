@@ -23,7 +23,7 @@
 //#define getIpAddress @"192.168.10.38"
 
 //userId
-#define userId [UserDefaults valueForKey:@"userId"]
+#define userID [UserDefaults valueForKey:@"userID"]
 
 //Channel&IP
 #define ParamDictNeed  @"channel":APPCHANNEL,@"ip":getIpAddress
@@ -80,7 +80,6 @@
 #define Gray_COLOR [UIColor colorWithRed:248.f/255.f green:248.f/255.f blue:248.f/255.f alpha:1]//默认灰
 #define White_COLOR [UIColor whiteColor]//白色
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
-#define lightGray_Color [UIColor lightGrayColor]
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 #define lightGray_Color [UIColor lightGrayColor]
 #define btnGray_Color RGBACOLOR(191,191,191,1)//btn灰

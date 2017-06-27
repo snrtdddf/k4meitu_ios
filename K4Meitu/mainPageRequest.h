@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MainPagePicCell.h"
 #import "MainPagePicModel.h"
+#import "MainPicGroupCell.h"
 @interface mainPageRequest : NSObject
 
-+ (MainPagePicCell *)returnMainPagePicCell:(MainPagePicCell *)cell Model:(MainPagePicModel *)model;
 
++ (MainPicGroupCell *)returnMainPicGroupCell:(MainPicGroupCell *)cell Model:(MainPagePicModel *)model;
 @end

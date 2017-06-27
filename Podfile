@@ -10,6 +10,7 @@ pod 'MJRefresh', '3.0.8'
 pod 'SDWebImage', '4.0.0'
 pod 'DACircularProgress', '2.3.1'
 pod 'PYPhotoBrowser', '1.5.0'
+pod 'DateTools'
 end
 target 'K4Meitu' do
   pods

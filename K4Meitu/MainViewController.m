@@ -9,7 +9,6 @@
 #import "MainViewController.h"
 #import "RequestManager.h"
 #import "Header.h"
-#import "MainPagePicCell.h"
 #import "MainPagePicModel.h"
 #import "GetCurrentTime.h"
 #import "MainTabBarViewController.h"
@@ -17,6 +16,7 @@
 #import "MJRefresh.h"
 #import "commonTools.h"
 #import "mainPageRequest.h"
+#import "MainPicGroupCell.h"
 #import "PicGroupDetailVC.h"
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -92,6 +92,7 @@
     self.picTable.delegate = self;
     self.picTable.dataSource = self;
     self.picTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.picTable registerNib:[UINib nibWithNibName:@"MainPicGroupCell" bundle:nil] forCellReuseIdentifier:@"picGroupCell"];
     [self.view addSubview:self.picTable];
 
 }
@@ -108,17 +109,17 @@
     return self.dataArr.count;
 }
 
-- (MainPagePicCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (MainPicGroupCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MainPagePicModel *model = self.dataArr[indexPath.row];
     
-    MainPagePicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    MainPicGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"picGroupCell"];
     if (cell == nil) {
-        cell = [[MainPagePicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell = [[MainPicGroupCell alloc] init];
     }
     
     
-    return [mainPageRequest returnMainPagePicCell:cell Model:model];
+    return [mainPageRequest returnMainPicGroupCell:cell Model:model];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

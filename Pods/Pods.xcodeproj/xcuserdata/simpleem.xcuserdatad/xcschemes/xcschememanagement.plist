@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DateTools.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FLAnimatedImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,6 +72,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>0C8D33175BC4886854C49E0BACF9413F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>175B076ED45EB1A3E40F58BA14036467</key>
 		<dict>
 			<key>primary</key>
@@ -87,12 +97,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>60E082AA0FB5C100D67AAE123A0F86AB</key>
+		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
+		<key>8854A0D64CE2C496C7BC6F360DF6AA18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8D8DF883BFFACA43CC314AADACED06A4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,17 +117,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A587FECFE45D5C235BC4A67C4774175A</key>
+		<key>B36F6D48026E14827529F787D63D61B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>C791F0A928C1A8FE97074DFC9ACF4E75</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E23C69A56C1491BBFCF7EE4704A5A517</key>
 		<dict>
 			<key>primary</key>
 			<true/>
