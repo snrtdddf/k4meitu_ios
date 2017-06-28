@@ -126,6 +126,11 @@
     MainPagePicModel *model = self.dataArr[indexPath.row];
     PicGroupDetailVC *vc = [[PicGroupDetailVC alloc] init];
     vc.groupId = model.groupId;
+    vc.picCount = model.count;
+    vc.picTitle = model.title;
+    vc.type = model.type;
+    vc.picDate = model.date;
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 

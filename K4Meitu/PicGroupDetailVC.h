@@ -11,10 +11,8 @@
 @interface PicGroupDetailVC : BaseViewController
 
 @property (nonatomic, strong) NSString *groupId;
-@property (strong, nonatomic) NSString *date;
-@property (strong, nonatomic) NSString *picCount;
+@property (assign, nonatomic) int picCount;
 @property (strong, nonatomic) NSString *picTitle;
 @property (strong, nonatomic) NSString *type;
-
-
+@property (strong, nonatomic) NSString *picDate;
 @end

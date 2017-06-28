@@ -38,7 +38,7 @@
                     [dataArr addObject:model];
                 }
                 
-                block(dataArr);
+                block(dataArr,@0);
             }
         }else{
             [commonTools showBriefAlert:ErrorMsg];
@@ -57,6 +57,7 @@
             NSLog(@"%@",resDict);
             NSArray *list = resDict[@"res"][@"list"];
             if (list.count != 0) {
+                 NSNumber *maxPage = resDict[@"res"][@"maxPage"];
                 for (NSDictionary *dict in list) {
                     PicGroupCommentModel *model = [[PicGroupCommentModel alloc] init];
                     model.isCmtShow = [dict[@"isCommentShow"] intValue];
@@ -66,23 +67,23 @@
                         model.userId = dict[@"userId"];
                         model.imgComment = dict[@"imgComment"];
                         model.isCmtShow = [dict[@"isCommentShow"] intValue];
-                        model.date = [GetCurrentTime GetTimeFromTimeStamp:[NSString stringWithFormat:@"%@",dict[@"date"]] andReturnTimeType:YYYY_MM_DD];
+                        model.date = [GetCurrentTime GetTimeFromTimeStamp:[NSString stringWithFormat:@"%@",dict[@"date"]] andReturnTimeType:YYYY_MM_DD_and_HH_MM_SS];
                         NSLog(@"date:%@",model.date);
                         [dataArr addObject:model];
                     }
                 }
                 
-                block(dataArr);
+                block(dataArr,maxPage);
             }else{
                 PicGroupCommentModel *model = [[PicGroupCommentModel alloc] init];
                 model.isCmtShow = 1;
                 model.commentId = 6;
                 model.imgComment = @"赞";
-                model.date = [GetCurrentTime GetCurrentBeijingTimeandReturnTimeType:YYYY_MM_DD];
+                model.date = [GetCurrentTime GetCurrentBeijingTimeandReturnTimeType:YYYY_MM_DD_and_HH_MM_SS];
                 
                 [dataArr addObject:model];
                 
-                block(dataArr);
+                block(dataArr,@0);
             }
         }else{
             [commonTools showBriefAlert:ErrorMsg];
@@ -129,10 +130,12 @@
     [backBtn setTitle:@"返回" forState:UIControlStateNormal];
     backBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [backBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    backBtn.backgroundColor = [UIColor whiteColor];
-    backBtn.alpha = 0.8;
+    backBtn.backgroundColor = White_COLOR;
+    backBtn.alpha = 0.95;
     backBtn.layer.cornerRadius = SPW(50)/2;
     backBtn.clipsToBounds = YES;
+    backBtn.layer.borderWidth = 2;
+    backBtn.layer.borderColor = S_Light_Gray.CGColor;
     if (IPHONE_WIDTH>540) {
         backBtn.frame = CGRectMake(IPHONE_WIDTH*0.85, IPHONE_HEIGHT*0.70, SPW(30), SPW(30));
         backBtn.layer.cornerRadius = SPW(30)/2;
@@ -140,14 +143,14 @@
     return  backBtn;
 }
 
-+ (UIView *)titleDetailView{
++ (UIView *)titleDetailView:(NSString *)title picCount:(int)count type:(NSString *)type date:(NSString *)date cmtCount:(int)commentCount likeCount:(int)likeCount{
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"PicGroupDetailTitleDetailView" owner:nil options:nil];
     
     PicGroupDetailTitleDetailView *titleDetailView = [nibContents lastObject];
     titleDetailView.frame = CGRectMake(SPW(11), 10, IPHONE_WIDTH-SPW(11)*2, 100);
     CGFloat PHeight =  titleDetailView.frame.size.height;
     CGFloat PWidth =  titleDetailView.frame.size.width;
-    
+    titleDetailView.backgroundColor = S_Light_Gray;
     titleDetailView.layer.cornerRadius = SPW(5);
     titleDetailView.clipsToBounds = YES;
     
@@ -160,11 +163,27 @@
     titleDetailView.CenterSepLine.frame = CGRectMake(PWidth*0.5+1, PHeight*0.7, 1, PHeight*0.2);
     titleDetailView.RightSepLine.frame = CGRectMake(PWidth*0.75+2, PHeight*0.7, 1, PHeight*0.2);
     
-    if (IPHONE_WIDTH < 540) {
+    
+    titleDetailView.picTitle.text = title;
+    titleDetailView.picCount.text = [NSString stringWithFormat:@"数量(%d)",count];
+    titleDetailView.type.text = [NSString stringWithFormat:@"分类(%@)",type];
+    titleDetailView.date.text = date;
+    titleDetailView.commentCount.text = [NSString stringWithFormat:@"评论(%d)",commentCount];
+    titleDetailView.likeCount.text = [NSString stringWithFormat:@"点赞(%d)",likeCount];
+    
+    if (IPHONE_WIDTH <= 540) {
         titleDetailView.LeftSepLine.hidden = YES;
         titleDetailView.CenterSepLine.hidden = YES;
         titleDetailView.RightSepLine.hidden = YES;
+        if (title.length > 15 && title.length < 18) {
+            titleDetailView.picTitle.font = [UIFont systemFontOfSize:15.0];
+        }else if (title.length >= 18 && title.length < 20){
+            titleDetailView.picTitle.font = [UIFont systemFontOfSize:14.0];
+        }else if (title.length >= 20 && title.length < 23){
+            titleDetailView.picTitle.font = [UIFont systemFontOfSize:13.0];
+        }
     }
+
     
     return titleDetailView;
 }
@@ -174,7 +193,7 @@
     lab.text = @"    精彩评论";
     lab.font = [UIFont systemFontOfSize:17];
     lab.textColor = [UIColor darkGrayColor];
-    lab.backgroundColor = Gray_COLOR;
+    lab.backgroundColor = S_Light_Gray;
     return lab;
 }
 

@@ -59,7 +59,7 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请尽快使用总机号密码登录RTX用户" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7A-gS-UVa">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="性感美女" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7A-gS-UVa">
                     <rect key="frame" x="7" y="20" width="361" height="16"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="hL5-uO-zJY"/>
@@ -91,6 +91,7 @@
                 <outlet property="date" destination="SCW-HZ-obU" id="8Xe-oU-8bg"/>
                 <outlet property="likeCount" destination="lsP-gc-qer" id="gg8-iP-4PK"/>
                 <outlet property="picCount" destination="XZH-EL-za0" id="jDY-g4-orK"/>
+                <outlet property="picTitle" destination="D7A-gS-UVa" id="fbV-YI-psX"/>
                 <outlet property="type" destination="0mt-w6-8HE" id="vAX-jk-SNf"/>
             </connections>
             <point key="canvasLocation" x="8.5" y="43"/>
