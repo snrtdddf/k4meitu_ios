@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Header.h"
 typedef void(^Succeed)(NSData * data);
 typedef void(^Failed)(NSError *error);
 
@@ -39,7 +40,7 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
  @param succeed <#succeed description#>
  @param failed <#failed description#>
  */
-+ (void)getMainPagePicListCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed;
++ (void)getMainPagePicListCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount requestBlock;
 
 
 /**
@@ -49,7 +50,7 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
  @param succeed <#succeed description#>
  @param failed <#failed description#>
  */
-+ (void)getMainPagePicListDetailGroupId:(NSString *)groupId success:(Succeed)succeed failed:(Failed)failed;
++ (void)getMainPagePicListDetailGroupId:(NSString *)groupId requestBlock;
 
 
 /**
@@ -61,6 +62,23 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
  @param succeed <#succeed description#>
  @param failed <#failed description#>
  */
-+ (void)getPicGroupCommentGroupId:(NSString *)groupId CurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed;
++ (void)getPicGroupCommentGroupId:(NSString *)groupId CurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount requestBlock;
 
+
+/**
+ 点赞
+
+ @param groupId <#groupId description#>
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)addPicGroupLikeDataGroupId:(NSString *)groupId  requestBlock;
+
+
+/**
+ 是否已经点赞
+
+ @param groupId <#groupId description#>
+ */
++ (void)isPicGroupLikeExistGroupId:(NSString *)groupId requestBlock;
 @end

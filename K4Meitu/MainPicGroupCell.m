@@ -24,6 +24,8 @@
     self.clockImgLeftSpace.constant = IPHONE_WIDTH*0.72;
     self.dateLabLeftSpace.constant = IPHONE_WIDTH*0.72+20;
     
+    self.latestLabel.transform = CGAffineTransformMakeRotation(M_PI_4+M_PI_2+M_PI);
+    
     if (IPHONE_WIDTH > 375) {
         self.imgCountLeftSpce.constant = IPHONE_WIDTH*0.45;
         self.picCountLabLeftSpace.constant = IPHONE_WIDTH*0.45+20;

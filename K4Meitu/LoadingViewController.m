@@ -74,7 +74,7 @@
         NSDictionary *resDict = myJsonSerialization;
         NSLog(@"%@",resDict);
         [commonTools HideActivityIndicator];
-        if ([resSuccess boolValue]) {
+        if (requestSuccess) {
             NSString *uId = resDict[@"res"][@"userInfo"][@"userId"];
             [UserDefaults setValue:uId forKey:@"userID"];
         }
@@ -90,8 +90,10 @@
         NSDictionary *resDict = myJsonSerialization;
         NSLog(@"%@",resDict);
         [commonTools HideActivityIndicator];
-        if ([resSuccess boolValue]) {
+        if (requestSuccess) {
             
+        }else {
+            [commonTools showBriefAlert:ErrorMsg];
         }
     } failed:^(NSError *error) {
         

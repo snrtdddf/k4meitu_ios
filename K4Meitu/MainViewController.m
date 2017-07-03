@@ -155,7 +155,7 @@
                     model.count = [dict[@"count"] intValue];
                     model.type  = dict[@"type"];
                     model.imgUrl = dict[@"imgUrl"];
-                    model.date = [GetCurrentTime GetTimeFromTimeStamp:[NSString stringWithFormat:@"%@",dict[@"date"]] andReturnTimeType:YYYY_MM_DD];
+                    model.date = [GetCurrentTime GetTimeFromTimeStamp:[NSString stringWithFormat:@"%@",dict[@"date"]] andReturnTimeType:YYYY_MM_DD_and_HH_MM_SS];
                     model.imgCoverName = dict[@"imgCoverName"];
                     model.imgCoverHeight = [dict[@"imgCoverHeight"] intValue];
                     model.imgCoverWidth = [dict[@"imgCoverWidth"] intValue];

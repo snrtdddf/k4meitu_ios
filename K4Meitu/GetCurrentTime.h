@@ -22,6 +22,4 @@ typedef NS_ENUM (NSInteger,TimeType)
 + (NSString *)GetTimeFromTimeStamp:(NSString *)timeStamp andReturnTimeType:(TimeType)TimeType;
 + (NSString *)GetCurrentBeijingTimeandReturnTimeType:(TimeType)TimeType;
 
-+ (NSString *)GetCurrentBeijingTimeandReturnTimeType:(TimeType)TimeType;
-
 @end

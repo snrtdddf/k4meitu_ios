@@ -94,9 +94,40 @@
                                ParamDictNeed
                                };
     PostMethod_NO_Indicator;
+    NSLog(@"a&&&&&%@",paraDict);
 
 }
 
+
+/**
+ 图组点赞
+
+ @param groupId <#groupId description#>
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)addPicGroupLikeDataGroupId:(NSString *)groupId  success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.comment.addLike",
+                               @"groupId":groupId,
+                               @"userId":userID,
+                               @"imgLike":@1,
+                               @"imgDislike":@0,
+                               @"imgId":@1,
+                               ParamDictNeed
+                               };
+    PostMethod_NO_Indicator;
+
+}
+
+//http://snrtdddf.hopto.org:8080/pic/api.action?method=p.comment.isLikeExist&ip=192.168.1.1&channel=iOS&groupId=2222017970&userId=51ec7791de8160b6be65b8c9cd9108e0
++ (void)isPicGroupLikeExistGroupId:(NSString *)groupId success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.comment.isLikeExist",
+                               @"groupId":groupId,
+                               @"userId":userID,
+                               ParamDictNeed
+                               };
+    PostMethod_NO_Indicator;
+}
 #pragma mark ------------------------------END---------------------------------
 @end
 

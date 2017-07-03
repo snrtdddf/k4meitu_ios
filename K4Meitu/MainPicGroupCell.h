@@ -30,6 +30,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *clockImgLeftSpace;
 
+@property (weak, nonatomic) IBOutlet UIImageView *bannerImg;
+@property (weak, nonatomic) IBOutlet UILabel *latestLabel;
 
 
 @end

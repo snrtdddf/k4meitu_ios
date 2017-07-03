@@ -28,13 +28,15 @@
 //Channel&IP
 #define ParamDictNeed  @"channel":APPCHANNEL,@"ip":getIpAddress
 //请求结果dict
-#define resSuccess resDict[@"success"]
+#define requestSuccess [resDict[@"success"] boolValue]
 //weakself
 #define myWeakSelf __weak __typeof(self)weakSelf = self
 //Connection
 #define myConnection Connection *connect = [Connection shareInstance]
 //NSJsonSerilizaion
 #define myJsonSerialization [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil]
+//requestBlock
+#define requestBlock success:(Succeed)succeed failed:(Failed)failed
 //*****************************************************************
 
 //*****************************系统配置*****************************

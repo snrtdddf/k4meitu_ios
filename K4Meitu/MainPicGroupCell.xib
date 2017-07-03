@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="374.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="cell" translatesAutoresizingMaskIntoConstraints="NO" id="dZg-XX-2yh">
@@ -40,7 +41,7 @@
                                     <constraint firstAttribute="height" constant="16" id="N6I-WI-GAQ"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请尽快使用总机号密码登录RTX用户" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXo-uj-ZTL">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="性感美女" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXo-uj-ZTL">
                                 <rect key="frame" x="8" y="3" width="359" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="31" id="qBD-8m-b36"/>
@@ -61,7 +62,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clockMain.png" translatesAutoresizingMaskIntoConstraints="NO" id="c6R-ig-L8a">
-                                <rect key="frame" x="278" y="39" width="16" height="16"/>
+                                <rect key="frame" x="278" y="41" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="2hd-2m-0xD"/>
                                     <constraint firstAttribute="width" constant="16" id="WME-3T-JzY"/>
@@ -118,7 +119,7 @@
                             <constraint firstAttribute="bottom" secondItem="GbO-CD-jDI" secondAttribute="bottom" constant="7" id="VJc-0L-slL"/>
                             <constraint firstItem="c6R-ig-L8a" firstAttribute="leading" secondItem="ysp-mz-HL6" secondAttribute="leading" constant="278" id="VXZ-Lr-B3A"/>
                             <constraint firstItem="bh6-56-NB7" firstAttribute="leading" secondItem="ysp-mz-HL6" secondAttribute="leading" constant="296" id="XB5-z1-uVv"/>
-                            <constraint firstAttribute="bottom" secondItem="c6R-ig-L8a" secondAttribute="bottom" constant="9" id="YfD-8d-uKO"/>
+                            <constraint firstAttribute="bottom" secondItem="c6R-ig-L8a" secondAttribute="bottom" constant="7" id="YfD-8d-uKO"/>
                             <constraint firstItem="QXo-uj-ZTL" firstAttribute="top" secondItem="ysp-mz-HL6" secondAttribute="top" constant="3" id="b9V-5d-gOa"/>
                             <constraint firstItem="GbO-CD-jDI" firstAttribute="leading" secondItem="ysp-mz-HL6" secondAttribute="leading" constant="49" id="d1o-Yp-KNX"/>
                             <constraint firstItem="QXo-uj-ZTL" firstAttribute="leading" secondItem="ysp-mz-HL6" secondAttribute="leading" constant="8" id="etk-UH-Vqc"/>
@@ -130,26 +131,48 @@
                             <constraint firstAttribute="trailing" secondItem="QXo-uj-ZTL" secondAttribute="trailing" constant="8" id="wKo-MZ-2ro"/>
                         </constraints>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_pink.png" translatesAutoresizingMaskIntoConstraints="NO" id="KKx-pW-PPQ">
+                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="BjH-mY-eSg"/>
+                            <constraint firstAttribute="width" constant="60" id="mbd-Ut-CR1"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最新" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkv-eP-w6u">
+                        <rect key="frame" x="8" y="10" width="33" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="33" id="40B-k3-WJJ"/>
+                            <constraint firstAttribute="height" constant="21" id="f8j-fI-fLK"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ysp-mz-HL6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4KW-Nk-htE"/>
                     <constraint firstItem="ysp-mz-HL6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8nO-KJ-xCr"/>
                     <constraint firstItem="dZg-XX-2yh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="EmW-4R-tbY"/>
+                    <constraint firstItem="jkv-eP-w6u" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="Hdk-cw-A0V"/>
                     <constraint firstItem="dZg-XX-2yh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Iwb-vP-v4i"/>
                     <constraint firstItem="dZg-XX-2yh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="JR5-Mb-S7f"/>
                     <constraint firstItem="dZg-XX-2yh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Mft-a1-dry"/>
                     <constraint firstAttribute="trailing" secondItem="dZg-XX-2yh" secondAttribute="trailing" id="ORv-Gm-WTs"/>
                     <constraint firstAttribute="bottom" secondItem="dZg-XX-2yh" secondAttribute="bottom" id="Vd3-sJ-EkY"/>
+                    <constraint firstItem="KKx-pW-PPQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="X08-k0-tt2"/>
                     <constraint firstAttribute="bottom" secondItem="ysp-mz-HL6" secondAttribute="bottom" id="cBd-t3-lX2"/>
                     <constraint firstAttribute="trailing" secondItem="ysp-mz-HL6" secondAttribute="trailing" id="eqQ-Nh-b2x"/>
                     <constraint firstAttribute="bottom" secondItem="ysp-mz-HL6" secondAttribute="bottom" id="m9R-Lk-RV0"/>
+                    <constraint firstItem="KKx-pW-PPQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="maL-7m-DDg"/>
                     <constraint firstAttribute="bottom" secondItem="dZg-XX-2yh" secondAttribute="bottom" id="pIR-ic-iyz"/>
+                    <constraint firstItem="jkv-eP-w6u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="pWU-Ge-DUK"/>
                     <constraint firstAttribute="trailing" secondItem="dZg-XX-2yh" secondAttribute="trailing" id="ss0-rO-8du"/>
                     <constraint firstAttribute="trailing" secondItem="ysp-mz-HL6" secondAttribute="trailing" id="yTr-xx-KwP"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="SeplineLeftSpace" destination="LGu-bZ-pNV" id="s6k-l1-E8F"/>
+                <outlet property="bannerImg" destination="KKx-pW-PPQ" id="4bz-bQ-B02"/>
                 <outlet property="clockImg" destination="c6R-ig-L8a" id="7On-WH-KOg"/>
                 <outlet property="clockImgLeftSpace" destination="VXZ-Lr-B3A" id="Dn8-Ds-ZHk"/>
                 <outlet property="countImg" destination="0qX-xT-ZZ0" id="5yJ-o9-lsV"/>
@@ -157,6 +180,7 @@
                 <outlet property="dateLabLeftSpace" destination="XB5-z1-uVv" id="U5L-z3-T3Y"/>
                 <outlet property="imgCountLeftSpce" destination="JuO-NQ-QJs" id="LfA-fj-5bn"/>
                 <outlet property="imgView" destination="dZg-XX-2yh" id="BlS-Ss-uSf"/>
+                <outlet property="latestLabel" destination="jkv-eP-w6u" id="dr6-jw-8Iq"/>
                 <outlet property="picCount" destination="ylR-mU-Ih1" id="WiW-pa-4jk"/>
                 <outlet property="picCountLabLeftSpace" destination="Ltc-GK-cNt" id="Slb-Ln-ebn"/>
                 <outlet property="secSeplineLeftSpace" destination="NTH-xc-T5U" id="cvT-s1-Wfg"/>
@@ -172,6 +196,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="banner_pink.png" width="100" height="100"/>
         <image name="clockMain.png" width="24" height="24"/>
         <image name="imgCount.png" width="29" height="24"/>
         <image name="tagMain.png" width="18" height="11"/>

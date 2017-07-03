@@ -90,6 +90,14 @@
 		7DA206DD1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206DC1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m */; };
 		7DA206DF1F00FF5D00AA4056 /* PicGroupDetailTitleDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DA206DE1F00FF5D00AA4056 /* PicGroupDetailTitleDetailView.xib */; };
 		7DA206E21F0250CA00AA4056 /* PicGroupCMTTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA206E11F0250CA00AA4056 /* PicGroupCMTTextFieldView.m */; };
+		7DD3A0751F0738CE00882271 /* CatZanButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3A0711F0738CE00882271 /* CatZanButton.m */; };
+		7DD3A0761F0738CE00882271 /* EffectImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD3A0721F0738CE00882271 /* EffectImage.png */; };
+		7DD3A0771F0738CE00882271 /* UnZan.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD3A0731F0738CE00882271 /* UnZan.png */; };
+		7DD3A0781F0738CE00882271 /* Zan.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD3A0741F0738CE00882271 /* Zan.png */; };
+		7DD3A07A1F073C0900882271 /* zan_se.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD3A0791F073C0900882271 /* zan_se.png */; };
+		7DD3A07E1F074CFE00882271 /* zan_fly.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD3A07D1F074CFE00882271 /* zan_fly.png */; };
+		7DD3A0801F078D8800882271 /* banner_new.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD3A07F1F078D8800882271 /* banner_new.png */; };
+		7DD3A0841F07935C00882271 /* banner_pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD3A0831F07935C00882271 /* banner_pink.png */; };
 		7DDDF44E1EF4CE8400830CA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF44D1EF4CE8400830CA8 /* main.m */; };
 		7DDDF4511EF4CE8400830CA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF4501EF4CE8400830CA8 /* AppDelegate.m */; };
 		7DDDF4541EF4CE8400830CA8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDDF4531EF4CE8400830CA8 /* ViewController.m */; };
@@ -225,6 +233,15 @@
 		7DA206DE1F00FF5D00AA4056 /* PicGroupDetailTitleDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PicGroupDetailTitleDetailView.xib; sourceTree = "<group>"; };
 		7DA206E01F0250CA00AA4056 /* PicGroupCMTTextFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupCMTTextFieldView.h; sourceTree = "<group>"; };
 		7DA206E11F0250CA00AA4056 /* PicGroupCMTTextFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupCMTTextFieldView.m; sourceTree = "<group>"; };
+		7DD3A0701F0738CE00882271 /* CatZanButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatZanButton.h; sourceTree = "<group>"; };
+		7DD3A0711F0738CE00882271 /* CatZanButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatZanButton.m; sourceTree = "<group>"; };
+		7DD3A0721F0738CE00882271 /* EffectImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EffectImage.png; sourceTree = "<group>"; };
+		7DD3A0731F0738CE00882271 /* UnZan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UnZan.png; sourceTree = "<group>"; };
+		7DD3A0741F0738CE00882271 /* Zan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zan.png; sourceTree = "<group>"; };
+		7DD3A0791F073C0900882271 /* zan_se.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zan_se.png; sourceTree = "<group>"; };
+		7DD3A07D1F074CFE00882271 /* zan_fly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zan_fly.png; sourceTree = "<group>"; };
+		7DD3A07F1F078D8800882271 /* banner_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_new.png; sourceTree = "<group>"; };
+		7DD3A0831F07935C00882271 /* banner_pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_pink.png; sourceTree = "<group>"; };
 		7DDDF4491EF4CE8400830CA8 /* K4Meitu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = K4Meitu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DDDF44D1EF4CE8400830CA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7DDDF44F1EF4CE8400830CA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -529,6 +546,20 @@
 			name = Request;
 			sourceTree = "<group>";
 		};
+		7DD3A06F1F0738CE00882271 /* CatZanButton */ = {
+			isa = PBXGroup;
+			children = (
+				7DD3A0701F0738CE00882271 /* CatZanButton.h */,
+				7DD3A0711F0738CE00882271 /* CatZanButton.m */,
+				7DD3A07D1F074CFE00882271 /* zan_fly.png */,
+				7DD3A0791F073C0900882271 /* zan_se.png */,
+				7DD3A0721F0738CE00882271 /* EffectImage.png */,
+				7DD3A0731F0738CE00882271 /* UnZan.png */,
+				7DD3A0741F0738CE00882271 /* Zan.png */,
+			);
+			path = CatZanButton;
+			sourceTree = "<group>";
+		};
 		7DDDF4401EF4CE8400830CA8 = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +613,8 @@
 		7DDDF4631EF4CEE500830CA8 /* 图片 */ = {
 			isa = PBXGroup;
 			children = (
+				7DD3A0831F07935C00882271 /* banner_pink.png */,
+				7DD3A07F1F078D8800882271 /* banner_new.png */,
 				7D665F641F034C69007414DD /* like_thumb_pink.png */,
 				7D665F651F034C69007414DD /* like_thumb_pink@2x.png */,
 				7D665F601F034C5B007414DD /* commentLike@2x.png */,
@@ -644,6 +677,7 @@
 		7DDDF4681EF4CF2700830CA8 /* 第三方库 */ = {
 			isa = PBXGroup;
 			children = (
+				7DD3A06F1F0738CE00882271 /* CatZanButton */,
 				7DA205E21EF4D77C00AA4056 /* UncaughtException */,
 				7DA205DE1EF4D76D00AA4056 /* MBManager */,
 			);
@@ -771,10 +805,14 @@
 			files = (
 				7DA206A31EF91DC300AA4056 /* tagMain@2x.png in Resources */,
 				7DA206641EF5042A00AA4056 /* fansSay_unselect.png in Resources */,
+				7DD3A07A1F073C0900882271 /* zan_se.png in Resources */,
+				7DD3A0761F0738CE00882271 /* EffectImage.png in Resources */,
 				7DA206541EF5041000AA4056 /* mainPage_unselect.png in Resources */,
 				7D665F661F034C69007414DD /* like_thumb_pink.png in Resources */,
 				7DA2065B1EF5041D00AA4056 /* me_select@2x.png in Resources */,
+				7DD3A0771F0738CE00882271 /* UnZan.png in Resources */,
 				7DA206CA1EFBA6A600AA4056 /* PicGroupCommentCell.xib in Resources */,
+				7DD3A0841F07935C00882271 /* banner_pink.png in Resources */,
 				7DA206631EF5042A00AA4056 /* fansSay_select@2x.png in Resources */,
 				7DA206AB1EF91E9600AA4056 /* clockMain@3x.png in Resources */,
 				7DA206741EF504CF00AA4056 /* shopping_unselect.png in Resources */,
@@ -787,6 +825,8 @@
 				7DA206D21EFCBBA600AA4056 /* Default-568h@2x.png in Resources */,
 				7DA206621EF5042A00AA4056 /* fansSay_select.png in Resources */,
 				7DA206DA1F00A1B000AA4056 /* MainPicGroupCell.xib in Resources */,
+				7DD3A0801F078D8800882271 /* banner_new.png in Resources */,
+				7DD3A07E1F074CFE00882271 /* zan_fly.png in Resources */,
 				7DA206701EF504CF00AA4056 /* shopping_select.png in Resources */,
 				7DDDF4591EF4CE8500830CA8 /* Assets.xcassets in Resources */,
 				7DDDF4571EF4CE8400830CA8 /* Main.storyboard in Resources */,
@@ -798,6 +838,7 @@
 				7DA206711EF504CF00AA4056 /* shopping_select@2x.png in Resources */,
 				7D665F631F034C5B007414DD /* commentLike@3x.png in Resources */,
 				7DA206751EF504CF00AA4056 /* shopping_unselect@2x.png in Resources */,
+				7DD3A0781F0738CE00882271 /* Zan.png in Resources */,
 				7DA206731EF504CF00AA4056 /* shopping_un@2x.png in Resources */,
 				7DA206981EF9018800AA4056 /* clockMain.png in Resources */,
 				7DA206D51EFCBBA600AA4056 /* default@2x.png in Resources */,
@@ -906,6 +947,7 @@
 				7DA206191EF4D90700AA4056 /* Base64.m in Sources */,
 				7DA2063C1EF4DA1800AA4056 /* Connection.m in Sources */,
 				7DA206CD1EFCA23900AA4056 /* PicGroupDetailTitleView.m in Sources */,
+				7DD3A0751F0738CE00882271 /* CatZanButton.m in Sources */,
 				7DA2061B1EF4D90700AA4056 /* SecureData.m in Sources */,
 				7DA206281EF4D92D00AA4056 /* TabBar.m in Sources */,
 				7DA2067B1EF5206F00AA4056 /* RequestManager.m in Sources */,

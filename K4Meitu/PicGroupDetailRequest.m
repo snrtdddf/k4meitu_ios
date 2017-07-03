@@ -12,7 +12,6 @@
 #import "commonTools.h"
 #import "PicGroupDetailModel.h"
 #import "GetCurrentTime.h"
-
 #import "PicGroupCommentModel.h"
 @implementation PicGroupDetailRequest
 
@@ -38,7 +37,7 @@
                     [dataArr addObject:model];
                 }
                 
-                block(dataArr,@0);
+                block(dataArr,@0,@0,@0);
             }
         }else{
             [commonTools showBriefAlert:ErrorMsg];
@@ -56,6 +55,8 @@
         if ([resDict[@"success"] boolValue]) {
             NSLog(@"%@",resDict);
             NSArray *list = resDict[@"res"][@"list"];
+            NSNumber *commentCount = resDict[@"res"][@"commentCount"];
+            NSNumber *likeCount = resDict[@"res"][@"likeCount"];
             if (list.count != 0) {
                  NSNumber *maxPage = resDict[@"res"][@"maxPage"];
                 for (NSDictionary *dict in list) {
@@ -73,7 +74,7 @@
                     }
                 }
                 
-                block(dataArr,maxPage);
+                block(dataArr,maxPage,commentCount,likeCount);
             }else{
                 PicGroupCommentModel *model = [[PicGroupCommentModel alloc] init];
                 model.isCmtShow = 1;
@@ -83,7 +84,7 @@
                 
                 [dataArr addObject:model];
                 
-                block(dataArr,@0);
+                block(dataArr,@0,@1,likeCount);
             }
         }else{
             [commonTools showBriefAlert:ErrorMsg];
@@ -114,9 +115,12 @@
     
     flowPhotosView.photoHeight = SPW(114);
     flowPhotosView.photoMargin = SPW(5);
-    if (IPHONE_WIDTH>375) {
+    if (IPHONE_WIDTH > 540) {
         flowPhotosView.photoWidth = SPW(116);
         flowPhotosView.photoHeight = SPW(116);
+    }else if(IPHONE_WIDTH == 540){
+        flowPhotosView.photoWidth = SPW(115);
+        flowPhotosView.photoHeight = SPW(115);
     }
 
     
@@ -143,14 +147,14 @@
     return  backBtn;
 }
 
-+ (UIView *)titleDetailView:(NSString *)title picCount:(int)count type:(NSString *)type date:(NSString *)date cmtCount:(int)commentCount likeCount:(int)likeCount{
++ (PicGroupDetailTitleDetailView *)titleDetailView:(NSString *)title picCount:(int)count type:(NSString *)type date:(NSString *)date cmtCount:(int)commentCount likeCount:(int)likeCount {
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"PicGroupDetailTitleDetailView" owner:nil options:nil];
     
     PicGroupDetailTitleDetailView *titleDetailView = [nibContents lastObject];
     titleDetailView.frame = CGRectMake(SPW(11), 10, IPHONE_WIDTH-SPW(11)*2, 100);
     CGFloat PHeight =  titleDetailView.frame.size.height;
     CGFloat PWidth =  titleDetailView.frame.size.width;
-    titleDetailView.backgroundColor = S_Light_Gray;
+    //titleDetailView.backgroundColor = S_Light_Gray;
     titleDetailView.layer.cornerRadius = SPW(5);
     titleDetailView.clipsToBounds = YES;
     
@@ -171,7 +175,8 @@
     titleDetailView.commentCount.text = [NSString stringWithFormat:@"评论(%d)",commentCount];
     titleDetailView.likeCount.text = [NSString stringWithFormat:@"点赞(%d)",likeCount];
     
-    if (IPHONE_WIDTH <= 540) {
+    
+    if (IPHONE_WIDTH < 540) {
         titleDetailView.LeftSepLine.hidden = YES;
         titleDetailView.CenterSepLine.hidden = YES;
         titleDetailView.RightSepLine.hidden = YES;
@@ -197,5 +202,44 @@
     return lab;
 }
 
++ (UITextField *)commentTF:(CGRect)frame{
+    UITextField *commentTF = [[UITextField alloc] initWithFrame:CGRectMake(0, IPHONE_HEIGHT*0.9-64, IPHONE_WIDTH, IPHONE_HEIGHT*0.1)];
+    commentTF.backgroundColor = White_COLOR;
+    commentTF.placeholder = @"皇上！！牌子都翻完了，不评论一下吗？";
+    
+    return commentTF;
+}
 
++ (void)requestLikeData:(NSString *)groupId  titleDetailView:(PicGroupDetailTitleDetailView *)titleDetailView{
+    [RequestManager addPicGroupLikeDataGroupId:groupId success:^(NSData *data) {
+        
+        NSDictionary *resDict = myJsonSerialization;
+        if (requestSuccess) {
+            if([resDict[@"res"][@"AlertMsg"] isEqualToString:@"like_success"]){
+                [commonTools showBriefAlert:@"点赞成功"];
+               titleDetailView.likeCount.text = [NSString stringWithFormat:@"点赞(%d)",[[[titleDetailView.likeCount.text componentsSeparatedByString:@"("][1] componentsSeparatedByString:@")"][0] intValue]+1];
+            }
+        }else{
+            [commonTools showBriefAlert:ErrorMsg];
+        }
+        
+    } failed:^(NSError *error) {
+        
+    }];
+}
+
+
++ (void)requestIsLikeExistGroupID:(NSString *)groupId isLike:(isLikeBlock)block{
+    [RequestManager isPicGroupLikeExistGroupId:groupId success:^(NSData *data) {
+        NSDictionary *resDict = myJsonSerialization;
+        if (requestSuccess) {
+            BOOL isLiked = [resDict[@"res"][@"isLiked"] boolValue];
+            block(isLiked);
+        }else{
+            block(false);
+        }
+    } failed:^(NSError *error) {
+        
+    }];
+}
 @end

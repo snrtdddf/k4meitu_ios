@@ -17,10 +17,11 @@
 #import "PicGroupDetailTitleView.h"
 #import "commonTools.h"
 #import "MJRefresh.h"
+#import "CatZanButton.h"
 @interface PicGroupDetailVC () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 @property (strong, nonatomic) UITableView *commentTable;
 @property (strong, nonatomic) UIView *headerView;
-@property (strong, nonatomic) UIView *titleDetailView;
+@property (strong, nonatomic) PicGroupDetailTitleDetailView *titleDetailView;
 @property (assign, nonatomic) CGFloat photosHeight;
 @property (strong, nonatomic) UITextField *commentTF;
 @property (assign, nonatomic) int maxPage;
@@ -57,7 +58,7 @@
 
 - (void)requestData{
 
-    [PicGroupDetailRequest requestData:self.groupId dataBlock:^(NSMutableArray *dataArr,NSNumber *maxPage) {
+    [PicGroupDetailRequest requestData:self.groupId dataBlock:^(NSMutableArray *dataArr,NSNumber *maxPage, NSNumber *commentCount, NSNumber *likeCount) {
         myWeakSelf;
         NSMutableArray *imgUrls = nil;
         imgUrls = [[NSMutableArray alloc] init];
@@ -74,19 +75,19 @@
 }
 
 - (void)requestCommentData:(PYPhotosView *)photosView{
-    [PicGroupDetailRequest requestCommentData:@"2222017970" CurPage:[NSNumber numberWithInt:self.curPage] pcout:@10 dataBlock:^(NSMutableArray *dataArr, NSNumber *maxPage) {
+    [PicGroupDetailRequest requestCommentData:self.groupId CurPage:[NSNumber numberWithInt:self.curPage] pcout:@10 dataBlock:^(NSMutableArray *dataArr, NSNumber *maxPage, NSNumber *commentCount, NSNumber *likeCount) {
         myWeakSelf;
         [weakSelf.dataArray addObjectsFromArray:dataArr];
         weakSelf.maxPage = [maxPage intValue];
-        NSLog(@"count_CUR:%ld",dataArr.count);
-        weakSelf.headerView.frame = CGRectMake(0, 0, IPHONE_WIDTH, photosView.frame.size.height+100+SPH(60));
+        
+        weakSelf.headerView.frame = CGRectMake(0, 0, IPHONE_WIDTH, photosView.frame.size.height+100+SPH(65));
         weakSelf.headerView.backgroundColor = [UIColor darkGrayColor];
         if (weakSelf.titleDetailView == nil) {
-             weakSelf.titleDetailView = [PicGroupDetailRequest titleDetailView:weakSelf.picTitle picCount:weakSelf.picCount type:weakSelf.type date:weakSelf.picDate cmtCount:10 likeCount:20];
+             weakSelf.titleDetailView = [PicGroupDetailRequest titleDetailView:weakSelf.picTitle picCount:weakSelf.picCount type:weakSelf.type date:weakSelf.picDate cmtCount:[commentCount intValue] likeCount:[likeCount intValue]];
             [weakSelf.headerView addSubview:weakSelf.titleDetailView];
         }
         if (weakSelf.commentLab == nil) {
-            weakSelf.commentLab = [PicGroupDetailRequest commentLab:CGRectMake(0, photosView.frame.size.height+100+SPH(20), IPHONE_WIDTH, SPH(40))];
+            weakSelf.commentLab = [PicGroupDetailRequest commentLab:CGRectMake(0, photosView.frame.size.height+100+SPH(25), IPHONE_WIDTH, SPH(40))];
              [weakSelf.headerView addSubview:weakSelf.commentLab];
              [weakSelf.headerView addSubview:photosView];
             weakSelf.commentTable.tableHeaderView = weakSelf.headerView;
@@ -169,16 +170,60 @@
 }
 - (void)addfloatBackButton{
 
-    UIButton *backBtn = [PicGroupDetailRequest addBackBtn];
-    [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backBtn];
-    [self.view bringSubviewToFront:backBtn];
+//    UIButton *backBtn = [PicGroupDetailRequest addBackBtn];
+//    [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:backBtn];
+//    [self.view bringSubviewToFront:backBtn];
+    
+    [PicGroupDetailRequest requestIsLikeExistGroupID:self.groupId isLike:^(BOOL isLike) {
+            CatZanButton *zanBtn=[[CatZanButton alloc] init];
+        zanBtn.frame =  CGRectMake(IPHONE_WIDTH*0.8, IPHONE_HEIGHT*0.70, SPW(50), SPW(50));
+        if (IPHONE_WIDTH>540) {
+            zanBtn.frame =  CGRectMake(IPHONE_WIDTH*0.85, IPHONE_HEIGHT*0.75, SPW(30), SPW(30));
+        }
+        [self.view addSubview:zanBtn];
+
+        if (isLike) {
+            [zanBtn setIsZan:YES];
+            zanBtn.enabled = NO;
+        }else{
+            [zanBtn setType:CatZanButtonTypeFirework];
+            
+            [zanBtn setClickHandler:^(CatZanButton *zanButton) {
+                myWeakSelf;
+                if (zanButton.isZan) {
+                    [PicGroupDetailRequest requestLikeData:weakSelf.groupId titleDetailView:weakSelf.titleDetailView];
+                }
+            }];
+
+        }
+    }];
+    
+    
 }
 
 - (void)backBtnClick{
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView.contentOffset.y > self.photosHeight) {
+        if (self.commentTF == nil) {
+            
+            self.commentTF = [PicGroupDetailRequest commentTF:CGRectMake(0, IPHONE_HEIGHT*0.9-64, IPHONE_WIDTH, IPHONE_HEIGHT*0.1)];
+            self.commentTable.frame = CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT*0.9-64);
+            [self.view addSubview:self.commentTF];
+            [self.view bringSubviewToFront:self.commentTF];
+        }
+    }else{
+        if (self.commentTF != nil) {
+            [self.commentTF removeFromSuperview];
+            self.commentTF = nil;
+            self.commentTable.frame = CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT-64); 
+        }
+    }
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
