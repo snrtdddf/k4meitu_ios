@@ -12,6 +12,8 @@
 #import "PicGroupDetailTitleDetailView.h"
 typedef void(^DataBlock)(NSMutableArray *dataArr,NSNumber *maxPage,NSNumber *commentCount, NSNumber *likeCount);
 typedef void(^isLikeBlock)(BOOL isLike);
+typedef void(^addCommentBlock)(BOOL isSuccess);
+
 @interface PicGroupDetailRequest : NSObject
 
 + (void)requestData:(NSString *)groupId dataBlock:(DataBlock)block;
@@ -23,4 +25,6 @@ typedef void(^isLikeBlock)(BOOL isLike);
 + (UITextField *)commentTF:(CGRect)frame;
 + (void)requestLikeData:(NSString *)groupId titleDetailView:(PicGroupDetailTitleDetailView *)titleDetailView;
 + (void)requestIsLikeExistGroupID:(NSString *)groupId isLike:(isLikeBlock)block;
++ (UIButton *)addCommentBtn;
++ (void)requestAddComment:(NSString *)comment imgId:(NSNumber *)imgId groupId:(NSString *)groupId resblock:(addCommentBlock)block;
 @end

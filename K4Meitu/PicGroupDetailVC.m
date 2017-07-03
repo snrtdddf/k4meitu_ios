@@ -28,6 +28,10 @@
 @property (assign, nonatomic) int curPage;
 @property (strong, nonatomic)  PYPhotosView *photosView;
 @property (strong, nonatomic) UILabel *commentLab;
+@property (strong, nonatomic) UIButton *cmtBtn;
+@property (strong, nonatomic) UIView *commentBGView;
+@property (strong, nonatomic) UITextField *cmtTF;
+@property (strong, nonatomic) UIView *cmtTFBGView;
 
 
 @end
@@ -48,7 +52,7 @@
     self.curPage = 0;
     self.dataArray = [NSMutableArray array];
     self.headerView = [[UIView alloc]init];
-    
+   
     [self initCommentTable];
     [self requestData];
     [self addfloatBackButton];
@@ -86,11 +90,29 @@
              weakSelf.titleDetailView = [PicGroupDetailRequest titleDetailView:weakSelf.picTitle picCount:weakSelf.picCount type:weakSelf.type date:weakSelf.picDate cmtCount:[commentCount intValue] likeCount:[likeCount intValue]];
             [weakSelf.headerView addSubview:weakSelf.titleDetailView];
         }
-        if (weakSelf.commentLab == nil) {
-            weakSelf.commentLab = [PicGroupDetailRequest commentLab:CGRectMake(0, photosView.frame.size.height+100+SPH(25), IPHONE_WIDTH, SPH(40))];
-             [weakSelf.headerView addSubview:weakSelf.commentLab];
+        if (weakSelf.commentBGView == nil) {
+            //commentBGView
+            weakSelf.commentBGView = [[UIView alloc] initWithFrame:CGRectMake(0, photosView.frame.size.height+100+SPH(25), IPHONE_WIDTH, SPH(40))];
+            weakSelf.commentBGView.backgroundColor = S_Light_Gray;
+            weakSelf.commentLab = [PicGroupDetailRequest commentLab:CGRectMake(IPHONE_WIDTH*0.05, 0, IPHONE_WIDTH*0.4, SPH(40))];
+            [weakSelf.commentBGView addSubview:weakSelf.commentLab];
+            
+            //添加“发表评论”按钮
+            weakSelf.cmtBtn = [PicGroupDetailRequest addCommentBtn];
+            weakSelf.cmtBtn.frame = CGRectMake(IPHONE_WIDTH*0.75, SPH(40)*0.1, IPHONE_WIDTH*0.25, SPH(40)*0.8);
+            [weakSelf.cmtBtn addTarget:self action:@selector(cmtBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(IPHONE_WIDTH*0.75-SPH(40)*0.8, SPH(40)*0.1, SPH(40)*0.8, SPH(40)*0.8)];
+            img.image = [UIImage imageNamed:@"writeComment"];
+            [weakSelf.commentBGView addSubview:img];
+            [weakSelf.commentBGView addSubview:weakSelf.cmtBtn];
+            [weakSelf.commentBGView bringSubviewToFront:weakSelf.cmtBtn];
+            
+            //添加到tableViewHeaderView
+             [weakSelf.headerView addSubview:weakSelf.commentBGView];
              [weakSelf.headerView addSubview:photosView];
             weakSelf.commentTable.tableHeaderView = weakSelf.headerView;
+            
+            //self.view添加tableView
             [weakSelf.view addSubview:weakSelf.commentTable];
             [weakSelf.view sendSubviewToBack:weakSelf.commentTable];
             weakSelf.photosHeight = photosView.frame.size.height;
@@ -102,6 +124,65 @@
     }];
 
 }
+
+- (void)cmtBtnClick{
+    if (self.cmtTFBGView == nil) {
+        self.cmtTFBGView = [[UIView alloc] initWithFrame:CGRectMake(0, IPHONE_HEIGHT*0.9-64, IPHONE_WIDTH, IPHONE_HEIGHT*0.1)];
+        self.cmtTFBGView.backgroundColor = S_Light_Gray;
+        if (self.cmtTF == nil) {
+            self.cmtTF = [[UITextField alloc] init];
+        }
+        self.cmtTF.frame = CGRectMake(IPHONE_WIDTH*0.05, IPHONE_HEIGHT*0.1*0.2, IPHONE_WIDTH*0.7, IPHONE_HEIGHT*0.1*0.6);
+        self.cmtTF.borderStyle = UITextBorderStyleRoundedRect;
+        [self.cmtTF addTarget:self action:@selector(cmtTFClick) forControlEvents:UIControlEventEditingChanged];
+        self.cmtTF.placeholder = @"请输入评论";
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(IPHONE_WIDTH*0.8, IPHONE_HEIGHT*0.1*0.25, IPHONE_WIDTH*0.15, IPHONE_HEIGHT*0.1*0.5);
+        btn.backgroundColor = [UIColor colorWithRed:10/255.0f green:122/255.0f blue:255/255.0f alpha:1];
+        [btn setTitleColor:White_COLOR forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+        [btn setTitle:@"评论" forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 5;
+        btn.clipsToBounds = YES;
+        [btn addTarget:self action:@selector(commitBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        [self.cmtTFBGView addSubview:btn];
+        [self.cmtTFBGView addSubview:self.cmtTF];
+        [self.view addSubview:self.cmtTFBGView];
+        [self.view bringSubviewToFront:self.cmtTFBGView];
+        
+        [self.cmtTF becomeFirstResponder];
+    }
+    
+}
+
+#pragma mark -----------------------UITextField Action----------------------
+
+
+- (void)cmtTFClick{
+    
+}
+
+- (void)commitBtnClick{
+    [PicGroupDetailRequest requestAddComment:self.cmtTF.text imgId:@1 groupId:self.groupId resblock:^(BOOL isSuccess) {
+        myWeakSelf;
+        if (isSuccess) {
+            [weakSelf.cmtTF resignFirstResponder];
+            [weakSelf.cmtTFBGView removeFromSuperview];
+            weakSelf.cmtTFBGView = nil;
+            weakSelf.cmtTF = nil;
+            [commonTools showBriefAlert:@"评论成功"];
+            weakSelf.curPage = 0;
+            [weakSelf.dataArray removeAllObjects];
+            [weakSelf requestData];
+           
+        }
+    }];
+}
+
+#pragma mark ---------------------------END-----------------------------------
 
 - (void)refreshData{
     self.commentTable.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
@@ -195,49 +276,19 @@
                     [PicGroupDetailRequest requestLikeData:weakSelf.groupId titleDetailView:weakSelf.titleDetailView];
                 }
             }];
-
         }
     }];
     
     
 }
 
-- (void)backBtnClick{
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView.contentOffset.y > self.photosHeight) {
-        if (self.commentTF == nil) {
-            
-            self.commentTF = [PicGroupDetailRequest commentTF:CGRectMake(0, IPHONE_HEIGHT*0.9-64, IPHONE_WIDTH, IPHONE_HEIGHT*0.1)];
-            self.commentTable.frame = CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT*0.9-64);
-            [self.view addSubview:self.commentTF];
-            [self.view bringSubviewToFront:self.commentTF];
-        }
-    }else{
-        if (self.commentTF != nil) {
-            [self.commentTF removeFromSuperview];
-            self.commentTF = nil;
-            self.commentTable.frame = CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT-64); 
-        }
-    }
-
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

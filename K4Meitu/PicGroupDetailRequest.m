@@ -13,6 +13,7 @@
 #import "PicGroupDetailModel.h"
 #import "GetCurrentTime.h"
 #import "PicGroupCommentModel.h"
+#import "UIButton+enLargedRect.h"
 @implementation PicGroupDetailRequest
 
 + (void)requestData:(NSString *)groupId  dataBlock:(DataBlock)block{
@@ -195,10 +196,10 @@
 
 + (UILabel *)commentLab:(CGRect)frame{
     UILabel *lab = [[UILabel alloc] initWithFrame:frame];
-    lab.text = @"    精彩评论";
+    lab.text = @"精彩评论";
     lab.font = [UIFont systemFontOfSize:17];
     lab.textColor = [UIColor darkGrayColor];
-    lab.backgroundColor = S_Light_Gray;
+    //lab.backgroundColor = S_Light_Gray;
     return lab;
 }
 
@@ -242,4 +243,37 @@
         
     }];
 }
+
++ (UIButton *)addCommentBtn{
+    UIButton *cmtBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cmtBtn.frame = CGRectMake(0, 0, IPHONE_WIDTH*0.2, SPH(40)*0.8);
+    [cmtBtn setTitle:@"发表评论" forState:UIControlStateNormal];
+    cmtBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    cmtBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [cmtBtn setEnlargEdgeWithTop:0 right:0 bottom:0 left:SPH(40)*0.8];
+    [cmtBtn setTitleColor:[UIColor colorWithRed:10/255.0f green:122/255.0f blue:255/255.0f alpha:1] forState:UIControlStateNormal];
+
+    return cmtBtn;
+}
+
+
++ (void)requestAddComment:(NSString *)comment imgId:(NSNumber *)imgId groupId:(NSString *)groupId resblock:(addCommentBlock)block{
+    [RequestManager addPicGroupComment:comment imgId:imgId groupId:groupId success:^(NSData *data) {
+        NSDictionary *resDict = myJsonSerialization;
+        if (requestSuccess) {
+            if ([resDict[@"res"][@"AlertMsg"] isEqualToString:@"comment_success"]) {
+                block(YES);
+            }else{
+                [commonTools showBriefAlert:@"未知错误"];
+                block(NO);
+            }
+        }else{
+            [commonTools showBriefAlert:ErrorMsg];
+            block(NO);
+        }
+    } failed:^(NSError *error) {
+        
+    }];
+}
+
 @end

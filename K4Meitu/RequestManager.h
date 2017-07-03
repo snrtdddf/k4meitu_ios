@@ -81,4 +81,14 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
  @param groupId <#groupId description#>
  */
 + (void)isPicGroupLikeExistGroupId:(NSString *)groupId requestBlock;
+
+
+/**
+ 图组添加评论
+
+ @param comment <#comment description#>
+ @param imgId <#imgId description#>
+ @param groupId <#groupId description#>
+ */
++ (void)addPicGroupComment:(NSString *)comment imgId:(NSNumber *)imgId groupId:(NSString *)groupId requestBlock;
 @end
