@@ -36,6 +36,9 @@ PODS:
   - SDWebImage/GIF (4.0.0):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
   - AFNetworking (= 3.0.4)
@@ -48,6 +51,7 @@ DEPENDENCIES:
   - MJRefresh (= 3.0.8)
   - PYPhotoBrowser (= 1.5.0)
   - SDWebImage (= 4.0.0)
+  - YYKit
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
@@ -61,7 +65,8 @@ SPEC CHECKSUMS:
   MJRefresh: fafde8f18f4afd66b434331a9beb67a6c0264056
   PYPhotoBrowser: eb140689619b10843beaad9e532581825ad7f542
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: cbf88ea6b375a06a91d794848352dee684fe8506
+PODFILE CHECKSUM: 045025b51eb4d54cac61697d04f4c839bf005d63
 
 COCOAPODS: 1.1.1

@@ -14,8 +14,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *comment;
 @property (weak, nonatomic) IBOutlet UILabel *commentFloor;
 @property (weak, nonatomic) IBOutlet UILabel *cmtLikeCount;
-@property (weak, nonatomic) IBOutlet UILabel *cmtReplyCount;
-@property (weak, nonatomic) IBOutlet UIButton *cmtReplyBtn;
+@property (weak, nonatomic) IBOutlet UILabel *cmtDislikeCount;
+@property (weak, nonatomic) IBOutlet UIButton *cmtDislikeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *cmtLikeBtn;
 
 @end

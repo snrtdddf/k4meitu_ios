@@ -25,4 +25,6 @@ typedef void(^Failed)(NSError *error);
 
 - (void)PostTextURL:(NSString *)url parameters:(NSDictionary *)dict Success:(Succeed)isSucceed andFail:(Failed)isFailed  isIndicatorShow:(BOOL)isShow;
 
+
+
 @end

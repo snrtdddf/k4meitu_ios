@@ -13,6 +13,7 @@
 typedef void(^DataBlock)(NSMutableArray *dataArr,NSNumber *maxPage,NSNumber *commentCount, NSNumber *likeCount);
 typedef void(^isLikeBlock)(BOOL isLike);
 typedef void(^addCommentBlock)(BOOL isSuccess);
+typedef void(^addCommentLikeBlock)(BOOL isSuccess);
 
 @interface PicGroupDetailRequest : NSObject
 
@@ -27,4 +28,5 @@ typedef void(^addCommentBlock)(BOOL isSuccess);
 + (void)requestIsLikeExistGroupID:(NSString *)groupId isLike:(isLikeBlock)block;
 + (UIButton *)addCommentBtn;
 + (void)requestAddComment:(NSString *)comment imgId:(NSNumber *)imgId groupId:(NSString *)groupId resblock:(addCommentBlock)block;
++ (void)requestAddCommentLike:(NSNumber *)commentId commentLike:(NSNumber *)commentLike commentDislike:(NSNumber *)commentDislike resBlock:(addCommentLikeBlock)block;
 @end

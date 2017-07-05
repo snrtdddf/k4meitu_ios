@@ -129,13 +129,24 @@
     PostMethod_NO_Indicator;
 }
 
-////http://snrtdddf.hopto.org:8080/pic/api.action?method=p.comment.addComment&ip=192.168.1.1&channel=iOS&userId=51ec7791de8160b6be65b8c9cd9108e0&imgComment=nice%20pic%20I_like_it&imgId=1&groupId=2222017970
+
 + (void)addPicGroupComment:(NSString *)comment imgId:(NSNumber *)imgId groupId:(NSString *)groupId success:(Succeed)succeed failed:(Failed)failed{
     NSDictionary *paraDict = @{@"method":@"p.comment.addComment",
                                @"groupId":groupId,
                                @"userId":userID,
                                @"imgId":imgId,
                                @"imgComment":comment,
+                               ParamDictNeed
+                               };
+    PostMethod_NO_Indicator;
+}
+
+
++ (void)addPicGroupCommentLike:(NSNumber *)commentId cmtLike:(NSNumber *)commentLike cmtDislike:(NSNumber *)commentDislike success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.comment.commentLike",
+                               @"commentLike":commentLike,
+                               @"commentDislike":commentDislike,
+                               @"id":commentId,
                                ParamDictNeed
                                };
     PostMethod_NO_Indicator;

@@ -18,12 +18,14 @@
 #import "commonTools.h"
 #import "MJRefresh.h"
 #import "CatZanButton.h"
+#import "NSString+isContainEmoji.h"
+#import "UIButton+enLargedRect.h"
+#import <YYCache.h>
 @interface PicGroupDetailVC () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 @property (strong, nonatomic) UITableView *commentTable;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) PicGroupDetailTitleDetailView *titleDetailView;
 @property (assign, nonatomic) CGFloat photosHeight;
-@property (strong, nonatomic) UITextField *commentTF;
 @property (assign, nonatomic) int maxPage;
 @property (assign, nonatomic) int curPage;
 @property (strong, nonatomic)  PYPhotosView *photosView;
@@ -32,6 +34,8 @@
 @property (strong, nonatomic) UIView *commentBGView;
 @property (strong, nonatomic) UITextField *cmtTF;
 @property (strong, nonatomic) UIView *cmtTFBGView;
+@property (strong, nonatomic) YYCache *cache;
+@property (strong, nonatomic) NSMutableArray *imgUrls;
 
 
 @end
@@ -50,75 +54,134 @@
     [self addTitleWithName:@"套图" wordNun:4];
     self.view.backgroundColor = [UIColor darkGrayColor];
     self.curPage = 0;
-    self.dataArray = [NSMutableArray array];
+    self.dataArray = [[NSMutableArray alloc]init];
+    self.imgUrls = [[NSMutableArray alloc]init];
     self.headerView = [[UIView alloc]init];
-   
+    self.cache = [YYCache cacheWithName:@"PicGroupDetail"];
+    
+    //[self.cache removeAllObjects];
+    
     [self initCommentTable];
-    [self requestData];
     [self addfloatBackButton];
     [self refreshData];
+    
+    
+}
+
+
+- (void)initCommentTable{
+    if (self.commentTable == nil) {
+         self.commentTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT-64) style:UITableViewStylePlain];
+    }
+    self.commentTable.delegate = self;
+    self.commentTable.dataSource = self;
+    [self.commentTable registerNib:[UINib nibWithNibName:@"PicGroupCommentCell" bundle:nil]forCellReuseIdentifier:@"cmtCell"];
+      if ([self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetail%@",self.groupId]]&&[self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetailImgs%@",self.groupId]]) {
+          
+          [self.dataArray removeAllObjects];
+          [self.imgUrls removeAllObjects];
+          
+         self.dataArray = (NSMutableArray *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetail%@",self.groupId]];
+         self.imgUrls = (NSMutableArray *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailImgs%@",self.groupId]];
+          for (NSString *url in self.imgUrls) {
+              NSLog(@"url=%@",url);
+          }
+        self.photosView = [PicGroupDetailRequest imgScrollView:self.imgUrls];
+        [self initHeaderView:self.photosView];
+        [self.commentTable reloadData];
+        [self.dataArray removeAllObjects];
+      }else{
+          [self requestData];
+      }
     
 }
 
 - (void)requestData{
 
+    
+    
     [PicGroupDetailRequest requestData:self.groupId dataBlock:^(NSMutableArray *dataArr,NSNumber *maxPage, NSNumber *commentCount, NSNumber *likeCount) {
         myWeakSelf;
-        NSMutableArray *imgUrls = nil;
-        imgUrls = [[NSMutableArray alloc] init];
+        weakSelf.imgUrls = nil;
+        weakSelf.imgUrls = [[NSMutableArray alloc] init];
         for (PicGroupDetailModel *model in dataArr) {
-            [imgUrls addObject:model.imgUrl];
+            [weakSelf.imgUrls addObject:model.imgUrl];
         }
+        //[weakSelf.cache setObject:weakSelf.imgUrls forKey:[NSString stringWithFormat:@"picGroupDetailImgs%@",weakSelf.groupId]];
         
         //缩略图列表
-        weakSelf.photosView = [PicGroupDetailRequest imgScrollView:imgUrls];
-        
+        weakSelf.photosView = nil;
+        weakSelf.photosView = [PicGroupDetailRequest imgScrollView:weakSelf.imgUrls];
+        [weakSelf initHeaderView:weakSelf.photosView];
         [weakSelf requestCommentData:weakSelf.photosView];
         
     }];
 }
 
+- (void)initHeaderView:(PYPhotosView *)photosView{
+    self.headerView.frame = CGRectMake(0, 0, IPHONE_WIDTH, photosView.frame.size.height+100+SPH(65));
+    self.headerView.backgroundColor = [UIColor darkGrayColor];
+    if (self.titleDetailView == nil) {
+        
+        if ([self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetailCmtCount%@",self.groupId]] && [self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetailLikeCount%@",self.groupId]]) {
+            NSNumber *cmtCount = (NSNumber *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailCmtCount%@",self.groupId]];
+            NSNumber *likeCount = (NSNumber *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailLikeCount%@",self.groupId]];
+            self.titleDetailView = nil;
+            self.titleDetailView = [PicGroupDetailRequest titleDetailView:self.picTitle picCount:self.picCount type:self.type date:self.picDate cmtCount:[cmtCount intValue] likeCount:[likeCount intValue]];
+        }else{
+            
+            self.titleDetailView = [PicGroupDetailRequest titleDetailView:self.picTitle picCount:self.picCount type:self.type date:self.picDate cmtCount:0 likeCount:0];
+        }
+        
+        [self.headerView addSubview:self.titleDetailView];
+    }
+    if (self.commentBGView == nil) {
+        //commentBGView
+        self.commentBGView = [[UIView alloc] initWithFrame:CGRectMake(0, photosView.frame.size.height+100+SPH(25), IPHONE_WIDTH, SPH(40))];
+        self.commentBGView.backgroundColor = S_Light_Gray;
+        self.commentLab = [PicGroupDetailRequest commentLab:CGRectMake(IPHONE_WIDTH*0.05, 0, IPHONE_WIDTH*0.4, SPH(40))];
+        [self.commentBGView addSubview:self.commentLab];
+        
+        //添加“发表评论”按钮
+        self.cmtBtn = [PicGroupDetailRequest addCommentBtn];
+        self.cmtBtn.frame = CGRectMake(IPHONE_WIDTH*0.75, SPH(40)*0.1, IPHONE_WIDTH*0.25, SPH(40)*0.8);
+        [self.cmtBtn addTarget:self action:@selector(cmtBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(IPHONE_WIDTH*0.75-SPH(40)*0.8, SPH(40)*0.1, SPH(40)*0.8, SPH(40)*0.8)];
+        img.image = [UIImage imageNamed:@"writeComment"];
+        [self.commentBGView addSubview:img];
+        [self.commentBGView addSubview:self.cmtBtn];
+        [self.commentBGView bringSubviewToFront:self.cmtBtn];
+        
+        //添加到tableViewHeaderView
+        [self.headerView addSubview:self.commentBGView];
+        [self.headerView addSubview:photosView];
+        self.commentTable.tableHeaderView = self.headerView;
+        
+        //self.view添加tableView
+        [self.view addSubview:self.commentTable];
+        [self.view sendSubviewToBack:self.commentTable];
+        self.photosHeight = photosView.frame.size.height;
+        self.photosHeight = self.photosHeight*0.83;
+    }
+    
+
+}
+
 - (void)requestCommentData:(PYPhotosView *)photosView{
+    
+    
     [PicGroupDetailRequest requestCommentData:self.groupId CurPage:[NSNumber numberWithInt:self.curPage] pcout:@10 dataBlock:^(NSMutableArray *dataArr, NSNumber *maxPage, NSNumber *commentCount, NSNumber *likeCount) {
         myWeakSelf;
-        [weakSelf.dataArray addObjectsFromArray:dataArr];
-        weakSelf.maxPage = [maxPage intValue];
         
-        weakSelf.headerView.frame = CGRectMake(0, 0, IPHONE_WIDTH, photosView.frame.size.height+100+SPH(65));
-        weakSelf.headerView.backgroundColor = [UIColor darkGrayColor];
-        if (weakSelf.titleDetailView == nil) {
-             weakSelf.titleDetailView = [PicGroupDetailRequest titleDetailView:weakSelf.picTitle picCount:weakSelf.picCount type:weakSelf.type date:weakSelf.picDate cmtCount:[commentCount intValue] likeCount:[likeCount intValue]];
-            [weakSelf.headerView addSubview:weakSelf.titleDetailView];
-        }
-        if (weakSelf.commentBGView == nil) {
-            //commentBGView
-            weakSelf.commentBGView = [[UIView alloc] initWithFrame:CGRectMake(0, photosView.frame.size.height+100+SPH(25), IPHONE_WIDTH, SPH(40))];
-            weakSelf.commentBGView.backgroundColor = S_Light_Gray;
-            weakSelf.commentLab = [PicGroupDetailRequest commentLab:CGRectMake(IPHONE_WIDTH*0.05, 0, IPHONE_WIDTH*0.4, SPH(40))];
-            [weakSelf.commentBGView addSubview:weakSelf.commentLab];
-            
-            //添加“发表评论”按钮
-            weakSelf.cmtBtn = [PicGroupDetailRequest addCommentBtn];
-            weakSelf.cmtBtn.frame = CGRectMake(IPHONE_WIDTH*0.75, SPH(40)*0.1, IPHONE_WIDTH*0.25, SPH(40)*0.8);
-            [weakSelf.cmtBtn addTarget:self action:@selector(cmtBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(IPHONE_WIDTH*0.75-SPH(40)*0.8, SPH(40)*0.1, SPH(40)*0.8, SPH(40)*0.8)];
-            img.image = [UIImage imageNamed:@"writeComment"];
-            [weakSelf.commentBGView addSubview:img];
-            [weakSelf.commentBGView addSubview:weakSelf.cmtBtn];
-            [weakSelf.commentBGView bringSubviewToFront:weakSelf.cmtBtn];
-            
-            //添加到tableViewHeaderView
-             [weakSelf.headerView addSubview:weakSelf.commentBGView];
-             [weakSelf.headerView addSubview:photosView];
-            weakSelf.commentTable.tableHeaderView = weakSelf.headerView;
-            
-            //self.view添加tableView
-            [weakSelf.view addSubview:weakSelf.commentTable];
-            [weakSelf.view sendSubviewToBack:weakSelf.commentTable];
-            weakSelf.photosHeight = photosView.frame.size.height;
-            weakSelf.photosHeight = weakSelf.photosHeight*0.83;
-        }
-       
+        [weakSelf.dataArray addObjectsFromArray:dataArr];
+        [weakSelf.cache setObject:commentCount forKey:[NSString stringWithFormat:@"picGroupDetailCmtCount%@",weakSelf.groupId]];
+        [weakSelf.cache setObject:likeCount forKey:[NSString stringWithFormat:@"picGroupDetailLikeCount%@",weakSelf.groupId]];
+        
+        weakSelf.maxPage = [maxPage intValue];
+        //weakSelf.titleDetailView = nil;
+//        weakSelf.titleDetailView = [PicGroupDetailRequest titleDetailView:weakSelf.picTitle picCount:weakSelf.picCount type:weakSelf.type date:weakSelf.picDate cmtCount:[commentCount intValue] likeCount:[likeCount intValue]];
+        weakSelf.titleDetailView.commentCount.text = [NSString stringWithFormat:@"评论(%@)",commentCount];
+        weakSelf.titleDetailView.likeCount.text = [NSString stringWithFormat:@"点赞(%@)",likeCount];
         [weakSelf.commentTable reloadData];
         
     }];
@@ -166,20 +229,31 @@
 }
 
 - (void)commitBtnClick{
-    [PicGroupDetailRequest requestAddComment:self.cmtTF.text imgId:@1 groupId:self.groupId resblock:^(BOOL isSuccess) {
-        myWeakSelf;
-        if (isSuccess) {
-            [weakSelf.cmtTF resignFirstResponder];
-            [weakSelf.cmtTFBGView removeFromSuperview];
-            weakSelf.cmtTFBGView = nil;
-            weakSelf.cmtTF = nil;
-            [commonTools showBriefAlert:@"评论成功"];
-            weakSelf.curPage = 0;
-            [weakSelf.dataArray removeAllObjects];
-            [weakSelf requestData];
-           
+    
+    if (![NSString isContainsEmoji:self.cmtTF.text]) {
+        if (self.cmtTF.text.length <= 150) {
+            [PicGroupDetailRequest requestAddComment:self.cmtTF.text imgId:@1 groupId:self.groupId resblock:^(BOOL isSuccess) {
+                myWeakSelf;
+                if (isSuccess) {
+                    [weakSelf.cmtTF resignFirstResponder];
+                    [weakSelf.cmtTFBGView removeFromSuperview];
+                    weakSelf.cmtTFBGView = nil;
+                    weakSelf.cmtTF = nil;
+                    [commonTools showBriefAlert:@"评论成功"];
+                    weakSelf.curPage = 0;
+                    [weakSelf.dataArray removeAllObjects];
+                    [weakSelf requestData];
+                    weakSelf.titleDetailView.commentCount.text = [NSString stringWithFormat:@"评论(%d)",[[[ weakSelf.titleDetailView.commentCount.text componentsSeparatedByString:@"("][1] componentsSeparatedByString:@")"][0] intValue]+1];
+                    
+                }
+            }];
+        }else{
+            [commonTools showBriefAlert:@"评论字数不能大于150字"];
         }
-    }];
+    }else{
+        [commonTools showBriefAlert:@"评论不能输入表情"];
+    }
+    
 }
 
 #pragma mark ---------------------------END-----------------------------------
@@ -207,16 +281,12 @@
     
 }
 
-- (void)initCommentTable{
-    self.commentTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT-64) style:UITableViewStylePlain];
-    self.commentTable.delegate = self;
-    self.commentTable.dataSource = self;
-    [self.commentTable registerNib:[UINib nibWithNibName:@"PicGroupCommentCell" bundle:nil]forCellReuseIdentifier:@"commentCell"];
-   
-}
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.dataArray.count == 0) {
+        return 0.1;
+    }
     
     PicGroupCommentModel *model = self.dataArray[indexPath.row];
     CGSize labelSize = {0,0};
@@ -232,10 +302,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    static NSString *cellID = @"commentCell";
-    PicGroupCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+
+    PicGroupCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cmtCell"];
     if (cell == nil) {
-        cell = [[PicGroupCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell = [[PicGroupCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cmtCell"];
     }
     if (self.dataArray.count != 0) {
         PicGroupCommentModel *model = self.dataArray[indexPath.row];
@@ -243,12 +313,72 @@
         cell.userName.numberOfLines = 0;
         [cell.userName sizeToFit];
         cell.date.text = model.date;
+        cell.cmtLikeCount.text = [NSString stringWithFormat:@"%d",model.commentLike];
+        cell.cmtDislikeCount.text = [NSString stringWithFormat:@"%d",model.commentDislike];
         cell.commentFloor.text = [NSString stringWithFormat:@"第%ld楼",indexPath.row+1];
         cell.comment.text = model.imgComment;
+        
+        [cell.cmtDislikeBtn addTarget:self action:@selector(cmtDislikeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.cmtDislikeBtn setEnlargEdgeWithTop:10 right:10 bottom:25 left:30];
+        [cell.cmtDislikeBtn setImage:[UIImage imageNamed:model.isSetDiscmtLike?@"dislike_thumb_red":@"dislike_thumb_gray"] forState:UIControlStateNormal];
+        cell.cmtDislikeBtn.tag = 100+indexPath.row;
+        
+        [cell.cmtLikeBtn addTarget:self action:@selector(cmtLikeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.cmtLikeBtn setImage:[UIImage imageNamed:model.isSetCmtLike?@"like_thumb_red":@"like_thumb_gray"] forState:UIControlStateNormal];
+        [cell.cmtLikeBtn setEnlargEdgeWithTop:10 right:10 bottom:25 left:25];
+        cell.cmtLikeBtn.tag = 1000+indexPath.row;
+
+        
     }
 
     return cell;
 }
+
+- (void)cmtDislikeBtnClick:(UIButton *)btn{
+    PicGroupCommentModel *model = self.dataArray[btn.tag-100];
+    model.commentDislike += 1;
+    model.isSetDiscmtLike = YES;
+    model.isSetCmtLike = NO;
+    [self.dataArray replaceObjectAtIndex:btn.tag - 100 withObject:model];
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 100 inSection:0];
+    
+    [PicGroupDetailRequest requestAddCommentLike:[NSNumber numberWithInt:model.commentId] commentLike:@0 commentDislike:@1 resBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            myWeakSelf;
+            [commonTools showBriefAlert:@"踩成功"];
+            [weakSelf.commentTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+        }else{
+        
+        }
+    }];
+    
+}
+- (void)cmtLikeBtnClick:(UIButton *)btn{
+   
+    
+    PicGroupCommentModel *model = self.dataArray[btn.tag-1000];
+    model.commentLike += 1;
+    model.isSetCmtLike = YES;
+    model.isSetDiscmtLike = NO;
+    [self.dataArray replaceObjectAtIndex:btn.tag - 1000 withObject:model];
+   
+   
+    
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 1000 inSection:0];
+    
+    
+    [PicGroupDetailRequest requestAddCommentLike:[NSNumber numberWithInt:model.commentId] commentLike:@1 commentDislike:@0 resBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            myWeakSelf;
+            [commonTools showBriefAlert:@"顶成功"];
+            [weakSelf.commentTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+        }else{
+            
+        }
+    }];
+
+}
+
 - (void)addfloatBackButton{
 
 //    UIButton *backBtn = [PicGroupDetailRequest addBackBtn];
@@ -282,6 +412,11 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    //缓存
+    [self.cache removeObjectForKey:[NSString stringWithFormat:@"picGroupDetail%@",self.groupId]];
+    [self.cache setObject:self.dataArray forKey:[NSString stringWithFormat:@"picGroupDetail%@",self.groupId]];
+}
 
 
 - (void)didReceiveMemoryWarning {

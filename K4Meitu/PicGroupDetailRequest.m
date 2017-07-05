@@ -14,6 +14,7 @@
 #import "GetCurrentTime.h"
 #import "PicGroupCommentModel.h"
 #import "UIButton+enLargedRect.h"
+#import <NSObject+YYModel.h>
 @implementation PicGroupDetailRequest
 
 + (void)requestData:(NSString *)groupId  dataBlock:(DataBlock)block{
@@ -68,9 +69,13 @@
                         model.groupId = dict[@"groupId"];
                         model.userId = dict[@"userId"];
                         model.imgComment = dict[@"imgComment"];
+                        model.commentLike = [dict[@"commentLike"] intValue];
+                        model.commentDislike = [dict[@"commentDislike"] intValue];
                         model.isCmtShow = [dict[@"isCommentShow"] intValue];
                         model.date = [GetCurrentTime GetTimeFromTimeStamp:[NSString stringWithFormat:@"%@",dict[@"date"]] andReturnTimeType:YYYY_MM_DD_and_HH_MM_SS];
                         NSLog(@"date:%@",model.date);
+                        model.isSetCmtLike = NO;
+                        model.isSetDiscmtLike = NO;
                         [dataArr addObject:model];
                     }
                 }
@@ -276,4 +281,22 @@
     }];
 }
 
+
++ (void)requestAddCommentLike:(NSNumber *)commentId commentLike:(NSNumber *)commentLike commentDislike:(NSNumber *)commentDislike resBlock:(addCommentLikeBlock)block{
+    [RequestManager addPicGroupCommentLike:commentId cmtLike:commentLike cmtDislike:commentDislike success:^(NSData *data) {
+        NSDictionary *resDict = myJsonSerialization;
+        if (requestSuccess) {
+            if ([resDict[@"res"][@"success"] boolValue]) {
+                block(YES);
+            }else{
+                block(NO);
+            }
+        }else{
+            [commonTools showBriefAlert:ErrorMsg];
+            block(NO);
+        }
+    } failed:^(NSError *error) {
+        
+    }];
+}
 @end
