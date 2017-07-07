@@ -129,11 +129,9 @@
 }
 
 - (void)backButtonAction:(UIButton *)sender{
-    [NotificationCenter postNotificationName:@"leftbutton" object:nil];
+    //[NotificationCenter postNotificationName:@"leftbutton" object:nil];
     //    [NotificationCenter postNotificationName:@"lastdata" object:nil];
     [self.navigationController popViewControllerAnimated:YES];
-    
-    
 }
 //导航栏右侧按钮
 - (void)addRightButtonWithName:(id)name wordNum:(int)num actionBlock:(void (^)(void))clickedAction{

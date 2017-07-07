@@ -8,6 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		11A902B3A2A97C27CAD7BC51 /* libPods-K4Meitu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C273C1E1AFEEAE3A1B50BE7D /* libPods-K4Meitu.a */; };
+		7D021A391F0E2C54007C6617 /* UIColor+YX.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A321F0E2C54007C6617 /* UIColor+YX.m */; };
+		7D021A3A1F0E2C54007C6617 /* UIView+YX.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A341F0E2C54007C6617 /* UIView+YX.m */; };
+		7D021A3F1F0E2C61007C6617 /* YXViewPagerBaseSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A3C1F0E2C61007C6617 /* YXViewPagerBaseSubViewController.m */; };
+		7D021A401F0E2C61007C6617 /* YXViewPagerBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A3E1F0E2C61007C6617 /* YXViewPagerBaseViewController.m */; };
+		7D021A451F0E2C6A007C6617 /* YXViewPagerTopItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A421F0E2C6A007C6617 /* YXViewPagerTopItemView.m */; };
+		7D021A461F0E2C6A007C6617 /* YXViewPagerTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A441F0E2C6A007C6617 /* YXViewPagerTopView.m */; };
+		7D021A491F0E2C78007C6617 /* YXViewPagerItemViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A481F0E2C78007C6617 /* YXViewPagerItemViewModel.m */; };
+		7D021A4D1F0E34E3007C6617 /* SecPageVC1.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A4C1F0E34E3007C6617 /* SecPageVC1.m */; };
+		7D021A501F0E3518007C6617 /* SecPageVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A4F1F0E3518007C6617 /* SecPageVC2.m */; };
+		7D021A531F0E3525007C6617 /* SecPageVC3.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A521F0E3524007C6617 /* SecPageVC3.m */; };
+		7D021A561F0E3534007C6617 /* SecPageVC4.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A551F0E3534007C6617 /* SecPageVC4.m */; };
+		7D021A591F0E3541007C6617 /* SecPageVC5.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A581F0E3541007C6617 /* SecPageVC5.m */; };
+		7D021A5C1F0E3777007C6617 /* SecPageVC6.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A5B1F0E3777007C6617 /* SecPageVC6.m */; };
 		7D11DCB21F0B97C000713098 /* like_thumb_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB01F0B97C000713098 /* like_thumb_gray@2x.png */; };
 		7D11DCB31F0B97C000713098 /* like_thumb_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB11F0B97C000713098 /* like_thumb_red@2x.png */; };
 		7D11DCB61F0B99AD00713098 /* dislike_thumb_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB41F0B99AD00713098 /* dislike_thumb_gray@2x.png */; };
@@ -113,6 +126,37 @@
 
 /* Begin PBXFileReference section */
 		0A0C1F8BC07ED91D82B56FDB /* Pods-K4Meitu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-K4Meitu.release.xcconfig"; path = "Pods/Target Support Files/Pods-K4Meitu/Pods-K4Meitu.release.xcconfig"; sourceTree = "<group>"; };
+		7D021A301F0E2C48007C6617 /* YXViewPagerEventDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXViewPagerEventDelegate.h; sourceTree = "<group>"; };
+		7D021A311F0E2C54007C6617 /* UIColor+YX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YX.h"; sourceTree = "<group>"; };
+		7D021A321F0E2C54007C6617 /* UIColor+YX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+YX.m"; sourceTree = "<group>"; };
+		7D021A331F0E2C54007C6617 /* UIView+YX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YX.h"; sourceTree = "<group>"; };
+		7D021A341F0E2C54007C6617 /* UIView+YX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YX.m"; sourceTree = "<group>"; };
+		7D021A351F0E2C54007C6617 /* YXViewPagerDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXViewPagerDefine.h; sourceTree = "<group>"; };
+		7D021A361F0E2C54007C6617 /* YXViewPagerUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXViewPagerUtility.h; sourceTree = "<group>"; };
+		7D021A371F0E2C54007C6617 /* YXViewPager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXViewPager.h; sourceTree = "<group>"; };
+		7D021A381F0E2C54007C6617 /* YXViewPager-umbrelia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YXViewPager-umbrelia.h"; sourceTree = "<group>"; };
+		7D021A3B1F0E2C61007C6617 /* YXViewPagerBaseSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXViewPagerBaseSubViewController.h; sourceTree = "<group>"; };
+		7D021A3C1F0E2C61007C6617 /* YXViewPagerBaseSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXViewPagerBaseSubViewController.m; sourceTree = "<group>"; };
+		7D021A3D1F0E2C61007C6617 /* YXViewPagerBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXViewPagerBaseViewController.h; sourceTree = "<group>"; };
+		7D021A3E1F0E2C61007C6617 /* YXViewPagerBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXViewPagerBaseViewController.m; sourceTree = "<group>"; };
+		7D021A411F0E2C6A007C6617 /* YXViewPagerTopItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXViewPagerTopItemView.h; sourceTree = "<group>"; };
+		7D021A421F0E2C6A007C6617 /* YXViewPagerTopItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXViewPagerTopItemView.m; sourceTree = "<group>"; };
+		7D021A431F0E2C6A007C6617 /* YXViewPagerTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXViewPagerTopView.h; sourceTree = "<group>"; };
+		7D021A441F0E2C6A007C6617 /* YXViewPagerTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXViewPagerTopView.m; sourceTree = "<group>"; };
+		7D021A471F0E2C78007C6617 /* YXViewPagerItemViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXViewPagerItemViewModel.h; sourceTree = "<group>"; };
+		7D021A481F0E2C78007C6617 /* YXViewPagerItemViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXViewPagerItemViewModel.m; sourceTree = "<group>"; };
+		7D021A4B1F0E34E3007C6617 /* SecPageVC1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVC1.h; sourceTree = "<group>"; };
+		7D021A4C1F0E34E3007C6617 /* SecPageVC1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC1.m; sourceTree = "<group>"; };
+		7D021A4E1F0E3518007C6617 /* SecPageVC2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVC2.h; sourceTree = "<group>"; };
+		7D021A4F1F0E3518007C6617 /* SecPageVC2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC2.m; sourceTree = "<group>"; };
+		7D021A511F0E3524007C6617 /* SecPageVC3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVC3.h; sourceTree = "<group>"; };
+		7D021A521F0E3524007C6617 /* SecPageVC3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC3.m; sourceTree = "<group>"; };
+		7D021A541F0E3534007C6617 /* SecPageVC4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVC4.h; sourceTree = "<group>"; };
+		7D021A551F0E3534007C6617 /* SecPageVC4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC4.m; sourceTree = "<group>"; };
+		7D021A571F0E3541007C6617 /* SecPageVC5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVC5.h; sourceTree = "<group>"; };
+		7D021A581F0E3541007C6617 /* SecPageVC5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC5.m; sourceTree = "<group>"; };
+		7D021A5A1F0E3777007C6617 /* SecPageVC6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVC6.h; sourceTree = "<group>"; };
+		7D021A5B1F0E3777007C6617 /* SecPageVC6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC6.m; sourceTree = "<group>"; };
 		7D11DCB01F0B97C000713098 /* like_thumb_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like_thumb_gray@2x.png"; sourceTree = "<group>"; };
 		7D11DCB11F0B97C000713098 /* like_thumb_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like_thumb_red@2x.png"; sourceTree = "<group>"; };
 		7D11DCB41F0B99AD00713098 /* dislike_thumb_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike_thumb_gray@2x.png"; sourceTree = "<group>"; };
@@ -288,6 +332,166 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7D021A201F0E2B02007C6617 /* 首页 */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A241F0E2B23007C6617 /* Tools */,
+				7D021A231F0E2B1C007C6617 /* Controller */,
+				7D021A221F0E2B17007C6617 /* View */,
+				7D021A211F0E2B0F007C6617 /* Model */,
+			);
+			name = "首页";
+			sourceTree = "<group>";
+		};
+		7D021A211F0E2B0F007C6617 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7D021A221F0E2B17007C6617 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		7D021A231F0E2B1C007C6617 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		7D021A241F0E2B23007C6617 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A2B1F0E2B89007C6617 /* SubviewController */,
+				7D021A2C1F0E2B93007C6617 /* Subview */,
+				7D021A251F0E2B46007C6617 /* XYDemo */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
+		7D021A251F0E2B46007C6617 /* XYDemo */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A2A1F0E2B73007C6617 /* Model */,
+				7D021A291F0E2B6E007C6617 /* View */,
+				7D021A281F0E2B66007C6617 /* ViewController */,
+				7D021A271F0E2B5D007C6617 /* Utility */,
+				7D021A261F0E2B54007C6617 /* Delegate */,
+			);
+			name = XYDemo;
+			sourceTree = "<group>";
+		};
+		7D021A261F0E2B54007C6617 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A301F0E2C48007C6617 /* YXViewPagerEventDelegate.h */,
+			);
+			name = Delegate;
+			sourceTree = "<group>";
+		};
+		7D021A271F0E2B5D007C6617 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A311F0E2C54007C6617 /* UIColor+YX.h */,
+				7D021A321F0E2C54007C6617 /* UIColor+YX.m */,
+				7D021A331F0E2C54007C6617 /* UIView+YX.h */,
+				7D021A341F0E2C54007C6617 /* UIView+YX.m */,
+				7D021A351F0E2C54007C6617 /* YXViewPagerDefine.h */,
+				7D021A361F0E2C54007C6617 /* YXViewPagerUtility.h */,
+				7D021A371F0E2C54007C6617 /* YXViewPager.h */,
+				7D021A381F0E2C54007C6617 /* YXViewPager-umbrelia.h */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		7D021A281F0E2B66007C6617 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A3B1F0E2C61007C6617 /* YXViewPagerBaseSubViewController.h */,
+				7D021A3C1F0E2C61007C6617 /* YXViewPagerBaseSubViewController.m */,
+				7D021A3D1F0E2C61007C6617 /* YXViewPagerBaseViewController.h */,
+				7D021A3E1F0E2C61007C6617 /* YXViewPagerBaseViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		7D021A291F0E2B6E007C6617 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A411F0E2C6A007C6617 /* YXViewPagerTopItemView.h */,
+				7D021A421F0E2C6A007C6617 /* YXViewPagerTopItemView.m */,
+				7D021A431F0E2C6A007C6617 /* YXViewPagerTopView.h */,
+				7D021A441F0E2C6A007C6617 /* YXViewPagerTopView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		7D021A2A1F0E2B73007C6617 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A471F0E2C78007C6617 /* YXViewPagerItemViewModel.h */,
+				7D021A481F0E2C78007C6617 /* YXViewPagerItemViewModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7D021A2B1F0E2B89007C6617 /* SubviewController */ = {
+			isa = PBXGroup;
+			children = (
+				7DA206441EF4DB9D00AA4056 /* SecondViewController.h */,
+				7DA206451EF4DB9D00AA4056 /* SecondViewController.m */,
+			);
+			name = SubviewController;
+			sourceTree = "<group>";
+		};
+		7D021A2C1F0E2B93007C6617 /* Subview */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A2F1F0E2BD9007C6617 /* Controller */,
+				7D021A2E1F0E2BD3007C6617 /* View */,
+				7D021A2D1F0E2BC8007C6617 /* Model */,
+			);
+			name = Subview;
+			sourceTree = "<group>";
+		};
+		7D021A2D1F0E2BC8007C6617 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7D021A2E1F0E2BD3007C6617 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		7D021A2F1F0E2BD9007C6617 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A4B1F0E34E3007C6617 /* SecPageVC1.h */,
+				7D021A4C1F0E34E3007C6617 /* SecPageVC1.m */,
+				7D021A4E1F0E3518007C6617 /* SecPageVC2.h */,
+				7D021A4F1F0E3518007C6617 /* SecPageVC2.m */,
+				7D021A511F0E3524007C6617 /* SecPageVC3.h */,
+				7D021A521F0E3524007C6617 /* SecPageVC3.m */,
+				7D021A541F0E3534007C6617 /* SecPageVC4.h */,
+				7D021A551F0E3534007C6617 /* SecPageVC4.m */,
+				7D021A571F0E3541007C6617 /* SecPageVC5.h */,
+				7D021A581F0E3541007C6617 /* SecPageVC5.m */,
+				7D021A5A1F0E3777007C6617 /* SecPageVC6.h */,
+				7D021A5B1F0E3777007C6617 /* SecPageVC6.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		7DA205DE1EF4D76D00AA4056 /* MBManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -402,8 +606,7 @@
 		7DA2063E1EF4DA5900AA4056 /* 第二页 */ = {
 			isa = PBXGroup;
 			children = (
-				7DA206441EF4DB9D00AA4056 /* SecondViewController.h */,
-				7DA206451EF4DB9D00AA4056 /* SecondViewController.m */,
+				7D021A201F0E2B02007C6617 /* 首页 */,
 			);
 			name = "第二页";
 			sourceTree = "<group>";
@@ -934,16 +1137,24 @@
 				7DA205E11EF4D76D00AA4056 /* MBManager.m in Sources */,
 				7DA206B61EFA51EE00AA4056 /* PicGroupDetailRequest.m in Sources */,
 				7DA2068B1EF8C55D00AA4056 /* mainPageRequest.m in Sources */,
+				7D021A3A1F0E2C54007C6617 /* UIView+YX.m in Sources */,
 				7DA206B31EFA48BC00AA4056 /* PicGroupDetailVC.m in Sources */,
+				7D021A591F0E3541007C6617 /* SecPageVC5.m in Sources */,
 				7DA206041EF4D8DD00AA4056 /* NSArray+Log.m in Sources */,
+				7D021A391F0E2C54007C6617 /* UIColor+YX.m in Sources */,
+				7D021A451F0E2C6A007C6617 /* YXViewPagerTopItemView.m in Sources */,
 				7DA2062A1EF4D92D00AA4056 /* VersionedImage.m in Sources */,
 				7DA206071EF4D8DD00AA4056 /* CALayer+Transition.m in Sources */,
 				7DA2061A1EF4D90700AA4056 /* CocoaSecurity.m in Sources */,
 				7DA2062F1EF4D99800AA4056 /* BaseViewController.m in Sources */,
 				7DA206491EF4DBA700AA4056 /* ThirdViewController.m in Sources */,
 				7DA206DD1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m in Sources */,
+				7D021A5C1F0E3777007C6617 /* SecPageVC6.m in Sources */,
+				7D021A491F0E2C78007C6617 /* YXViewPagerItemViewModel.m in Sources */,
 				7DA2060F1EF4D8DD00AA4056 /* NSString+fontSizeValue.m in Sources */,
 				7DA2060E1EF4D8DD00AA4056 /* UIView+Line.m in Sources */,
+				7D021A501F0E3518007C6617 /* SecPageVC2.m in Sources */,
+				7D021A401F0E2C61007C6617 /* YXViewPagerBaseViewController.m in Sources */,
 				7DA206341EF4D9DA00AA4056 /* GetIPAddress.m in Sources */,
 				7DDDF4541EF4CE8400830CA8 /* ViewController.m in Sources */,
 				7DDDF4511EF4CE8400830CA8 /* AppDelegate.m in Sources */,
@@ -952,8 +1163,10 @@
 				7DA206C91EFBA6A600AA4056 /* PicGroupCommentCell.m in Sources */,
 				7DA206B91EFA56F400AA4056 /* PicGroupDetailModel.m in Sources */,
 				7DA206121EF4D8FD00AA4056 /* Header.m in Sources */,
+				7D021A531F0E3525007C6617 /* SecPageVC3.m in Sources */,
 				7DA206081EF4D8DD00AA4056 /* UIDevice+DeviceModel.m in Sources */,
 				7DA205E51EF4D79100AA4056 /* SPUncaughtExceptionHandler.m in Sources */,
+				7D021A561F0E3534007C6617 /* SecPageVC4.m in Sources */,
 				7DA2060B1EF4D8DD00AA4056 /* UIButton+enLargedRect.m in Sources */,
 				7DA2061E1EF4D91400AA4056 /* commonTools.m in Sources */,
 				7DA2060C1EF4D8DD00AA4056 /* UIButton+nextBtn.m in Sources */,
@@ -965,14 +1178,17 @@
 				7DDDF44E1EF4CE8400830CA8 /* main.m in Sources */,
 				7DA206E21F0250CA00AA4056 /* PicGroupCMTTextFieldView.m in Sources */,
 				7DA206431EF4DB8000AA4056 /* MainViewController.m in Sources */,
+				7D021A461F0E2C6A007C6617 /* YXViewPagerTopView.m in Sources */,
 				7DA2064C1EF4DBB100AA4056 /* FourthViewController.m in Sources */,
 				7DA206191EF4D90700AA4056 /* Base64.m in Sources */,
 				7DA2063C1EF4DA1800AA4056 /* Connection.m in Sources */,
 				7DA206CD1EFCA23900AA4056 /* PicGroupDetailTitleView.m in Sources */,
 				7DD3A0751F0738CE00882271 /* CatZanButton.m in Sources */,
+				7D021A3F1F0E2C61007C6617 /* YXViewPagerBaseSubViewController.m in Sources */,
 				7DA2061B1EF4D90700AA4056 /* SecureData.m in Sources */,
 				7DA206281EF4D92D00AA4056 /* TabBar.m in Sources */,
 				7DA2067B1EF5206F00AA4056 /* RequestManager.m in Sources */,
+				7D021A4D1F0E34E3007C6617 /* SecPageVC1.m in Sources */,
 				7DA206461EF4DB9D00AA4056 /* SecondViewController.m in Sources */,
 				7DA206051EF4D8DD00AA4056 /* NSString+ASCIILength.m in Sources */,
 				7DA206291EF4D92D00AA4056 /* UpDownButton.m in Sources */,

@@ -18,6 +18,7 @@
 #import "mainPageRequest.h"
 #import "MainPicGroupCell.h"
 #import "PicGroupDetailVC.h"
+
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *picTable;
@@ -30,23 +31,19 @@
 @implementation MainViewController
 
 - (void)viewWillAppear:(BOOL)animated{
-    NSArray *views = self.navigationController.navigationBar.subviews;
-    for (UIView *view in views) {
-        if (view.tag == 1001) {
-            [view setHidden:NO];
-            break;
-        }
-    }
+    [super viewWillAppear:animated];
     UINavigationController *nav = (UINavigationController*)[UIApplication sharedApplication].keyWindow.rootViewController;
-    //  时间紧，自己百度看为什么
+
     MainTabBarViewController *mainTabBarVC = (MainTabBarViewController*)(nav.childViewControllers[0]);
     NSArray *array = mainTabBarVC.tabBar.subviews;
     for (UIView *view in array) {
         if ([view isKindOfClass:NSClassFromString(@"UITabBarButton")]) {
             [view removeFromSuperview];
-            
         }
     }
+    array = nil;
+    mainTabBarVC = nil;
+    nav = nil;
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.barTintColor = Black_COLOR;
 }
@@ -54,7 +51,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addStatusBlackBackground];
-    self.dataArr = [NSMutableArray array];
+    
+    
     self.curPage = 0;
    
     [self picTableInit];
@@ -88,19 +86,25 @@
 }
 
 - (void)picTableInit{
-    self.picTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT-SPH(74)) style:UITableViewStylePlain];;
+    if (self.picTable == nil) {
+        self.picTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT-SPH(74)) style:UITableViewStylePlain];
+    }
     self.picTable.delegate = self;
     self.picTable.dataSource = self;
     self.picTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.picTable registerNib:[UINib nibWithNibName:@"MainPicGroupCell" bundle:nil] forCellReuseIdentifier:@"picGroupCell"];
     [self.view addSubview:self.picTable];
+    
+    if (self.dataArray == nil) {
+        self.dataArr = [[NSMutableArray alloc] init];
+    }
 
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MainPagePicModel *model = self.dataArr[indexPath.row];
-    NSLog(@"cell_height:%lf",IPHONE_WIDTH * model.imgCoverHeight/model.imgCoverWidth);
+    
     return self.dataArr.count==0?0.01:IPHONE_WIDTH * model.imgCoverHeight/model.imgCoverWidth;
     
 }
@@ -115,7 +119,7 @@
     
     MainPicGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"picGroupCell"];
     if (cell == nil) {
-        cell = [[MainPicGroupCell alloc] init];
+        cell = [[MainPicGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"picGroupCell"];
     }
     
     
@@ -124,12 +128,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MainPagePicModel *model = self.dataArr[indexPath.row];
+  
+   
     PicGroupDetailVC *vc = [[PicGroupDetailVC alloc] init];
-    vc.groupId = model.groupId;
-    vc.picCount = model.count;
-    vc.picTitle = model.title;
-    vc.type = model.type;
-    vc.picDate = model.date;
+    
+    [vc setGroupId:model.groupId];
+    [vc setPicCount:model.count];
+    [vc setPicTitle:model.title];
+    [vc setType:model.type];
+    [vc setPicDate:model.date];
     
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -173,6 +180,7 @@
         
     }];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

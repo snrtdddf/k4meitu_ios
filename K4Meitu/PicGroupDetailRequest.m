@@ -106,7 +106,8 @@
 + (PYPhotosView *)imgScrollView:(NSMutableArray *)imgUrls{
     
     // 2.1 创建一个流水布局photosView(默认为流水布局)
-    PYPhotosView *flowPhotosView = [PYPhotosView photosView];
+    PYPhotosView *flowPhotosView = nil;
+    flowPhotosView = [PYPhotosView photosView];
     //flowPhotosView.frame = CGRectMake(0, 40, IPHONE_WIDTH, IPHONE_HEIGHT);
     // 设置缩略图数组
     flowPhotosView.thumbnailUrls = imgUrls;
