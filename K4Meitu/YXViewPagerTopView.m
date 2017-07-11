@@ -10,7 +10,7 @@
 #import "YXViewPagerUtility.h"
 #import "YXViewpagerItemViewModel.h"
 #import "YXViewPagerTopItemView.h"
-
+#import "Header.h"
 @interface YXViewPagerTopView()<UIScrollViewDelegate,YXViewPagerTopItemViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *tabViews;
@@ -40,7 +40,7 @@
 }
 
 - (void)initTabScroller{
-    _tabScroller = [[UIScrollView alloc] initWithFrame:self.bounds];
+    _tabScroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
     _tabScroller.showsHorizontalScrollIndicator = NO;
     _tabScroller.backgroundColor = [UIColor clearColor];
     _tabScroller.bounces = NO;

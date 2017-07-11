@@ -9,6 +9,7 @@
 #import "SecondViewController.h"
 #import "Header.h"
 #import "MainTabBarViewController.h"
+#import "secPagePicGroupTypeVC.h"
 @interface SecondViewController ()
 
 @end
@@ -35,73 +36,16 @@
     [self addStatusBlackBackground];
     self.view.backgroundColor = S_Light_Gray;
     
-    [self renderUI];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(100, 100, 100, 100);
+    btn.backgroundColor = [UIColor lightGrayColor];
+    [btn addTarget:self action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+}
+- (void)btnclick{
+    [self.navigationController pushViewController:[[secPagePicGroupTypeVC alloc] init] animated:YES];
 }
 
-- (NSDictionary *)getPageConfigInfo{
-    NSDictionary *configInfo = @{
-                                 @"topViewBgColor":@"#FFFFFF",
-                                 @"maskColor":@"#FEEDB1",
-                                 @"type":@1,
-                                 @"itemWidth":@60,
-                                 @"dataArray":@[@{
-                                                    @"itemType":@2,
-                                                    @"title":@"推荐",
-                                                    @"normalTitleColor":@"#666666",
-                                                    @"selectTitleColor":@"#3d3d3d",
-                                                    @"normalIconName":@"home_unselect",
-                                                    @"selectIconName":@"home_select",
-                                                    @"vcName":@"SecPageVC1"
-                                                    },
-                                                @{
-                                                    @"itemType":@2,
-                                                    @"title":@"旅行机票",
-                                                    @"normalTitleColor":@"#666666",
-                                                    @"selectTitleColor":@"#3d3d3d",
-                                                    @"normalIconName":@"flight_unselect",
-                                                    @"selectIconName":@"flight_select",
-                                                    @"vcName":@"SecPageVC2"
-                                                    },
-                                                @{
-                                                    @"itemType":@2,
-                                                    @"title":@"签证",
-                                                    @"normalTitleColor":@"#666666",
-                                                    @"selectTitleColor":@"#3d3d3d",
-                                                    @"normalIconName":@"visa_unselect",
-                                                    @"selectIconName":@"visa_select",
-                                                    @"vcName":@"SecPageVC3"
-                                                    },
-                                                @{
-                                                    @"itemType":@2,
-                                                    @"title":@"酒店",
-                                                    @"normalTitleColor":@"#666666",
-                                                    @"selectTitleColor":@"#3d3d3d",
-                                                    @"normalIconName":@"hotel_unselect",
-                                                    @"selectIconName":@"hotel_select",
-                                                    @"vcName":@"SecPageVC4"
-                                                    },
-                                                @{
-                                                    @"itemType":@2,
-                                                    @"title":@"租车包车",
-                                                    @"normalTitleColor":@"#666666",
-                                                    @"selectTitleColor":@"#3d3d3d",
-                                                    @"normalIconName":@"car_unselect",
-                                                    @"selectIconName":@"car_select",
-                                                    @"vcName":@"SecPageVC5"
-                                                    },
-                                                @{
-                                                    @"itemType":@2,
-                                                    @"title":@"哈哈",
-                                                    @"normalTitleColor":@"#666666",
-                                                    @"selectTitleColor":@"#3d3d3d",
-                                                    @"normalIconName":@"car_unselect",
-                                                    @"selectIconName":@"car_select",
-                                                    @"vcName":@"SecPageVC6"
-                                                    }
-                                                ]
-                                 };
-    return configInfo;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -12,7 +12,7 @@
 //*******************************网络请求相关宏**********************
 //网络请求 上传图片的地址也要换
 
-#define URLPrefix @"http://snrtdddf.hopto.org:8080/pic/api.action?"
+#define URLPrefix @"http://14.103.207.146:8080/pic/api.action?"
 
 
 //渠道编号

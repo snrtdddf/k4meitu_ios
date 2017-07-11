@@ -21,6 +21,7 @@
 		7D021A561F0E3534007C6617 /* SecPageVC4.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A551F0E3534007C6617 /* SecPageVC4.m */; };
 		7D021A591F0E3541007C6617 /* SecPageVC5.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A581F0E3541007C6617 /* SecPageVC5.m */; };
 		7D021A5C1F0E3777007C6617 /* SecPageVC6.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A5B1F0E3777007C6617 /* SecPageVC6.m */; };
+		7D07239F1F13A5D300A9931D /* secPagePicGroupTypeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07239E1F13A5D300A9931D /* secPagePicGroupTypeVC.m */; };
 		7D11DCB21F0B97C000713098 /* like_thumb_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB01F0B97C000713098 /* like_thumb_gray@2x.png */; };
 		7D11DCB31F0B97C000713098 /* like_thumb_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB11F0B97C000713098 /* like_thumb_red@2x.png */; };
 		7D11DCB61F0B99AD00713098 /* dislike_thumb_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB41F0B99AD00713098 /* dislike_thumb_gray@2x.png */; };
@@ -157,6 +158,8 @@
 		7D021A581F0E3541007C6617 /* SecPageVC5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC5.m; sourceTree = "<group>"; };
 		7D021A5A1F0E3777007C6617 /* SecPageVC6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVC6.h; sourceTree = "<group>"; };
 		7D021A5B1F0E3777007C6617 /* SecPageVC6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC6.m; sourceTree = "<group>"; };
+		7D07239D1F13A5D300A9931D /* secPagePicGroupTypeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secPagePicGroupTypeVC.h; sourceTree = "<group>"; };
+		7D07239E1F13A5D300A9931D /* secPagePicGroupTypeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secPagePicGroupTypeVC.m; sourceTree = "<group>"; };
 		7D11DCB01F0B97C000713098 /* like_thumb_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like_thumb_gray@2x.png"; sourceTree = "<group>"; };
 		7D11DCB11F0B97C000713098 /* like_thumb_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like_thumb_red@2x.png"; sourceTree = "<group>"; };
 		7D11DCB41F0B99AD00713098 /* dislike_thumb_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike_thumb_gray@2x.png"; sourceTree = "<group>"; };
@@ -445,6 +448,8 @@
 			children = (
 				7DA206441EF4DB9D00AA4056 /* SecondViewController.h */,
 				7DA206451EF4DB9D00AA4056 /* SecondViewController.m */,
+				7D07239D1F13A5D300A9931D /* secPagePicGroupTypeVC.h */,
+				7D07239E1F13A5D300A9931D /* secPagePicGroupTypeVC.m */,
 			);
 			name = SubviewController;
 			sourceTree = "<group>";
@@ -1174,6 +1179,7 @@
 				7DA206781EF5085C00AA4056 /* LoadingViewController.m in Sources */,
 				7DA206301EF4D99800AA4056 /* NSString+isContainEmoji.m in Sources */,
 				7DA206D91F00A1B000AA4056 /* MainPicGroupCell.m in Sources */,
+				7D07239F1F13A5D300A9931D /* secPagePicGroupTypeVC.m in Sources */,
 				7DA2060D1EF4D8DD00AA4056 /* UILabel+LineSpace.m in Sources */,
 				7DDDF44E1EF4CE8400830CA8 /* main.m in Sources */,
 				7DA206E21F0250CA00AA4056 /* PicGroupCMTTextFieldView.m in Sources */,
@@ -1317,12 +1323,14 @@
 			baseConfigurationReference = AE948F3247EA1E39FA33B34B /* Pods-K4Meitu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 99J8MD5BPV;
 				INFOPLIST_FILE = K4Meitu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = YangLei.K4Meitu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1332,12 +1340,15 @@
 			baseConfigurationReference = 0A0C1F8BC07ED91D82B56FDB /* Pods-K4Meitu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 99J8MD5BPV;
 				INFOPLIST_FILE = K4Meitu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = YangLei.K4Meitu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -21,6 +21,7 @@
 #import "NSString+isContainEmoji.h"
 #import "UIButton+enLargedRect.h"
 #import <YYCache.h>
+#import <YYDiskCache.h>
 @interface PicGroupDetailVC () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 @property (strong, nonatomic) UITableView *commentTable;
 @property (strong, nonatomic) UIView *headerView;
@@ -28,14 +29,16 @@
 @property (assign, nonatomic) CGFloat photosHeight;
 @property (assign, nonatomic) int maxPage;
 @property (assign, nonatomic) int curPage;
+@property (assign, nonatomic) int likeCount;
 @property (strong, nonatomic)  PYPhotosView *photosView;
 @property (strong, nonatomic) UILabel *commentLab;
 @property (strong, nonatomic) UIButton *cmtBtn;
 @property (strong, nonatomic) UIView *commentBGView;
 @property (strong, nonatomic) UITextField *cmtTF;
 @property (strong, nonatomic) UIView *cmtTFBGView;
-@property (strong, nonatomic) YYCache *cache;
+@property (strong, nonatomic) YYDiskCache *cache;
 @property (strong, nonatomic) NSMutableArray *imgUrls;
+@property (strong, nonatomic) NSNumber *isLike; //设置成number类型，便于缓存
 
 
 @end
@@ -54,7 +57,7 @@
     [self addTitleWithName:@"套图" wordNun:4];
     self.view.backgroundColor = [UIColor darkGrayColor];
     self.curPage = 0;
-    
+    self.isLike = @1;
     
     //[self.cache removeAllObjects];
     [self initArray];
@@ -76,7 +79,10 @@
         self.headerView = [[UIView alloc]init];
     }
     if (self.cache == nil) {
-        self.cache = [YYCache cacheWithName:@"PicGroupDetail"];
+        self.cache = [YYCache cacheWithName:@"PicGroupDetail"].diskCache;
+        self.cache.ageLimit = 1*24*60*60;
+        self.cache.costLimit = 100556768;
+        
     }
 }
 
@@ -137,10 +143,10 @@
     self.headerView.backgroundColor = [UIColor darkGrayColor];
     if (self.titleDetailView == nil) {
         
-        if ([self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetailCmtCount%@",self.groupId]] && [self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetailLikeCount%@",self.groupId]]) {
+        if ([self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetailCmtCount%@",self.groupId]] &&
+            [self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetailLikeCount%@",self.groupId]]) {
             NSNumber *cmtCount = (NSNumber *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailCmtCount%@",self.groupId]];
             NSNumber *likeCount = (NSNumber *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailLikeCount%@",self.groupId]];
-            self.titleDetailView = nil;
             self.titleDetailView = [PicGroupDetailRequest titleDetailView:self.picTitle picCount:self.picCount type:self.type date:self.picDate cmtCount:[cmtCount intValue] likeCount:[likeCount intValue]];
             [self.headerView addSubview:self.titleDetailView];
         }else{
@@ -214,6 +220,7 @@
 //        weakSelf.titleDetailView = [PicGroupDetailRequest titleDetailView:weakSelf.picTitle picCount:weakSelf.picCount type:weakSelf.type date:weakSelf.picDate cmtCount:[commentCount intValue] likeCount:[likeCount intValue]];
         weakSelf.titleDetailView.commentCount.text = [NSString stringWithFormat:@"评论(%@)",commentCount];
         weakSelf.titleDetailView.likeCount.text = [NSString stringWithFormat:@"点赞(%@)",likeCount];
+        weakSelf.likeCount = [likeCount intValue];
         [weakSelf.commentTable reloadData];
         
     }];
@@ -456,39 +463,60 @@
 
 - (void)addfloatBackButton{
 
-//    UIButton *backBtn = [PicGroupDetailRequest addBackBtn];
-//    [backBtn addTarget:self action:@selector(backBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:backBtn];
-//    [self.view bringSubviewToFront:backBtn];
+    //初始化赞btn
+    CatZanButton *zanBtn = nil;
+    zanBtn =[[CatZanButton alloc] init];
+    zanBtn.frame =  CGRectMake(IPHONE_WIDTH*0.8, IPHONE_HEIGHT*0.70, SPW(50), SPW(50));
+    if (IPHONE_WIDTH>540) {
+        zanBtn.frame =  CGRectMake(IPHONE_WIDTH*0.85, IPHONE_HEIGHT*0.75, SPW(30), SPW(30));
+    }
+    [self.view addSubview:zanBtn];
     
-    [PicGroupDetailRequest requestIsLikeExistGroupID:self.groupId isLike:^(BOOL isLike) {
-        CatZanButton *zanBtn = nil;
-        
-       zanBtn =[[CatZanButton alloc] init];
-        zanBtn.frame =  CGRectMake(IPHONE_WIDTH*0.8, IPHONE_HEIGHT*0.70, SPW(50), SPW(50));
-        if (IPHONE_WIDTH>540) {
-            zanBtn.frame =  CGRectMake(IPHONE_WIDTH*0.85, IPHONE_HEIGHT*0.75, SPW(30), SPW(30));
-        }
-        [self.view addSubview:zanBtn];
-
-        if (isLike) {
+    //判断缓存里是否存有点赞的状态
+    if ([self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetailIsLike%@",self.groupId]]) {
+        NSNumber *isLike = (NSNumber *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailIsLike%@",self.groupId]];
+        if ([isLike isEqualToNumber:@1]) {
             [zanBtn setIsZan:YES];
             zanBtn.enabled = NO;
         }else{
-            [zanBtn setType:CatZanButtonTypeFirework];
-            
-            [zanBtn setClickHandler:^(CatZanButton *zanButton) {
-                myWeakSelf;
-                if (zanButton.isZan) {
-                    [PicGroupDetailRequest requestLikeData:weakSelf.groupId titleDetailView:weakSelf.titleDetailView];
-                }
-            }];
+            [zanBtn setIsZan:NO];
+            zanBtn.enabled = YES;
+            [self zanBtnHandler:zanBtn];
         }
-    }];
-    
-    
+    } else {
+        [PicGroupDetailRequest requestIsLikeExistGroupID:self.groupId isLike:^(BOOL isLike) {
+            myWeakSelf;
+            
+            
+            if (isLike) {
+                [zanBtn setIsZan:YES];
+                zanBtn.enabled = NO;
+                [weakSelf.cache setObject:@1 forKey:[NSString stringWithFormat:@"picGroupDetailIsLike%@",weakSelf.groupId]];
+            }else{
+                [weakSelf.cache setObject:@0 forKey:[NSString stringWithFormat:@"picGroupDetailIsLike%@",weakSelf.groupId]];
+                [zanBtn setType:CatZanButtonTypeFirework];
+                [weakSelf zanBtnHandler:zanBtn];
+            }
+        }];
+
+    }
 }
 
+- (void)zanBtnHandler:(CatZanButton *)zanBtn{
+    [zanBtn setClickHandler:^(CatZanButton *zanButton) {
+        myWeakSelf;
+        if (zanButton.isZan) {
+            //缓存赞的个数
+            weakSelf.likeCount++;
+            [weakSelf.cache setObject:[NSNumber numberWithInt:weakSelf.likeCount] forKey:[NSString stringWithFormat:@"picGroupDetailLikeCount%@",weakSelf.groupId]];
+            //缓存已经点赞的状态
+            [weakSelf.cache setObject:@1 forKey:[NSString stringWithFormat:@"picGroupDetailIsLike%@",weakSelf.groupId]];
+            //同步到服务器
+            [PicGroupDetailRequest requestLikeData:weakSelf.groupId titleDetailView:weakSelf.titleDetailView];
+        }
+    }];
+
+}
 
 
 - (void)didReceiveMemoryWarning {
