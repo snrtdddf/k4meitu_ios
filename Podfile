@@ -12,6 +12,7 @@ pod 'DACircularProgress', '2.3.1'
 pod 'PYPhotoBrowser', '1.5.0'
 pod 'DateTools'
 pod 'YYKit'
+pod 'SDCycleScrollView','~> 1.66'
 end
 target 'K4Meitu' do
   pods

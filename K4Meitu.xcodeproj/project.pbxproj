@@ -26,6 +26,8 @@
 		7D11DCB31F0B97C000713098 /* like_thumb_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB11F0B97C000713098 /* like_thumb_red@2x.png */; };
 		7D11DCB61F0B99AD00713098 /* dislike_thumb_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB41F0B99AD00713098 /* dislike_thumb_gray@2x.png */; };
 		7D11DCB71F0B99AD00713098 /* dislike_thumb_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB51F0B99AD00713098 /* dislike_thumb_red@2x.png */; };
+		7D64A1851F14BC2E00A6E650 /* funcBtnListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D64A1841F14BC2E00A6E650 /* funcBtnListView.m */; };
+		7D64A1881F14BDC400A6E650 /* funcBtnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D64A1871F14BDC400A6E650 /* funcBtnModel.m */; };
 		7D665F621F034C5B007414DD /* commentLike@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D665F601F034C5B007414DD /* commentLike@2x.png */; };
 		7D665F631F034C5B007414DD /* commentLike@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D665F611F034C5B007414DD /* commentLike@3x.png */; };
 		7D665F661F034C69007414DD /* like_thumb_pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D665F641F034C69007414DD /* like_thumb_pink.png */; };
@@ -165,6 +167,10 @@
 		7D11DCB41F0B99AD00713098 /* dislike_thumb_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike_thumb_gray@2x.png"; sourceTree = "<group>"; };
 		7D11DCB51F0B99AD00713098 /* dislike_thumb_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike_thumb_red@2x.png"; sourceTree = "<group>"; };
 		7D11DCBF1F0CD70B00713098 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		7D64A1831F14BC2E00A6E650 /* funcBtnListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = funcBtnListView.h; sourceTree = "<group>"; };
+		7D64A1841F14BC2E00A6E650 /* funcBtnListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = funcBtnListView.m; sourceTree = "<group>"; };
+		7D64A1861F14BDC400A6E650 /* funcBtnModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = funcBtnModel.h; sourceTree = "<group>"; };
+		7D64A1871F14BDC400A6E650 /* funcBtnModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = funcBtnModel.m; sourceTree = "<group>"; };
 		7D665F601F034C5B007414DD /* commentLike@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commentLike@2x.png"; sourceTree = "<group>"; };
 		7D665F611F034C5B007414DD /* commentLike@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commentLike@3x.png"; sourceTree = "<group>"; };
 		7D665F641F034C69007414DD /* like_thumb_pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like_thumb_pink.png; sourceTree = "<group>"; };
@@ -349,6 +355,8 @@
 		7D021A211F0E2B0F007C6617 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7D64A1861F14BDC400A6E650 /* funcBtnModel.h */,
+				7D64A1871F14BDC400A6E650 /* funcBtnModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -356,6 +364,8 @@
 		7D021A221F0E2B17007C6617 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7D64A1831F14BC2E00A6E650 /* funcBtnListView.h */,
+				7D64A1841F14BC2E00A6E650 /* funcBtnListView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -363,6 +373,8 @@
 		7D021A231F0E2B1C007C6617 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7DA206441EF4DB9D00AA4056 /* SecondViewController.h */,
+				7DA206451EF4DB9D00AA4056 /* SecondViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -446,8 +458,6 @@
 		7D021A2B1F0E2B89007C6617 /* SubviewController */ = {
 			isa = PBXGroup;
 			children = (
-				7DA206441EF4DB9D00AA4056 /* SecondViewController.h */,
-				7DA206451EF4DB9D00AA4056 /* SecondViewController.m */,
 				7D07239D1F13A5D300A9931D /* secPagePicGroupTypeVC.h */,
 				7D07239E1F13A5D300A9931D /* secPagePicGroupTypeVC.m */,
 			);
@@ -1151,6 +1161,7 @@
 				7DA2062A1EF4D92D00AA4056 /* VersionedImage.m in Sources */,
 				7DA206071EF4D8DD00AA4056 /* CALayer+Transition.m in Sources */,
 				7DA2061A1EF4D90700AA4056 /* CocoaSecurity.m in Sources */,
+				7D64A1851F14BC2E00A6E650 /* funcBtnListView.m in Sources */,
 				7DA2062F1EF4D99800AA4056 /* BaseViewController.m in Sources */,
 				7DA206491EF4DBA700AA4056 /* ThirdViewController.m in Sources */,
 				7DA206DD1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m in Sources */,
@@ -1180,6 +1191,7 @@
 				7DA206301EF4D99800AA4056 /* NSString+isContainEmoji.m in Sources */,
 				7DA206D91F00A1B000AA4056 /* MainPicGroupCell.m in Sources */,
 				7D07239F1F13A5D300A9931D /* secPagePicGroupTypeVC.m in Sources */,
+				7D64A1881F14BDC400A6E650 /* funcBtnModel.m in Sources */,
 				7DA2060D1EF4D8DD00AA4056 /* UILabel+LineSpace.m in Sources */,
 				7DDDF44E1EF4CE8400830CA8 /* main.m in Sources */,
 				7DA206E21F0250CA00AA4056 /* PicGroupCMTTextFieldView.m in Sources */,
