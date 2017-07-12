@@ -9,5 +9,12 @@
 #import "funcBtnModel.h"
 
 @implementation funcBtnModel
-
++ (NSDictionary *)modelCustomPropertyMapper{
+    return @{@"kid" : @"id",
+             @"keyword" : @"keyword",
+             @"searchCount" : @"searchCount",
+             @"iconUrl" : @"iconUrl",
+             @"date" : @"date"
+            };
+}
 @end

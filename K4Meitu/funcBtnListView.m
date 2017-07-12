@@ -23,7 +23,20 @@
         NSInteger col = funcBtnArray.count%lineCount;
         NSInteger arrayCount = funcBtnArray.count;
         CGFloat btnWidth = IPHONE_WIDTH / lineCount;
-        CGFloat btnHeight = btnWidth*1.2;
+        CGFloat btnHeight = frame_h/row;
+        
+        if (funcBtnArray.count == 0) {
+            for (int i=0; i<10; i++) {
+                funcBtnModel *model = [[funcBtnModel alloc]init];
+                model.kid = [NSString stringWithFormat:@"%d",i+1];
+                model.iconUrl = @"photo.png";
+                model.keyword = @"...";
+                model.date = @"1497336042000";
+            }
+            row = 2;
+            col = 5;
+            arrayCount = 10;
+        }
         
         for(NSInteger i=0; i<row; i++){
             for (NSInteger j=0; j<((arrayCount-lineCount*i)>=lineCount?lineCount:col); j++) {
@@ -40,25 +53,29 @@
                 self.funcBtn.tag = 1000 + i*lineCount+j;
                 //按钮图片
                 self.image = [[UIImageView alloc]initWithFrame:CGRectMake(
-                            (self.funcBtn.frame.size.width-btnWidth*0.7)/2,
-                            (self.funcBtn.frame.size.height-btnWidth*0.7)/4, btnWidth*0.7,
-                                btnWidth*0.7)];
-                self.image.layer.cornerRadius = btnWidth*0.7/2;
+                            (self.funcBtn.frame.size.width-btnHeight*0.7)/2,
+                            (self.funcBtn.frame.size.height-btnHeight*0.7)/4, btnHeight*0.7,
+                                btnHeight*0.7)];
+                self.image.layer.cornerRadius = btnHeight*0.7/2;
                 self.image.clipsToBounds = YES;
-                 [self.image sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:[UIImage imageNamed:@"photo"]];
+               
+                if ([model.iconUrl hasPrefix:@"http"]) {
+                     [self.image sd_setImageWithURL:[NSURL URLWithString:model.iconUrl] placeholderImage:[UIImage imageNamed:@"photo"]];
+                }else{
+                    self.image.image = [UIImage imageNamed:model.iconUrl];
+                }
                 //按钮文字
-                self.title = [[UILabel alloc]initWithFrame:CGRectMake(0, self.image.frame.size.height + self.image.frame.origin.y + self.funcBtn.frame.size.height*0.05, btnWidth, 0.2*btnHeight)];
-                self.title.text = model.showTxt;
-                self.title.font = (IS_Phone4S||IS_Phone5S) ? ([UIFont systemFontOfSize:15]) : ([UIFont systemFontOfSize:16]);
+                self.title = [[UILabel alloc]initWithFrame:CGRectMake(0,  CGRectGetMaxY(self.image.frame), btnWidth, 0.2*btnHeight)];
+                self.title.text = model.keyword;
+                self.title.font = (IS_Phone4S||IS_Phone5S) ? ([UIFont systemFontOfSize:13]) : ([UIFont systemFontOfSize:14]);
+                self.title.textColor = [UIColor grayColor];
                 self.title.textAlignment = NSTextAlignmentCenter;
                 [self.funcBtn addTarget:self action:@selector(funcListBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-                
-                //按钮链接
-                self.linkUrl = model.linkUrl;
                 
                 
                 [self.funcBtn addSubview:self.image];
                 [self.funcBtn addSubview:self.title];
+        
                 [self addSubview:self.funcBtn];
             }
         }

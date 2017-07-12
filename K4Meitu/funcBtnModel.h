@@ -7,13 +7,14 @@
 //id, img, showTxt, openMethod, showOrder, createDate
 
 #import <Foundation/Foundation.h>
-
+#import <NSObject+YYModel.h>
 @interface funcBtnModel : NSObject
 
-@property (nonatomic, strong) NSData *imageData;
-@property (nonatomic, strong) NSString *showTxt;
-@property (nonatomic, strong) NSString *linkUrl;
-@property (nonatomic, strong) NSString *showOrder;
-@property (nonatomic, strong) NSString *imgUrl;
+@property (nonatomic, strong) NSString *kid;
+@property (nonatomic, strong) NSString *keyword;
+@property (nonatomic, strong) NSString *searchCount;
+@property (nonatomic, strong) NSString *iconUrl;
+@property (strong, nonatomic) NSString *date;
 
++ (NSDictionary *)modelCustomPropertyMapper;
 @end

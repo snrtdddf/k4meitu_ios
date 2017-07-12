@@ -14,12 +14,15 @@
 #import "funcBtnModel.h"
 #import "SDCycleScrollView.h"
 #import <UIImageView+WebCache.h>
+#import "SecPageVCRequest.h"
+#import "SecPageHotCmtView.h"
+
 @interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
 @property (strong, nonatomic) NSMutableArray *funcBtnArray;
+@property (strong, nonatomic) SecPageHotCmtView *hotCommentView;
 @property (strong, nonatomic) NSMutableArray *picUrlList;
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView;
-
 @end
 
 @implementation SecondViewController
@@ -51,7 +54,10 @@
 //    [self.view addSubview:btn];
     [self initAdView];
     [self initFunctionBtnView];
+    [self initHotCmtView];
+    
 }
+
 
 -(void)initAdView{
     
@@ -72,6 +78,7 @@
     self.cycleScrollView.pageDotColor = [UIColor lightGrayColor];
     self.cycleScrollView.pageControlDotSize = CGSizeMake(8, 8);
     self.cycleScrollView.delegate = self;
+    self.cycleScrollView.bannerImageViewContentMode = UIViewContentModeCenter;
     self.cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
     self.cycleScrollView.autoScrollTimeInterval = 3.0;
     self.cycleScrollView.imageURLStringsGroup = self.picUrlList;
@@ -81,39 +88,67 @@
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
-    //NSLog(@"---点击了第%ld张图片", (long)index);
+    NSLog(@"---点击了第%ld张图片", (long)index);
 }
 
 - (void)initFunctionBtnView{
-    
-    if (self.funcBtnArray == nil) {
-        self.funcBtnArray = [[NSMutableArray alloc]init];
-    }
-    for(int i=0; i<10; i++){
-        funcBtnModel *model = [[funcBtnModel alloc]init];
-        model.imgUrl = @"http://14.103.207.146:8081/project/11120171041/1.jpg";
-        model.showTxt = @"性感";
-        model.linkUrl = @"http://14.103.207.146:8081/project/11120171041/1.jpg";
-        model.showOrder = [NSString stringWithFormat:@"%d",i];
-        
-        [self.funcBtnArray addObject:model];
-    }
-    NSInteger row = self.funcBtnArray.count%4!=0 ?
-    self.funcBtnArray.count/4 + 1 :
-    self.funcBtnArray.count/4;
-    
-    self.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.cycleScrollView.frame), IPHONE_WIDTH, IPHONE_HEIGHT*0.10*row) funcBtnList:self.funcBtnArray CountPerline:5];
+ 
+    self.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.cycleScrollView.frame), IPHONE_WIDTH, 60*2) funcBtnList:nil CountPerline:5];
     
     self.funcBtnView.delegate = self;
     [self.view addSubview:self.funcBtnView];
+    
+    
+    
+    [SecPageVCRequest requestFromKeywordList:^(NSMutableArray *dataArr) {
+        myWeakSelf;
+        [weakSelf.funcBtnView removeFromSuperview];
+        weakSelf.funcBtnView = nil;
+        weakSelf.funcBtnArray = [[NSMutableArray alloc]initWithArray:dataArr];
+        NSLog(@"count:%ld",dataArr.count);
+        NSInteger row = dataArr.count%4!=0 ?
+        dataArr.count/4 + 1 :
+        dataArr.count/4;
+        
+        weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:dataArr CountPerline:5];
+        
+        weakSelf.funcBtnView.delegate = weakSelf;
+        [weakSelf.view addSubview:weakSelf.funcBtnView];
+        
+        //请求完数据之后，改变下面的frame
+        weakSelf.hotCommentView.frame = CGRectMake(0, CGRectGetMaxY(weakSelf.funcBtnView.frame)+5, IPHONE_WIDTH, 70);
+        
+    }];
+    
+    
 }
 //功能按钮的点击事件
 - (void)funcBtnAction:(UIButton *)btn{
     
     funcBtnModel *model = self.funcBtnArray[btn.tag-1000];
-    
+    NSLog(@"点击了:%@",model.keyword);
     
 }
+
+- (void)initHotCmtView{
+    
+    self.hotCommentView  = [SecPageVCRequest hotCommentViewFrame:CGRectMake(0, CGRectGetMaxY(self.funcBtnView.frame)+10, IPHONE_WIDTH, 70)];
+    [self.hotCommentView.cmtBtn1 addTarget:self action:@selector(hotCmtBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.hotCommentView.cmtBtn1.tag = 101;
+    [self.hotCommentView.cmtBtn2 addTarget:self action:@selector(hotCmtBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.hotCommentView.cmtBtn2.tag = 102;
+    [self.view addSubview:self.hotCommentView];
+}
+
+- (void)hotCmtBtnClick:(UIButton *)btn{
+    if (btn.tag == 101) {
+        NSLog(@"101");
+    }else{
+        NSLog(@"102");
+    }
+}
+
+
 - (void)btnclick{
     [self.navigationController pushViewController:[[secPagePicGroupTypeVC alloc] init] animated:YES];
 }

@@ -151,6 +151,16 @@
                                };
     PostMethod_NO_Indicator;
 }
+
++ (void)getKeyWordListIsOrderByCount:(NSString *)orderByCount CurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.main.keywordList",
+                               @"curPage":curPage,
+                               @"pCount":pCount,
+                               @"orderByCount":@"NO",
+                               ParamDictNeed
+                               };
+    PostMethod_NO_Indicator;
+}
 #pragma mark ------------------------------END---------------------------------
 @end
 

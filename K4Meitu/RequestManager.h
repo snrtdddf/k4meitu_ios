@@ -101,4 +101,14 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
  @param commentDislike <#cmtDislike description#>
  */
 + (void)addPicGroupCommentLike:(NSNumber *)commentId cmtLike:(NSNumber *)commentLike cmtDislike:(NSNumber *)commentDislike requestBlock;
+
+
+/**
+ 获取keyword列表
+
+ @param orderByCount <#orderByCount description#>
+ @param curPage <#curPage description#>
+ @param pCount <#pCount description#>
+ */
++ (void)getKeyWordListIsOrderByCount:(NSString *)orderByCount CurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount requestBlock;
 @end
