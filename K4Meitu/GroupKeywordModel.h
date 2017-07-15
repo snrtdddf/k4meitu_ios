@@ -1,14 +1,14 @@
 //
-//  funcBtnModel.h
-//  GoldWallet
+//  GroupKeywordModel.h
+//  K4Meitu
 //
-//  Created by simpleem on 16/10/29.
-//  Copyright © 2016年 China_Gold_Infomation. All rights reserved.
-//id, img, showTxt, openMethod, showOrder, createDate
+//  Created by simpleem on 7/15/17.
+//  Copyright © 2017 YangLei. All rights reserved.
+//
 
 #import <Foundation/Foundation.h>
 #import <NSObject+YYModel.h>
-@interface funcBtnModel : NSObject
+@interface GroupKeywordModel : NSObject
 
 @property (nonatomic, strong) NSString *kid;
 @property (nonatomic, strong) NSString *keyword;

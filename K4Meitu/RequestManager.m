@@ -161,6 +161,13 @@
                                };
     PostMethod_NO_Indicator;
 }
+
++ (void)getGroupMenuBtnSuccess:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.main.getMenuBtn",
+                               ParamDictNeed
+                               };
+    PostMethod_NO_Indicator;
+}
 #pragma mark ------------------------------END---------------------------------
 @end
 

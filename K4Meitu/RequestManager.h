@@ -111,4 +111,13 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
  @param pCount <#pCount description#>
  */
 + (void)getKeyWordListIsOrderByCount:(NSString *)orderByCount CurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount requestBlock;
+
+
+/**
+ 获取菜单按钮
+
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)getGroupMenuBtnSuccess:(Succeed)succeed failed:(Failed)failed;
 @end

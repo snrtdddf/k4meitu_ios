@@ -11,18 +11,24 @@
 #import "MainTabBarViewController.h"
 #import "secPagePicGroupTypeVC.h"
 #import "funcBtnListView.h"
-#import "funcBtnModel.h"
+#import "GroupKeywordModel.h"
 #import "SDCycleScrollView.h"
 #import <UIImageView+WebCache.h>
 #import "SecPageVCRequest.h"
 #import "SecPageHotCmtView.h"
-
+#import "SecPageMaxRecordView.h"
 @interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
 @property (strong, nonatomic) NSMutableArray *funcBtnArray;
-@property (strong, nonatomic) SecPageHotCmtView *hotCommentView;
 @property (strong, nonatomic) NSMutableArray *picUrlList;
+@property (strong, nonatomic) NSMutableArray *maxRecordArray;
+@property (strong, nonatomic) SecPageHotCmtView *hotCommentView;
+
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView;
+@property (strong, nonatomic) SecPageMaxRecordView *maxRecordView;
+@property (strong, nonatomic) UIScrollView *scroll;
+
+
 @end
 
 @implementation SecondViewController
@@ -52,12 +58,24 @@
 //    btn.backgroundColor = [UIColor lightGrayColor];
 //    [btn addTarget:self action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
 //    [self.view addSubview:btn];
+    [self initScrollView];
     [self initAdView];
     [self initFunctionBtnView];
     [self initHotCmtView];
-    
+    [SecPageVCRequest requestFromMenuBtnList:^(NSMutableArray *dataArr) {
+        
+    }];
 }
 
+- (void)initScrollView{
+    if (self.scroll == nil) {
+        self.scroll = [[UIScrollView alloc] init];
+    }
+    self.scroll.frame = CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT);
+    self.scroll.showsVerticalScrollIndicator = NO;
+    self.scroll.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:self.scroll];
+}
 
 -(void)initAdView{
     
@@ -70,9 +88,8 @@
         [self.picUrlList addObject:url];
     }
     /************** 网络请求轮播 ****************/
-    CGFloat w = self.view.bounds.size.width;
     //网络加载 --- 创建带标题的图片轮播器
-    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, w, IPHONE_HEIGHT*0.20) delegate:self placeholderImage:[UIImage imageNamed:@"photo"]];
+    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, 100) delegate:self placeholderImage:[UIImage imageNamed:@"photo"]];
     self.cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     self.cycleScrollView.currentPageDotColor = [UIColor redColor];
     self.cycleScrollView.pageDotColor = [UIColor lightGrayColor];
@@ -83,7 +100,12 @@
     self.cycleScrollView.autoScrollTimeInterval = 3.0;
     self.cycleScrollView.imageURLStringsGroup = self.picUrlList;
     //自定义分页控件小圆标颜色
-    [self.view addSubview:self.cycleScrollView];
+    [self.scroll addSubview:self.cycleScrollView];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        myWeakSelf;
+//        weakSelf.cycleScrollView.imageURLStringsGroup = weakSelf.picUrlList;
+//    });
+//
     
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
@@ -96,28 +118,37 @@
     self.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.cycleScrollView.frame), IPHONE_WIDTH, 60*2) funcBtnList:nil CountPerline:5];
     
     self.funcBtnView.delegate = self;
-    [self.view addSubview:self.funcBtnView];
+    [self.scroll addSubview:self.funcBtnView];
     
-    
-    
-    [SecPageVCRequest requestFromKeywordList:^(NSMutableArray *dataArr) {
+    [SecPageVCRequest requestFromMenuBtnList:^(NSMutableArray *dataArr) {
         myWeakSelf;
         [weakSelf.funcBtnView removeFromSuperview];
         weakSelf.funcBtnView = nil;
-        weakSelf.funcBtnArray = [[NSMutableArray alloc]initWithArray:dataArr];
-        NSLog(@"count:%ld",dataArr.count);
-        NSInteger row = dataArr.count%4!=0 ?
-        dataArr.count/4 + 1 :
-        dataArr.count/4;
+        //取数据
+        weakSelf.funcBtnArray = dataArr[0];
+        weakSelf.picUrlList = dataArr[1];
+        weakSelf.maxRecordArray = dataArr[2];
         
-        weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:dataArr CountPerline:5];
+        //menuBtn
+        NSInteger row =  weakSelf.funcBtnArray.count%4!=0 ?
+         weakSelf.funcBtnArray.count/4 + 1 :
+         weakSelf.funcBtnArray.count/4;
+        weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:weakSelf.funcBtnArray CountPerline:5];
         
         weakSelf.funcBtnView.delegate = weakSelf;
-        [weakSelf.view addSubview:weakSelf.funcBtnView];
+        [weakSelf.scroll addSubview:weakSelf.funcBtnView];
         
+        
+        //scrollAD
+        weakSelf.cycleScrollView.imageURLStringsGroup = weakSelf.picUrlList;
         //请求完数据之后，改变下面的frame
         weakSelf.hotCommentView.frame = CGRectMake(0, CGRectGetMaxY(weakSelf.funcBtnView.frame)+5, IPHONE_WIDTH, 70);
         
+        //maxRecordView
+        [weakSelf initMaxRecordView];
+        
+        weakSelf.scroll.contentSize = CGSizeMake(IPHONE_WIDTH, CGRectGetMaxY(weakSelf.maxRecordView.frame)+64);
+
     }];
     
     
@@ -125,7 +156,7 @@
 //功能按钮的点击事件
 - (void)funcBtnAction:(UIButton *)btn{
     
-    funcBtnModel *model = self.funcBtnArray[btn.tag-1000];
+    GroupKeywordModel *model = self.funcBtnArray[btn.tag-1000];
     NSLog(@"点击了:%@",model.keyword);
     
 }
@@ -137,7 +168,7 @@
     self.hotCommentView.cmtBtn1.tag = 101;
     [self.hotCommentView.cmtBtn2 addTarget:self action:@selector(hotCmtBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     self.hotCommentView.cmtBtn2.tag = 102;
-    [self.view addSubview:self.hotCommentView];
+    [self.scroll addSubview:self.hotCommentView];
 }
 
 - (void)hotCmtBtnClick:(UIButton *)btn{
@@ -146,6 +177,28 @@
     }else{
         NSLog(@"102");
     }
+}
+
+
+- (void)initMaxRecordView{
+    for (int i=0; i<2; i++) {
+        for (int j=0; j<2; j++) {
+            if (IPHONE_WIDTH <= 540) {
+                self.maxRecordView = [SecPageVCRequest maxRecordViewFrame:CGRectMake(IPHONE_WIDTH/2*j, CGRectGetMaxY(self.hotCommentView.frame)+101*i+5, IPHONE_WIDTH/2-1, 100) dataModel:self.maxRecordArray[i*2 + j]];
+                self.maxRecordView.btn.tag = 200 + i*2 + j;
+                [self.maxRecordView.btn addTarget:self action:@selector(maxBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            }else{
+                self.maxRecordView = [SecPageVCRequest maxRecordViewFrame:CGRectMake(IPHONE_WIDTH/4*(j+i*2), CGRectGetMaxY(self.hotCommentView.frame)+5, IPHONE_WIDTH/4-4, 124) dataModel:self.maxRecordArray[i*2 + j]];
+                self.maxRecordView.btn.tag = 200 + i*2 + j;
+                [self.maxRecordView.btn addTarget:self action:@selector(maxBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            [self.scroll addSubview:self.maxRecordView];
+        }
+    }
+    
+}
+- (void)maxBtnClick:(UIButton *)btn{
+    NSLog(@"%ld",btn.tag-200);
 }
 
 

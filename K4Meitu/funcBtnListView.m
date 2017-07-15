@@ -8,7 +8,7 @@
 
 #import "funcBtnListView.h"
 #import "Header.h"
-#import "funcBtnModel.h"
+#import "GroupMenuBtnModel.h"
 #import "commonTools.h"
 #import <UIImageView+WebCache.h>
 #define frame_w frame.size.width
@@ -27,10 +27,10 @@
         
         if (funcBtnArray.count == 0) {
             for (int i=0; i<10; i++) {
-                funcBtnModel *model = [[funcBtnModel alloc]init];
-                model.kid = [NSString stringWithFormat:@"%d",i+1];
-                model.iconUrl = @"photo.png";
-                model.keyword = @"...";
+                GroupMenuBtnModel *model = [[GroupMenuBtnModel alloc]init];
+                model.gid = i;
+                model.titleImgUrl = @"photo.png";
+                model.title = @"...";
                 model.date = @"1497336042000";
             }
             row = 2;
@@ -40,7 +40,7 @@
         
         for(NSInteger i=0; i<row; i++){
             for (NSInteger j=0; j<((arrayCount-lineCount*i)>=lineCount?lineCount:col); j++) {
-                funcBtnModel *model = funcBtnArray[i*lineCount+j];
+                GroupMenuBtnModel *model = funcBtnArray[i*lineCount+j];
                 //按钮
                 self.funcBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 self.funcBtn.backgroundColor = [UIColor whiteColor];
@@ -59,14 +59,14 @@
                 self.image.layer.cornerRadius = btnHeight*0.7/2;
                 self.image.clipsToBounds = YES;
                
-                if ([model.iconUrl hasPrefix:@"http"]) {
-                     [self.image sd_setImageWithURL:[NSURL URLWithString:model.iconUrl] placeholderImage:[UIImage imageNamed:@"photo"]];
+                if ([model.titleImgUrl hasPrefix:@"http"]) {
+                     [self.image sd_setImageWithURL:[NSURL URLWithString:model.titleImgUrl] placeholderImage:[UIImage imageNamed:@"photo"]];
                 }else{
-                    self.image.image = [UIImage imageNamed:model.iconUrl];
+                    self.image.image = [UIImage imageNamed:@"photo"];
                 }
                 //按钮文字
                 self.title = [[UILabel alloc]initWithFrame:CGRectMake(0,  CGRectGetMaxY(self.image.frame), btnWidth, 0.2*btnHeight)];
-                self.title.text = model.keyword;
+                self.title.text = model.title;
                 self.title.font = (IS_Phone4S||IS_Phone5S) ? ([UIFont systemFontOfSize:13]) : ([UIFont systemFontOfSize:14]);
                 self.title.textColor = [UIColor grayColor];
                 self.title.textAlignment = NSTextAlignmentCenter;

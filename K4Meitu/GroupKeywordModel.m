@@ -1,20 +1,20 @@
 //
-//  funcBtnModel.m
-//  GoldWallet
+//  GroupKeywordModel.m
+//  K4Meitu
 //
-//  Created by simpleem on 16/10/29.
-//  Copyright © 2016年 China_Gold_Infomation. All rights reserved.
+//  Created by simpleem on 7/15/17.
+//  Copyright © 2017 YangLei. All rights reserved.
 //
 
-#import "funcBtnModel.h"
+#import "GroupKeywordModel.h"
 
-@implementation funcBtnModel
+@implementation GroupKeywordModel
 + (NSDictionary *)modelCustomPropertyMapper{
     return @{@"kid" : @"id",
              @"keyword" : @"keyword",
              @"searchCount" : @"searchCount",
              @"iconUrl" : @"iconUrl",
              @"date" : @"date"
-            };
+             };
 }
 @end
