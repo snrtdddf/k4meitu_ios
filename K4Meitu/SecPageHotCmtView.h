@@ -11,10 +11,10 @@
 @interface SecPageHotCmtView : UIView
 @property (weak, nonatomic) IBOutlet UIButton *cmtBtn1;
 @property (weak, nonatomic) IBOutlet UIButton *cmtBtn2;
-@property (weak, nonatomic) IBOutlet UILabel *lab1;
-@property (weak, nonatomic) IBOutlet UILabel *lab2;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UILabel *hotCmtLab1;
 @property (weak, nonatomic) IBOutlet UILabel *hotCmtLab2;
+@property (weak, nonatomic) IBOutlet UIView *cmtView1;
+@property (weak, nonatomic) IBOutlet UIView *cmtView2;
 
 @end

@@ -13,6 +13,8 @@
 #import "GroupKeywordModel.h"
 #import "GroupMenuBtnModel.h"
 #import <UIImageView+WebCache.h>
+#import "commonTools.h"
+#import "CCPScrollView.h"
 @implementation SecPageVCRequest
 + (void)requestFromKeywordList:(DataBlock)block{
     [RequestManager getKeyWordListIsOrderByCount:@"NO" CurPage:@0 pCount:@10 success:^(NSData *data) {
@@ -36,11 +38,15 @@
         NSMutableArray *dataArr = [NSMutableArray array];
         NSMutableArray *scrollAdArr = [NSMutableArray array];
         NSMutableArray *menuBtnArr = [NSMutableArray array];
+        NSMutableArray *hotCmtArr = [NSMutableArray array];
         NSMutableArray *maxRecordArr = [NSMutableArray array];
+        NSMutableArray *bannerADArr = [NSMutableArray array];
+        NSMutableArray *hotCmtSubArr1 = [[NSMutableArray alloc] init];
+        NSMutableArray *hotCmtSubArr2 = [[NSMutableArray alloc] init];
         
         NSDictionary *resDict = myJsonSerialization;
         NSArray *resArr = resDict[@"res"][@"list"];
-        
+        NSLog(@"resD:%@",resDict);
         if (resArr.count != 0) {
             for (NSDictionary *dict in resArr) {
                 GroupMenuBtnModel *model = [GroupMenuBtnModel modelWithJSON:dict];
@@ -48,13 +54,36 @@
                     [menuBtnArr addObject:model];
                 }else if ([model.type isEqualToString:@"scrollAD"]){
                     [scrollAdArr addObject:model.titleImgUrl];
+                }else if ([model.type isEqualToString:@"hotComment"]){
+                    if ([model.groupId isEqualToString:@"1"]) {
+                        [hotCmtSubArr1 addObject:model];
+                    }else if([model.groupId isEqualToString:@"2"]){
+                        [hotCmtSubArr2 addObject:model];
+                    }
                 }else if ([model.type isEqualToString:@"maxRecord"]){
                     [maxRecordArr addObject:model];
+                }else if ([model.type isEqualToString:@"bannerAD"]){
+                    if (IPHONE_WIDTH <= 540) {
+                        if ([model.title isEqualToString:@"iPhone"]) {
+                            [bannerADArr removeAllObjects];
+                            [bannerADArr addObject:model];
+                        }
+                    }else{
+                        if ([model.title isEqualToString:@"iPad"]) {
+                            [bannerADArr removeAllObjects];
+                            [bannerADArr addObject:model];
+                        }
+                    }
                 }
             }
-            [dataArr addObject:menuBtnArr];
+            [hotCmtArr addObject:hotCmtSubArr1];
+            [hotCmtArr addObject:hotCmtSubArr2];
             [dataArr addObject:scrollAdArr];
+            [dataArr addObject:menuBtnArr];
+            [dataArr addObject:hotCmtArr];
             [dataArr addObject:maxRecordArr];
+            [dataArr addObject:bannerADArr];
+            
             block(dataArr);
            
         }
@@ -64,7 +93,7 @@
     }];
 }
 
-+ (SecPageHotCmtView *)hotCommentViewFrame:(CGRect)frame{
++ (SecPageHotCmtView *)hotCommentViewFrame:(CGRect)frame dataArr:(NSMutableArray *)dataArr{
    
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"SecPageHotCmtView" owner:nil options:nil];
     
@@ -81,6 +110,42 @@
     hotCmtView.hotCmtLab1.textColor = Red_COLOR;
     hotCmtView.hotCmtLab2.textColor = Red_COLOR;
     
+    CCPScrollView *ccpView1 = [[CCPScrollView alloc] initWithFrame:CGRectMake(0, 0, hotCmtView.cmtView1.frame.size.width, hotCmtView.cmtView1.frame.size.height)];
+    CCPScrollView *ccpView2 = [[CCPScrollView alloc] initWithFrame:CGRectMake(0, 0, hotCmtView.cmtView2.frame.size.width, hotCmtView.cmtView2.frame.size.height)];
+   
+    
+    //取标题数据
+    NSMutableArray *arr1 = dataArr[0];
+    NSMutableArray *arr2 = dataArr[1];
+    NSMutableArray *titleArr1 = [NSMutableArray array];
+    for (GroupMenuBtnModel *model in dataArr[0]) {
+        [titleArr1 addObject:model.subTitle];
+    }
+    NSMutableArray *titleArr2 = [NSMutableArray array];
+    for (GroupMenuBtnModel *model in dataArr[1]) {
+        [titleArr2 addObject:model.subTitle];
+    }
+    
+    GroupMenuBtnModel *model1 = arr1[0];
+    hotCmtView.hotCmtLab1.text = model1.title;
+    GroupMenuBtnModel *model2 = arr2[0];
+    hotCmtView.hotCmtLab2.text = model2.title;
+    
+    ccpView1.titleArray = titleArr1;
+    ccpView2.titleArray = titleArr2;
+    ccpView1.titleFont = 13;
+    ccpView1.titleColor = [UIColor blackColor];
+    ccpView2.titleFont = 13;
+    ccpView2.titleColor = [UIColor blackColor];
+    [ccpView1 clickTitleLabel:^(NSInteger index,NSString *titleString) {
+        NSLog(@"%@--%ld",titleString,index);
+    }];
+    [ccpView2 clickTitleLabel:^(NSInteger index,NSString *titleString) {
+        NSLog(@"%@--%ld",titleString,index);
+    }];
+    [hotCmtView.cmtView1 addSubview:ccpView1];
+    [hotCmtView.cmtView2 addSubview:ccpView2];
+
     return hotCmtView;
 }
 
@@ -93,9 +158,28 @@
     maxRecordView.subTitle.text = model.subTitle;
     [maxRecordView.titleImg sd_setImageWithURL:[NSURL URLWithString:model.titleImgUrl] placeholderImage:[UIImage imageNamed:@"photo"]];
     [maxRecordView.smallImg sd_setImageWithURL:[NSURL URLWithString:model.imgUrl1] placeholderImage:[UIImage imageNamed:@"photo"]];
+    maxRecordView.smallImg.contentMode = UIViewContentModeScaleAspectFill;
+    maxRecordView.smallImg.clipsToBounds = YES;
     [maxRecordView.bigImg sd_setImageWithURL:[NSURL URLWithString:model.imgUrl2] placeholderImage:[UIImage imageNamed:@"photo"]];
     
     return maxRecordView;
+}
+
++ (UIButton *)midderBannerADviewFrame:(CGRect)frame imgUrl:(NSString *)url{
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = frame;
+    
+    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+    //300*70
+    if ([url hasPrefix:@"http"]) {
+        [commonTools sd_setImg:img imgUrl:url placeHolderImgName:@"photo"];
+    }else{
+        img.image = [UIImage imageNamed:@"test1.jpg"];
+    }
+    
+    [btn addSubview:img];
+    return btn;
 }
 
 @end

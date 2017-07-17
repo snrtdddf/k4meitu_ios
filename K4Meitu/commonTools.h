@@ -210,4 +210,7 @@ typedef NS_ENUM(NSInteger, TextFiledNumType) {
 //隐藏菊花
 + (void)HideActivityIndicator;
 
+//sd_setImg
++ (void)sd_setImg:(UIImageView *)img imgUrl:(NSString *)url placeHolderImgName:(NSString *)imgName;
+
 @end

@@ -17,15 +17,20 @@
 #import "SecPageVCRequest.h"
 #import "SecPageHotCmtView.h"
 #import "SecPageMaxRecordView.h"
-@interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate>
+@interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
 @property (strong, nonatomic) NSMutableArray *funcBtnArray;
 @property (strong, nonatomic) NSMutableArray *picUrlList;
 @property (strong, nonatomic) NSMutableArray *maxRecordArray;
+@property (strong, nonatomic) NSMutableArray *bannerADArray;
+@property (strong, nonatomic) NSMutableArray *hotCmtArray;
 @property (strong, nonatomic) SecPageHotCmtView *hotCommentView;
-
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView;
 @property (strong, nonatomic) SecPageMaxRecordView *maxRecordView;
+@property (strong, nonatomic) UICollectionView *collection;
+
+@property (strong, nonatomic) UIButton *bannerADBtn;
+
 @property (strong, nonatomic) UIScrollView *scroll;
 
 
@@ -61,7 +66,7 @@
     [self initScrollView];
     [self initAdView];
     [self initFunctionBtnView];
-    [self initHotCmtView];
+    
     [SecPageVCRequest requestFromMenuBtnList:^(NSMutableArray *dataArr) {
         
     }];
@@ -89,7 +94,7 @@
     }
     /************** 网络请求轮播 ****************/
     //网络加载 --- 创建带标题的图片轮播器
-    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, 100) delegate:self placeholderImage:[UIImage imageNamed:@"photo"]];
+    self.cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, SPH(150)) delegate:self placeholderImage:[UIImage imageNamed:@"photo"]];
     self.cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     self.cycleScrollView.currentPageDotColor = [UIColor redColor];
     self.cycleScrollView.pageDotColor = [UIColor lightGrayColor];
@@ -114,45 +119,57 @@
 }
 
 - (void)initFunctionBtnView{
- 
-    self.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.cycleScrollView.frame), IPHONE_WIDTH, 60*2) funcBtnList:nil CountPerline:5];
-    
-    self.funcBtnView.delegate = self;
-    [self.scroll addSubview:self.funcBtnView];
     
     [SecPageVCRequest requestFromMenuBtnList:^(NSMutableArray *dataArr) {
         myWeakSelf;
-        [weakSelf.funcBtnView removeFromSuperview];
-        weakSelf.funcBtnView = nil;
+
         //取数据
-        weakSelf.funcBtnArray = dataArr[0];
-        weakSelf.picUrlList = dataArr[1];
-        weakSelf.maxRecordArray = dataArr[2];
-        
+        weakSelf.picUrlList = dataArr[0];
+        weakSelf.funcBtnArray = dataArr[1];
+        weakSelf.hotCmtArray = dataArr[2];
+        weakSelf.maxRecordArray = dataArr[3];
+        weakSelf.bannerADArray = dataArr[4];
         //menuBtn
         NSInteger row =  weakSelf.funcBtnArray.count%4!=0 ?
          weakSelf.funcBtnArray.count/4 + 1 :
          weakSelf.funcBtnArray.count/4;
-        weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:weakSelf.funcBtnArray CountPerline:5];
-        
+        if (weakSelf.funcBtnView == nil) {
+             weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:weakSelf.funcBtnArray CountPerline:5];
+        }
+
         weakSelf.funcBtnView.delegate = weakSelf;
         [weakSelf.scroll addSubview:weakSelf.funcBtnView];
         
         
         //scrollAD
         weakSelf.cycleScrollView.imageURLStringsGroup = weakSelf.picUrlList;
-        //请求完数据之后，改变下面的frame
-        weakSelf.hotCommentView.frame = CGRectMake(0, CGRectGetMaxY(weakSelf.funcBtnView.frame)+5, IPHONE_WIDTH, 70);
         
+        //hotComment
+        [weakSelf initHotCmtView:CGRectMake(0, CGRectGetMaxY(weakSelf.funcBtnView.frame)+5, IPHONE_WIDTH, 70) dataArr:weakSelf.hotCmtArray];
+
         //maxRecordView
         [weakSelf initMaxRecordView];
         
-        weakSelf.scroll.contentSize = CGSizeMake(IPHONE_WIDTH, CGRectGetMaxY(weakSelf.maxRecordView.frame)+64);
+        //middleBannerImg
+        GroupMenuBtnModel * model= nil;
+        if (weakSelf.bannerADArray.count != 0) {
+           model = weakSelf.bannerADArray[0];
+        }
+        weakSelf.bannerADBtn = [SecPageVCRequest midderBannerADviewFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.maxRecordView.frame)+5, IPHONE_WIDTH, 70) imgUrl:model.titleImgUrl];
+        [weakSelf.bannerADBtn addTarget:self action:@selector(bannerADBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [weakSelf.scroll addSubview:weakSelf.bannerADBtn];
+        
+        //collectionView
+        [weakSelf initCollectionViewWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.bannerADBtn.frame), IPHONE_WIDTH, 114*2+20)];
+        
+        
+        weakSelf.scroll.contentSize = CGSizeMake(IPHONE_WIDTH, CGRectGetMaxY(weakSelf.collection.frame)+64);
 
     }];
     
     
 }
+
 //功能按钮的点击事件
 - (void)funcBtnAction:(UIButton *)btn{
     
@@ -161,9 +178,13 @@
     
 }
 
-- (void)initHotCmtView{
+- (void)bannerADBtnClick{
+    NSLog(@"bannerAD");
+}
+
+- (void)initHotCmtView:(CGRect)frame dataArr:(NSMutableArray *)dataArr{
     
-    self.hotCommentView  = [SecPageVCRequest hotCommentViewFrame:CGRectMake(0, CGRectGetMaxY(self.funcBtnView.frame)+10, IPHONE_WIDTH, 70)];
+    self.hotCommentView  = [SecPageVCRequest hotCommentViewFrame:frame dataArr:dataArr];
     [self.hotCommentView.cmtBtn1 addTarget:self action:@selector(hotCmtBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     self.hotCommentView.cmtBtn1.tag = 101;
     [self.hotCommentView.cmtBtn2 addTarget:self action:@selector(hotCmtBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -204,6 +225,59 @@
 
 - (void)btnclick{
     [self.navigationController pushViewController:[[secPagePicGroupTypeVC alloc] init] animated:YES];
+}
+
+- (void)initCollectionViewWithFrame:(CGRect)frame{
+    //此处必须要有创见一个UICollectionViewFlowLayout的对象
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc]init];
+    //同一行相邻两个cell的最小间距
+    layout.minimumInteritemSpacing = 5;
+    //最小两行之间的间距
+    layout.minimumLineSpacing = 5;
+    
+    self.collection=[[UICollectionView alloc]initWithFrame:frame collectionViewLayout:layout];
+    self.collection.backgroundColor=[UIColor whiteColor];
+    self.collection.delegate=self;
+    self.collection.dataSource=self;
+    //这个是横向滑动
+    layout.scrollDirection=UICollectionViewScrollDirectionHorizontal;
+    [self.scroll addSubview: self.collection];
+    
+    UINib *cellNib=[UINib nibWithNibName:@"PicGroupCollectionCell" bundle:nil];
+    [self.collection registerNib:cellNib forCellWithReuseIdentifier:@"colCell"];
+}
+//一共有多少个组
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+//每一组有多少个cell
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return 20;
+}
+//每一个cell是什么
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"colCell" forIndexPath:indexPath];
+    //cell.label.text=[NSString stringWithFormat:@"%ld",indexPath.section*100+indexPath.row];
+    cell.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    return cell;
+}
+//每一个分组的上左下右间距
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(5, 5, 5, 5);
+}
+
+//定义每一个cell的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(114, 114);
+}
+
+//cell的点击事件
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //cell被电击后移动的动画
+    [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionTop];
+    NSLog(@"%ld",indexPath.item);
 }
 
 

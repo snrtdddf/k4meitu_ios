@@ -17,6 +17,7 @@ typedef void(^DataBlock)(NSMutableArray *dataArr);
 
 + (void)requestFromKeywordList:(DataBlock)block;
 + (void)requestFromMenuBtnList:(DataBlock)block;
-+ (SecPageHotCmtView *)hotCommentViewFrame:(CGRect)frame;
++ (SecPageHotCmtView *)hotCommentViewFrame:(CGRect)frame dataArr:(NSMutableArray *)dataArr;
 + (SecPageMaxRecordView *)maxRecordViewFrame:(CGRect)frame dataModel:(GroupMenuBtnModel *)model;
++ (UIButton *)midderBannerADviewFrame:(CGRect)frame imgUrl:(NSString *)url;
 @end

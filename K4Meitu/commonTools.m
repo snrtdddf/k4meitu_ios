@@ -8,6 +8,7 @@
 
 #import "commonTools.h"
 #import "MBProgressHUD.h"
+#import <UIImageView+WebCache.h>
 @implementation commonTools
 
 // 验证是否为中国邮政编码
@@ -672,5 +673,10 @@
 
 + (void)HideActivityIndicator{
     [MBManager hideAlert];
+}
+
++ (void)sd_setImg:(UIImageView *)img imgUrl:(NSString *)url placeHolderImgName:(NSString *)imgName{
+    [img sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:imgName]];
+    
 }
 @end
