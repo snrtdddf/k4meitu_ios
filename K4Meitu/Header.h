@@ -79,7 +79,7 @@
 #define Pink_COLOR [UIColor colorWithRed:255.f/255.f green:182.f/255.f blue:193.f/255.f alpha:1]//默认粉
 #define Black_COLOR [UIColor colorWithRed:59.f/255.f green:66.f/255.f blue:72.f/255.f alpha:1]//默认黑
 #define Gold_COLOR [UIColor colorWithRed:255.f/255.f green:165.f/255.f blue:44.f/255.f alpha:1]//默认金
-#define S_Light_Gray [UIColor colorWithRed:248.f/255.f green:248.f/255.f blue:248.f/255.f alpha:1]//默认灰
+#define S_Light_Gray [UIColor colorWithRed:235.f/255.f green:235.f/255.f blue:235.f/255.f alpha:1]//默认灰
 #define Red_COLOR [UIColor colorWithRed:254.f/255.f green:90.f/255.f blue:61.f/255.f alpha:1]//默认红
 #define White_COLOR [UIColor whiteColor]//白色
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]

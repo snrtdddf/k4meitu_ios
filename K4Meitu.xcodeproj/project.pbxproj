@@ -33,6 +33,10 @@
 		7D26C4A81F1CA48B00FD45BC /* test2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D26C4A71F1CA48B00FD45BC /* test2.jpg */; };
 		7D26C4AC1F1CE22300FD45BC /* PicGroupCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D26C4AA1F1CE22300FD45BC /* PicGroupCollectionCell.m */; };
 		7D26C4AD1F1CE22300FD45BC /* PicGroupCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D26C4AB1F1CE22300FD45BC /* PicGroupCollectionCell.xib */; };
+		7D26C4AF1F1D949600FD45BC /* PicGroupColHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D26C4AE1F1D949600FD45BC /* PicGroupColHeaderView.xib */; };
+		7D26C4B21F1D94BC00FD45BC /* PicGroupColHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D26C4B11F1D94BC00FD45BC /* PicGroupColHeaderView.m */; };
+		7D26C4B91F1DAE3600FD45BC /* Refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D26C4B71F1DAE3600FD45BC /* Refresh@2x.png */; };
+		7D26C4BA1F1DAE3600FD45BC /* Refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D26C4B81F1DAE3600FD45BC /* Refresh@3x.png */; };
 		7D64A1851F14BC2E00A6E650 /* funcBtnListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D64A1841F14BC2E00A6E650 /* funcBtnListView.m */; };
 		7D64A1A31F15F2F900A6E650 /* SecPageVCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D64A1A21F15F2F900A6E650 /* SecPageVCRequest.m */; };
 		7D64A1A51F16118B00A6E650 /* SecPageHotCmtView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D64A1A41F16118B00A6E650 /* SecPageHotCmtView.xib */; };
@@ -190,6 +194,11 @@
 		7D26C4A91F1CE22300FD45BC /* PicGroupCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupCollectionCell.h; sourceTree = "<group>"; };
 		7D26C4AA1F1CE22300FD45BC /* PicGroupCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupCollectionCell.m; sourceTree = "<group>"; };
 		7D26C4AB1F1CE22300FD45BC /* PicGroupCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PicGroupCollectionCell.xib; sourceTree = "<group>"; };
+		7D26C4AE1F1D949600FD45BC /* PicGroupColHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PicGroupColHeaderView.xib; sourceTree = "<group>"; };
+		7D26C4B01F1D94BC00FD45BC /* PicGroupColHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupColHeaderView.h; sourceTree = "<group>"; };
+		7D26C4B11F1D94BC00FD45BC /* PicGroupColHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupColHeaderView.m; sourceTree = "<group>"; };
+		7D26C4B71F1DAE3600FD45BC /* Refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Refresh@2x.png"; sourceTree = "<group>"; };
+		7D26C4B81F1DAE3600FD45BC /* Refresh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Refresh@3x.png"; sourceTree = "<group>"; };
 		7D64A1831F14BC2E00A6E650 /* funcBtnListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = funcBtnListView.h; sourceTree = "<group>"; };
 		7D64A1841F14BC2E00A6E650 /* funcBtnListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = funcBtnListView.m; sourceTree = "<group>"; };
 		7D64A1A11F15F2F900A6E650 /* SecPageVCRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVCRequest.h; sourceTree = "<group>"; };
@@ -407,6 +416,9 @@
 				7D26C4A91F1CE22300FD45BC /* PicGroupCollectionCell.h */,
 				7D26C4AA1F1CE22300FD45BC /* PicGroupCollectionCell.m */,
 				7D26C4AB1F1CE22300FD45BC /* PicGroupCollectionCell.xib */,
+				7D26C4AE1F1D949600FD45BC /* PicGroupColHeaderView.xib */,
+				7D26C4B01F1D94BC00FD45BC /* PicGroupColHeaderView.h */,
+				7D26C4B11F1D94BC00FD45BC /* PicGroupColHeaderView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -903,6 +915,8 @@
 		7DDDF4631EF4CEE500830CA8 /* 图片 */ = {
 			isa = PBXGroup;
 			children = (
+				7D26C4B71F1DAE3600FD45BC /* Refresh@2x.png */,
+				7D26C4B81F1DAE3600FD45BC /* Refresh@3x.png */,
 				7D26C4A51F1CA1B500FD45BC /* test1.jpg */,
 				7D26C4A71F1CA48B00FD45BC /* test2.jpg */,
 				7D11DCB41F0B99AD00713098 /* dislike_thumb_gray@2x.png */,
@@ -1109,6 +1123,7 @@
 				7DD3A0761F0738CE00882271 /* EffectImage.png in Resources */,
 				7DA206541EF5041000AA4056 /* mainPage_unselect.png in Resources */,
 				7D665F661F034C69007414DD /* like_thumb_pink.png in Resources */,
+				7D26C4BA1F1DAE3600FD45BC /* Refresh@3x.png in Resources */,
 				7DA2065B1EF5041D00AA4056 /* me_select@2x.png in Resources */,
 				7D11DCB61F0B99AD00713098 /* dislike_thumb_gray@2x.png in Resources */,
 				7DD3A0771F0738CE00882271 /* UnZan.png in Resources */,
@@ -1139,6 +1154,8 @@
 				7DA206991EF9018800AA4056 /* imgCount.png in Resources */,
 				7DA206D31EFCBBA600AA4056 /* Default-667h@2x.png in Resources */,
 				7DA206521EF5041000AA4056 /* mainPage_select.png in Resources */,
+				7D26C4AF1F1D949600FD45BC /* PicGroupColHeaderView.xib in Resources */,
+				7D26C4B91F1DAE3600FD45BC /* Refresh@2x.png in Resources */,
 				7DD3A0861F0A292C00882271 /* writeComment@2x.png in Resources */,
 				7DA206881EF7FF3E00AA4056 /* photo.png in Resources */,
 				7DA206BB1EFA5F0C00AA4056 /* BackButton@3x.png in Resources */,
@@ -1265,6 +1282,7 @@
 				7DA206301EF4D99800AA4056 /* NSString+isContainEmoji.m in Sources */,
 				7DA206D91F00A1B000AA4056 /* MainPicGroupCell.m in Sources */,
 				7D07239F1F13A5D300A9931D /* secPagePicGroupTypeVC.m in Sources */,
+				7D26C4B21F1D94BC00FD45BC /* PicGroupColHeaderView.m in Sources */,
 				7DA2060D1EF4D8DD00AA4056 /* UILabel+LineSpace.m in Sources */,
 				7DDDF44E1EF4CE8400830CA8 /* main.m in Sources */,
 				7DA206E21F0250CA00AA4056 /* PicGroupCMTTextFieldView.m in Sources */,

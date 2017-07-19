@@ -15,6 +15,8 @@
 #import <UIImageView+WebCache.h>
 #import "commonTools.h"
 #import "CCPScrollView.h"
+#import "MainPagePicModel.h"
+#import "GetCurrentTime.h"
 @implementation SecPageVCRequest
 + (void)requestFromKeywordList:(DataBlock)block{
     [RequestManager getKeyWordListIsOrderByCount:@"NO" CurPage:@0 pCount:@10 success:^(NSData *data) {
@@ -93,6 +95,43 @@
     }];
 }
 
++ (void)requestFromPicGroupListCurPage:(NSNumber *)curPage PageCount:(NSNumber *)pageCount dataBlock:(PicGroupDataBlock)block{
+    
+    [RequestManager getMainPagePicListCurPage:curPage pCount:pageCount success:^(NSData *data) {
+        NSDictionary *resDict = myJsonSerialization;
+        if ([resDict[@"success"] boolValue]) {
+            NSArray *resArr = resDict[@"res"][@"list"];
+            NSMutableArray *dataArr = [NSMutableArray array];
+            NSLog(@"count:%ld",resArr.count);
+            if (resArr.count != 0) {
+                NSInteger maxPage = [resDict[@"res"][@"maxPage"] intValue];
+                
+                for (NSDictionary *dict in resArr) {
+                    MainPagePicModel *model = [[MainPagePicModel alloc] init];
+                    model.groupId = dict[@"groupId"];
+                    model.title = dict[@"title"];
+                    model.count = [dict[@"count"] intValue];
+                    model.type  = dict[@"type"];
+                    model.imgUrl = dict[@"imgUrl"];
+                    model.date = [GetCurrentTime GetTimeFromTimeStamp:[NSString stringWithFormat:@"%@",dict[@"date"]] andReturnTimeType:YYYY_MM_DD_and_HH_MM_SS];
+                    model.imgCoverName = dict[@"imgCoverName"];
+                    model.imgCoverHeight = [dict[@"imgCoverHeight"] intValue];
+                    model.imgCoverWidth = [dict[@"imgCoverWidth"] intValue];
+                    
+                    [dataArr addObject:model];
+                }
+                block(dataArr,maxPage);
+            }
+        }else{
+            [commonTools showBriefAlert:resDict[@"ErrorMsg"]];
+        }
+    } failed:^(NSError *error) {
+        
+    }];
+   
+
+}
+
 + (SecPageHotCmtView *)hotCommentViewFrame:(CGRect)frame dataArr:(NSMutableArray *)dataArr{
    
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"SecPageHotCmtView" owner:nil options:nil];
@@ -109,6 +148,8 @@
     hotCmtView.hotCmtLab2.clipsToBounds = YES;
     hotCmtView.hotCmtLab1.textColor = Red_COLOR;
     hotCmtView.hotCmtLab2.textColor = Red_COLOR;
+    hotCmtView.cmtView1.frame = CGRectMake(0, 2, IPHONE_WIDTH*0.65, 20);
+    hotCmtView.cmtView2.frame = CGRectMake(0, 24, IPHONE_WIDTH*0.65, 20);
     
     CCPScrollView *ccpView1 = [[CCPScrollView alloc] initWithFrame:CGRectMake(0, 0, hotCmtView.cmtView1.frame.size.width, hotCmtView.cmtView1.frame.size.height)];
     CCPScrollView *ccpView2 = [[CCPScrollView alloc] initWithFrame:CGRectMake(0, 0, hotCmtView.cmtView2.frame.size.width, hotCmtView.cmtView2.frame.size.height)];
@@ -180,6 +221,14 @@
     
     [btn addSubview:img];
     return btn;
+}
+
++ (PicGroupColHeaderView *)colHeaderViewFrame:(CGRect)frame{
+    NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"PicGroupColHeaderView" owner:nil options:nil];
+    PicGroupColHeaderView *colHeaderView = [nibContents lastObject];
+    colHeaderView.frame = frame;
+    
+    return colHeaderView;
 }
 
 @end

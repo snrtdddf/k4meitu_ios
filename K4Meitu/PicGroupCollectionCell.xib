@@ -21,7 +21,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.png" translatesAutoresizingMaskIntoConstraints="NO" id="0If-p9-4CK">
                         <rect key="frame" x="0.0" y="0.0" width="114" height="114"/>
                     </imageView>
-                    <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7KC-bR-JJF">
+                    <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7KC-bR-JJF">
                         <rect key="frame" x="0.0" y="90" width="114" height="24"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="清纯妹子正当时" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98O-5h-oED">
@@ -52,6 +52,10 @@
                 <constraint firstAttribute="bottom" secondItem="0If-p9-4CK" secondAttribute="bottom" id="xKV-nb-ieq"/>
             </constraints>
             <size key="customSize" width="85" height="73"/>
+            <connections>
+                <outlet property="img" destination="0If-p9-4CK" id="5zR-bG-t3M"/>
+                <outlet property="title" destination="98O-5h-oED" id="oA7-Al-cc4"/>
+            </connections>
             <point key="canvasLocation" x="50" y="65"/>
         </collectionViewCell>
     </objects>

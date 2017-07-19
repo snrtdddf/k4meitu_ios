@@ -8,6 +8,7 @@
 
 #import "SecondViewController.h"
 #import "Header.h"
+#import "commonTools.h"
 #import "MainTabBarViewController.h"
 #import "secPagePicGroupTypeVC.h"
 #import "funcBtnListView.h"
@@ -17,6 +18,9 @@
 #import "SecPageVCRequest.h"
 #import "SecPageHotCmtView.h"
 #import "SecPageMaxRecordView.h"
+#import "PicGroupColHeaderView.h"
+#import "MainPagePicModel.h"
+#import "PicGroupCollectionCell.h"
 @interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
 @property (strong, nonatomic) NSMutableArray *funcBtnArray;
@@ -24,15 +28,15 @@
 @property (strong, nonatomic) NSMutableArray *maxRecordArray;
 @property (strong, nonatomic) NSMutableArray *bannerADArray;
 @property (strong, nonatomic) NSMutableArray *hotCmtArray;
+@property (strong, nonatomic) NSMutableArray *colDataArray;
 @property (strong, nonatomic) SecPageHotCmtView *hotCommentView;
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView;
 @property (strong, nonatomic) SecPageMaxRecordView *maxRecordView;
+@property (strong, nonatomic) PicGroupColHeaderView *colHeaderView;
 @property (strong, nonatomic) UICollectionView *collection;
-
 @property (strong, nonatomic) UIButton *bannerADBtn;
-
 @property (strong, nonatomic) UIScrollView *scroll;
-
+@property (assign, nonatomic) NSInteger curPage;
 
 @end
 
@@ -57,19 +61,17 @@
     [super viewDidLoad];
     [self addStatusBlackBackground];
     self.view.backgroundColor = S_Light_Gray;
+   
+    //self.curPage = arc4random() % 70;
     
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn.frame = CGRectMake(100, 600, 50, 50);
-//    btn.backgroundColor = [UIColor lightGrayColor];
-//    [btn addTarget:self action:@selector(btnclick) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:btn];
+    
     [self initScrollView];
     [self initAdView];
-    [self initFunctionBtnView];
-    
-    [SecPageVCRequest requestFromMenuBtnList:^(NSMutableArray *dataArr) {
+    [self requestData];
+    [self refreshCollectionData];
+    //[SecPageVCRequest requestFromMenuBtnList:^(NSMutableArray *dataArr) {
         
-    }];
+   // }];
 }
 
 - (void)initScrollView{
@@ -118,7 +120,7 @@
     NSLog(@"---点击了第%ld张图片", (long)index);
 }
 
-- (void)initFunctionBtnView{
+- (void)requestData{
     
     [SecPageVCRequest requestFromMenuBtnList:^(NSMutableArray *dataArr) {
         myWeakSelf;
@@ -130,9 +132,9 @@
         weakSelf.maxRecordArray = dataArr[3];
         weakSelf.bannerADArray = dataArr[4];
         //menuBtn
-        NSInteger row =  weakSelf.funcBtnArray.count%4!=0 ?
-         weakSelf.funcBtnArray.count/4 + 1 :
-         weakSelf.funcBtnArray.count/4;
+        NSInteger row =  weakSelf.funcBtnArray.count%5!=0 ?
+         weakSelf.funcBtnArray.count/5 + 1 :
+         weakSelf.funcBtnArray.count/5;
         if (weakSelf.funcBtnView == nil) {
              weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:weakSelf.funcBtnArray CountPerline:5];
         }
@@ -159,8 +161,11 @@
         [weakSelf.bannerADBtn addTarget:self action:@selector(bannerADBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [weakSelf.scroll addSubview:weakSelf.bannerADBtn];
         
+        //collectionHeaderView
+        [weakSelf initColHeaderViewFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.bannerADBtn.frame)+5, IPHONE_WIDTH, 30)];
+        
         //collectionView
-        [weakSelf initCollectionViewWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.bannerADBtn.frame), IPHONE_WIDTH, 114*2+20)];
+        [weakSelf initCollectionViewWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.colHeaderView.frame), IPHONE_WIDTH, 114*1.3*2+20)];
         
         
         weakSelf.scroll.contentSize = CGSizeMake(IPHONE_WIDTH, CGRectGetMaxY(weakSelf.collection.frame)+64);
@@ -209,7 +214,7 @@
                 self.maxRecordView.btn.tag = 200 + i*2 + j;
                 [self.maxRecordView.btn addTarget:self action:@selector(maxBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             }else{
-                self.maxRecordView = [SecPageVCRequest maxRecordViewFrame:CGRectMake(IPHONE_WIDTH/4*(j+i*2), CGRectGetMaxY(self.hotCommentView.frame)+5, IPHONE_WIDTH/4-4, 124) dataModel:self.maxRecordArray[i*2 + j]];
+                self.maxRecordView = [SecPageVCRequest maxRecordViewFrame:CGRectMake(IPHONE_WIDTH/4*(j+i*2), CGRectGetMaxY(self.hotCommentView.frame)+5, IPHONE_WIDTH/4-4, 100) dataModel:self.maxRecordArray[i*2 + j]];
                 self.maxRecordView.btn.tag = 200 + i*2 + j;
                 [self.maxRecordView.btn addTarget:self action:@selector(maxBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             }
@@ -226,6 +231,18 @@
 - (void)btnclick{
     [self.navigationController pushViewController:[[secPagePicGroupTypeVC alloc] init] animated:YES];
 }
+
+
+- (void)initColHeaderViewFrame:(CGRect)frame{
+   
+    if (self.colHeaderView == nil) {
+        //PicGroupColHeaderView
+        self.colHeaderView = [SecPageVCRequest colHeaderViewFrame:frame];
+    }
+    [self.colHeaderView.btn addTarget:self action:@selector(refreshCollectionData) forControlEvents:UIControlEventTouchUpInside];
+    [self.scroll addSubview:self.colHeaderView];
+}
+
 
 - (void)initCollectionViewWithFrame:(CGRect)frame{
     //此处必须要有创见一个UICollectionViewFlowLayout的对象
@@ -252,13 +269,17 @@
 }
 //每一组有多少个cell
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 20;
+    return self.colDataArray.count;
 }
 //每一个cell是什么
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"colCell" forIndexPath:indexPath];
-    //cell.label.text=[NSString stringWithFormat:@"%ld",indexPath.section*100+indexPath.row];
-    cell.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    
+    MainPagePicModel *model = self.colDataArray[indexPath.item];
+    
+    PicGroupCollectionCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"colCell" forIndexPath:indexPath];
+    [commonTools sd_setImg:cell.img imgUrl:model.imgUrl placeHolderImgName:@"photo"];
+    cell.title.text = model.title;
+    
     return cell;
 }
 //每一个分组的上左下右间距
@@ -270,7 +291,7 @@
 //定义每一个cell的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(114, 114);
+    return CGSizeMake(114, 114*1.3);
 }
 
 //cell的点击事件
@@ -280,7 +301,29 @@
     NSLog(@"%ld",indexPath.item);
 }
 
-
+- (void)refreshCollectionData{
+    if (self.colDataArray == nil) {
+        self.colDataArray = [NSMutableArray array];
+    }
+    
+    if([UserDefaults valueForKey:@"secPageMaxPage"] != nil){
+        NSString *maxPage = (NSString *)[UserDefaults valueForKey:@"secPageMaxPage"];
+        self.curPage = arc4random() % [maxPage integerValue];
+    }else{
+        self.curPage = 0;
+    }
+    NSNumber *pCount = @10;
+    if (IPHONE_WIDTH > 540) {
+        pCount = @20;
+    }
+    [SecPageVCRequest requestFromPicGroupListCurPage:[NSNumber numberWithInteger:self.curPage] PageCount:pCount dataBlock:^(NSMutableArray *dataArr, NSInteger maxPage) {
+        myWeakSelf;
+        [weakSelf.colDataArray removeAllObjects];
+        weakSelf.colDataArray = dataArr;
+        [UserDefaults setValue:[NSString stringWithFormat:@"%ld",maxPage] forKey:@"secPageMaxPage"];
+        [weakSelf.collection reloadData];
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
