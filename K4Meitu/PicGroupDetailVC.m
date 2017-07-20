@@ -20,9 +20,10 @@
 #import "CatZanButton.h"
 #import "NSString+isContainEmoji.h"
 #import "UIButton+enLargedRect.h"
+#import "PicGroupDetailCell.h"
 #import <YYCache.h>
 #import <YYDiskCache.h>
-@interface PicGroupDetailVC () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+@interface PicGroupDetailVC () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) UITableView *commentTable;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) PicGroupDetailTitleDetailView *titleDetailView;
@@ -30,7 +31,9 @@
 @property (assign, nonatomic) int maxPage;
 @property (assign, nonatomic) int curPage;
 @property (assign, nonatomic) int likeCount;
-@property (strong, nonatomic)  PYPhotosView *photosView;
+//@property (strong, nonatomic)  PYPhotosView *photosView;
+@property (strong, nonatomic) UICollectionView *collection;
+
 @property (strong, nonatomic) UILabel *commentLab;
 @property (strong, nonatomic) UIButton *cmtBtn;
 @property (strong, nonatomic) UIView *commentBGView;
@@ -93,6 +96,7 @@
     self.commentTable.delegate = self;
     self.commentTable.dataSource = self;
     [self.commentTable registerNib:[UINib nibWithNibName:@"PicGroupCommentCell" bundle:nil]forCellReuseIdentifier:@"cmtCell"];
+    /*
       if ([self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetail%@",self.groupId]]&&[self.cache containsObjectForKey:[NSString stringWithFormat:@"picGroupDetailImgs%@",self.groupId]]) {
           
           [self.dataArray removeAllObjects];
@@ -103,17 +107,16 @@
          self.imgUrls = (NSMutableArray *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailImgs%@",self.groupId]];
          self.maxPage = [(NSNumber *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailMaxPage%@",self.groupId]] intValue];
           self.curPage = [(NSNumber *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailCurPage%@",self.groupId]] intValue];
-          
-          if (self.photosView == nil) {
-               self.photosView = [PicGroupDetailRequest imgScrollView:self.imgUrls];
+         if (self.collection == nil) {
+              [self initCollectionViewWithFrame:CGRectMake(0, 100+25, IPHONE_WIDTH, 114*4+25)];
           }
-        [self initHeaderView:self.photosView];
-        [self.commentTable reloadData];
+          [self initHeaderView:self.collection];
+          [self.commentTable reloadData];
         
       }else{
           [self requestData];
-      }
-    
+      }*/
+    [self requestData];
 }
 
 - (void)requestData{
@@ -129,16 +132,20 @@
         [weakSelf.cache setObject:weakSelf.imgUrls forKey:[NSString stringWithFormat:@"picGroupDetailImgs%@",weakSelf.groupId]];
         
         //缩略图列表
-        if (weakSelf.photosView == nil) {
-            weakSelf.photosView = [PicGroupDetailRequest imgScrollView:weakSelf.imgUrls];
+//        if (weakSelf.photosView == nil) {
+//            weakSelf.photosView = [PicGroupDetailRequest imgScrollView:weakSelf.imgUrls];
+//        }
+//        [weakSelf initHeaderView:weakSelf.photosView];
+        if (weakSelf.collection == nil) {
+            [weakSelf initCollectionViewWithFrame:CGRectMake(0, 100+15, IPHONE_WIDTH, 114*4+25)];
         }
-        [weakSelf initHeaderView:weakSelf.photosView];
-        [weakSelf requestCommentData:weakSelf.photosView];
+        [weakSelf initHeaderView:weakSelf.collection];
+        [weakSelf requestCommentData];
         
     }];
 }
 
-- (void)initHeaderView:(PYPhotosView *)photosView{
+- (void)initHeaderView:(UICollectionView *)photosView{
     self.headerView.frame = CGRectMake(0, 0, IPHONE_WIDTH, photosView.frame.size.height+100+SPH(65));
     self.headerView.backgroundColor = [UIColor darkGrayColor];
     if (self.titleDetailView == nil) {
@@ -194,7 +201,7 @@
 
 }
 
-- (void)requestCommentData:(PYPhotosView *)photosView{
+- (void)requestCommentData{
     
     
     [PicGroupDetailRequest requestCommentData:self.groupId CurPage:[NSNumber numberWithInt:self.curPage] pcout:@10 dataBlock:^(NSMutableArray *dataArr, NSNumber *maxPage, NSNumber *commentCount, NSNumber *likeCount) {
@@ -216,8 +223,7 @@
         
         
         weakSelf.maxPage = [maxPage intValue];
-        //weakSelf.titleDetailView = nil;
-//        weakSelf.titleDetailView = [PicGroupDetailRequest titleDetailView:weakSelf.picTitle picCount:weakSelf.picCount type:weakSelf.type date:weakSelf.picDate cmtCount:[commentCount intValue] likeCount:[likeCount intValue]];
+
         weakSelf.titleDetailView.commentCount.text = [NSString stringWithFormat:@"评论(%@)",commentCount];
         weakSelf.titleDetailView.likeCount.text = [NSString stringWithFormat:@"点赞(%@)",likeCount];
         weakSelf.likeCount = [likeCount intValue];
@@ -341,7 +347,7 @@
         weakSelf.curPage++;
         if (weakSelf.curPage <= weakSelf.maxPage) {
             [weakSelf.commentTable.mj_footer endRefreshing];
-            [weakSelf requestCommentData:weakSelf.photosView];
+            [weakSelf requestCommentData];
             [weakSelf.cache setObject:[NSNumber numberWithInt:weakSelf.curPage] forKey:[NSString stringWithFormat:@"picGroupDetailCurPage%@",weakSelf.groupId] withBlock:^{
                 
             }];
@@ -516,6 +522,65 @@
         }
     }];
 
+}
+
+- (void)initCollectionViewWithFrame:(CGRect)frame{
+    //此处必须要有创见一个UICollectionViewFlowLayout的对象
+    UICollectionViewFlowLayout *layout = nil;
+    layout=[[UICollectionViewFlowLayout alloc]init];
+    //同一行相邻两个cell的最小间距
+    layout.minimumInteritemSpacing = 5;
+    //最小两行之间的间距
+    layout.minimumLineSpacing = 5;
+    if (self.collection == nil) {
+        self.collection=[[UICollectionView alloc]initWithFrame:frame collectionViewLayout:layout];
+    }
+    self.collection.backgroundColor=[UIColor darkGrayColor];
+    self.collection.delegate=self;
+    self.collection.dataSource=self;
+    //这个是横向滑动
+    layout.scrollDirection=UICollectionViewScrollDirectionHorizontal;
+    [self.headerView addSubview: self.collection];
+    
+    UINib *cellNib=[UINib nibWithNibName:@"PicGroupDetailCell" bundle:nil];
+    [self.collection registerNib:cellNib forCellWithReuseIdentifier:@"colCell"];
+}
+//一共有多少个组
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+//每一组有多少个cell
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.imgUrls.count;
+}
+//每一个cell是什么
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+   // MainPagePicModel *model = self.imgUrls[indexPath.item];
+    
+    PicGroupDetailCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"colCell" forIndexPath:indexPath];
+    [commonTools sd_setImg:cell.img imgUrl:self.imgUrls[indexPath.item] placeHolderImgName:@"photo"];
+    cell.img.contentMode = UIViewContentModeScaleAspectFill;
+    
+    return cell;
+}
+//每一个分组的上左下右间距
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(5, 5, 5, 5);
+}
+
+//定义每一个cell的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(114, 114);
+}
+
+//cell的点击事件
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //cell被电击后移动的动画
+    [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionTop];
+    NSLog(@"%ld",indexPath.item);
 }
 
 

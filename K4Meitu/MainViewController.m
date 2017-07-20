@@ -39,6 +39,7 @@
     for (UIView *view in array) {
         if ([view isKindOfClass:NSClassFromString(@"UITabBarButton")]) {
             [view removeFromSuperview];
+           
         }
     }
     array = nil;

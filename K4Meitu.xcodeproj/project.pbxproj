@@ -37,6 +37,8 @@
 		7D26C4B21F1D94BC00FD45BC /* PicGroupColHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D26C4B11F1D94BC00FD45BC /* PicGroupColHeaderView.m */; };
 		7D26C4B91F1DAE3600FD45BC /* Refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D26C4B71F1DAE3600FD45BC /* Refresh@2x.png */; };
 		7D26C4BA1F1DAE3600FD45BC /* Refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D26C4B81F1DAE3600FD45BC /* Refresh@3x.png */; };
+		7D26C4D61F1F7CDA00FD45BC /* PicGroupDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D26C4D41F1F7CDA00FD45BC /* PicGroupDetailCell.m */; };
+		7D26C4D71F1F7CDA00FD45BC /* PicGroupDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D26C4D51F1F7CDA00FD45BC /* PicGroupDetailCell.xib */; };
 		7D64A1851F14BC2E00A6E650 /* funcBtnListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D64A1841F14BC2E00A6E650 /* funcBtnListView.m */; };
 		7D64A1A31F15F2F900A6E650 /* SecPageVCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D64A1A21F15F2F900A6E650 /* SecPageVCRequest.m */; };
 		7D64A1A51F16118B00A6E650 /* SecPageHotCmtView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D64A1A41F16118B00A6E650 /* SecPageHotCmtView.xib */; };
@@ -199,6 +201,9 @@
 		7D26C4B11F1D94BC00FD45BC /* PicGroupColHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupColHeaderView.m; sourceTree = "<group>"; };
 		7D26C4B71F1DAE3600FD45BC /* Refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Refresh@2x.png"; sourceTree = "<group>"; };
 		7D26C4B81F1DAE3600FD45BC /* Refresh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Refresh@3x.png"; sourceTree = "<group>"; };
+		7D26C4D31F1F7CDA00FD45BC /* PicGroupDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicGroupDetailCell.h; sourceTree = "<group>"; };
+		7D26C4D41F1F7CDA00FD45BC /* PicGroupDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicGroupDetailCell.m; sourceTree = "<group>"; };
+		7D26C4D51F1F7CDA00FD45BC /* PicGroupDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PicGroupDetailCell.xib; sourceTree = "<group>"; };
 		7D64A1831F14BC2E00A6E650 /* funcBtnListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = funcBtnListView.h; sourceTree = "<group>"; };
 		7D64A1841F14BC2E00A6E650 /* funcBtnListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = funcBtnListView.m; sourceTree = "<group>"; };
 		7D64A1A11F15F2F900A6E650 /* SecPageVCRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVCRequest.h; sourceTree = "<group>"; };
@@ -826,6 +831,9 @@
 				7DA206DE1F00FF5D00AA4056 /* PicGroupDetailTitleDetailView.xib */,
 				7DA206E01F0250CA00AA4056 /* PicGroupCMTTextFieldView.h */,
 				7DA206E11F0250CA00AA4056 /* PicGroupCMTTextFieldView.m */,
+				7D26C4D31F1F7CDA00FD45BC /* PicGroupDetailCell.h */,
+				7D26C4D41F1F7CDA00FD45BC /* PicGroupDetailCell.m */,
+				7D26C4D51F1F7CDA00FD45BC /* PicGroupDetailCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1155,6 +1163,7 @@
 				7DA206D31EFCBBA600AA4056 /* Default-667h@2x.png in Resources */,
 				7DA206521EF5041000AA4056 /* mainPage_select.png in Resources */,
 				7D26C4AF1F1D949600FD45BC /* PicGroupColHeaderView.xib in Resources */,
+				7D26C4D71F1F7CDA00FD45BC /* PicGroupDetailCell.xib in Resources */,
 				7D26C4B91F1DAE3600FD45BC /* Refresh@2x.png in Resources */,
 				7DD3A0861F0A292C00882271 /* writeComment@2x.png in Resources */,
 				7DA206881EF7FF3E00AA4056 /* photo.png in Resources */,
@@ -1287,6 +1296,7 @@
 				7DDDF44E1EF4CE8400830CA8 /* main.m in Sources */,
 				7DA206E21F0250CA00AA4056 /* PicGroupCMTTextFieldView.m in Sources */,
 				7DA206431EF4DB8000AA4056 /* MainViewController.m in Sources */,
+				7D26C4D61F1F7CDA00FD45BC /* PicGroupDetailCell.m in Sources */,
 				7D26C4A01F1C519C00FD45BC /* CCPScrollView.m in Sources */,
 				7D021A461F0E2C6A007C6617 /* YXViewPagerTopView.m in Sources */,
 				7DA2064C1EF4DBB100AA4056 /* FourthViewController.m in Sources */,

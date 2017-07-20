@@ -21,6 +21,7 @@
 #import "PicGroupColHeaderView.h"
 #import "MainPagePicModel.h"
 #import "PicGroupCollectionCell.h"
+#import "MJRefresh.h"
 @interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
 @property (strong, nonatomic) NSMutableArray *funcBtnArray;
@@ -82,6 +83,36 @@
     self.scroll.showsVerticalScrollIndicator = NO;
     self.scroll.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:self.scroll];
+    
+    self.scroll.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        myWeakSelf;
+        [weakSelf.scroll.mj_header endRefreshing];
+        [self.bannerADBtn removeFromSuperview];
+        self.bannerADBtn = nil;
+        for (UIView *views in weakSelf.scroll.subviews) {
+            if ([views isKindOfClass:[SecPageHotCmtView class]]) {
+                [views removeFromSuperview];
+                weakSelf.hotCommentView = nil;
+            }else if([views isKindOfClass:[funcBtnListView class]]){
+                [views removeFromSuperview];
+                weakSelf.funcBtnView = nil;
+            }else if([views isKindOfClass:[SecPageMaxRecordView class]]){
+                [views removeFromSuperview];
+                weakSelf.maxRecordView = nil;
+            }
+        }
+        
+        [weakSelf.picUrlList removeAllObjects];
+        [weakSelf.funcBtnArray removeAllObjects];
+        [weakSelf.hotCmtArray removeAllObjects];
+        [weakSelf.maxRecordArray removeAllObjects];
+        [weakSelf.bannerADArray removeAllObjects];
+        
+        [weakSelf requestData];
+        [weakSelf refreshCollectionData];
+    }];
+;
+    
 }
 
 -(void)initAdView{
@@ -132,12 +163,12 @@
         weakSelf.maxRecordArray = dataArr[3];
         weakSelf.bannerADArray = dataArr[4];
         //menuBtn
-        NSInteger row =  weakSelf.funcBtnArray.count%5!=0 ?
+        NSInteger row =  weakSelf.funcBtnArray.count%5 != 0 ?
          weakSelf.funcBtnArray.count/5 + 1 :
          weakSelf.funcBtnArray.count/5;
-        if (weakSelf.funcBtnView == nil) {
-             weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:weakSelf.funcBtnArray CountPerline:5];
-        }
+        
+        weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:weakSelf.funcBtnArray CountPerline:5];
+        
 
         weakSelf.funcBtnView.delegate = weakSelf;
         [weakSelf.scroll addSubview:weakSelf.funcBtnView];
@@ -189,7 +220,9 @@
 
 - (void)initHotCmtView:(CGRect)frame dataArr:(NSMutableArray *)dataArr{
     
-    self.hotCommentView  = [SecPageVCRequest hotCommentViewFrame:frame dataArr:dataArr];
+    if (self.hotCommentView== nil) {
+        self.hotCommentView  = [SecPageVCRequest hotCommentViewFrame:frame dataArr:dataArr];
+    }
     [self.hotCommentView.cmtBtn1 addTarget:self action:@selector(hotCmtBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     self.hotCommentView.cmtBtn1.tag = 101;
     [self.hotCommentView.cmtBtn2 addTarget:self action:@selector(hotCmtBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -251,8 +284,9 @@
     layout.minimumInteritemSpacing = 5;
     //最小两行之间的间距
     layout.minimumLineSpacing = 5;
-    
-    self.collection=[[UICollectionView alloc]initWithFrame:frame collectionViewLayout:layout];
+    if (self.collection == nil) {
+        self.collection=[[UICollectionView alloc]initWithFrame:frame collectionViewLayout:layout];
+    }
     self.collection.backgroundColor=[UIColor whiteColor];
     self.collection.delegate=self;
     self.collection.dataSource=self;

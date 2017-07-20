@@ -23,7 +23,6 @@ typedef void(^addCommentLikeBlock)(BOOL isSuccess);
 + (UIButton *)addBackBtn;
 + (PicGroupDetailTitleDetailView *)titleDetailView:(NSString *)title picCount:(int)count type:(NSString *)type date:(NSString *)date cmtCount:(int)commentCount likeCount:(int)likeCount;
 + (UILabel *)commentLab:(CGRect)frame;
-+ (UITextField *)commentTF:(CGRect)frame;
 + (void)requestLikeData:(NSString *)groupId titleDetailView:(PicGroupDetailTitleDetailView *)titleDetailView;
 + (void)requestIsLikeExistGroupID:(NSString *)groupId isLike:(isLikeBlock)block;
 + (UIButton *)addCommentBtn;

@@ -19,7 +19,16 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        NSInteger row = funcBtnArray.count/lineCount + 1;
+        /*
+         NSInteger row =  weakSelf.funcBtnArray.count%5 != 0 ?
+         weakSelf.funcBtnArray.count/5 + 1 :
+         weakSelf.funcBtnArray.count/5;
+
+         */
+        
+        NSInteger row = funcBtnArray.count%lineCount != 0 ?
+                        funcBtnArray.count/lineCount + 1:
+                        funcBtnArray.count/lineCount;
         NSInteger col = funcBtnArray.count%lineCount;
         NSInteger arrayCount = funcBtnArray.count;
         CGFloat btnWidth = IPHONE_WIDTH / lineCount;

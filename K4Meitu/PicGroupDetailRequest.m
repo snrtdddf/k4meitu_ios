@@ -158,7 +158,7 @@
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"PicGroupDetailTitleDetailView" owner:nil options:nil];
     
     PicGroupDetailTitleDetailView *titleDetailView = [nibContents lastObject];
-    titleDetailView.frame = CGRectMake(SPW(11), 10, IPHONE_WIDTH-SPW(11)*2, 100);
+    titleDetailView.frame = CGRectMake(5, 10, IPHONE_WIDTH-10, 100);
     CGFloat PHeight =  titleDetailView.frame.size.height;
     CGFloat PWidth =  titleDetailView.frame.size.width;
     //titleDetailView.backgroundColor = S_Light_Gray;
@@ -209,13 +209,6 @@
     return lab;
 }
 
-+ (UITextField *)commentTF:(CGRect)frame{
-    UITextField *commentTF = [[UITextField alloc] initWithFrame:CGRectMake(0, IPHONE_HEIGHT*0.9-64, IPHONE_WIDTH, IPHONE_HEIGHT*0.1)];
-    commentTF.backgroundColor = White_COLOR;
-    commentTF.placeholder = @"皇上！！牌子都翻完了，不评论一下吗？";
-    
-    return commentTF;
-}
 
 + (void)requestLikeData:(NSString *)groupId  titleDetailView:(PicGroupDetailTitleDetailView *)titleDetailView{
     [RequestManager addPicGroupLikeDataGroupId:groupId success:^(NSData *data) {
