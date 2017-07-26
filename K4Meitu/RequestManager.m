@@ -166,7 +166,7 @@
     NSDictionary *paraDict = @{@"method":@"p.main.getMenuBtn",
                                ParamDictNeed
                                };
-    PostMethod_NO_Indicator;
+    PostMethod;
 }
 #pragma mark ------------------------------END---------------------------------
 @end

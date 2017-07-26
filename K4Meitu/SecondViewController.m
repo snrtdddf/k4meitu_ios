@@ -21,6 +21,7 @@
 #import "PicGroupColHeaderView.h"
 #import "MainPagePicModel.h"
 #import "PicGroupCollectionCell.h"
+#import "PicGroupDetailVC.h"
 #import "MJRefresh.h"
 @interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
@@ -168,8 +169,6 @@
          weakSelf.funcBtnArray.count/5;
         
         weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:weakSelf.funcBtnArray CountPerline:5];
-        
-
         weakSelf.funcBtnView.delegate = weakSelf;
         [weakSelf.scroll addSubview:weakSelf.funcBtnView];
         
@@ -209,8 +208,8 @@
 //功能按钮的点击事件
 - (void)funcBtnAction:(UIButton *)btn{
     
-    GroupKeywordModel *model = self.funcBtnArray[btn.tag-1000];
-    NSLog(@"点击了:%@",model.keyword);
+    GroupMenuBtnModel *model = self.funcBtnArray[btn.tag-500];
+    NSLog(@"点击了:%@",model.title);
     
 }
 
@@ -258,11 +257,6 @@
 }
 - (void)maxBtnClick:(UIButton *)btn{
     NSLog(@"%ld",btn.tag-200);
-}
-
-
-- (void)btnclick{
-    [self.navigationController pushViewController:[[secPagePicGroupTypeVC alloc] init] animated:YES];
 }
 
 
@@ -331,8 +325,17 @@
 //cell的点击事件
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     //cell被电击后移动的动画
-    [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionTop];
-    NSLog(@"%ld",indexPath.item);
+   // [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionTop];
+    MainPagePicModel *model = self.colDataArray[indexPath.item];
+    PicGroupDetailVC *vc = [[PicGroupDetailVC alloc] init];
+    vc.groupId = model.groupId;
+    vc.picTitle = model.title;
+    vc.type = model.type;
+    vc.picDate = model.date;
+    vc.picCount = model.count;
+    [self.navigationController pushViewController:vc animated:YES];
+    vc = nil;
+    
 }
 
 - (void)refreshCollectionData{

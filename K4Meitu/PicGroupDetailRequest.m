@@ -15,6 +15,7 @@
 #import "PicGroupCommentModel.h"
 #import "UIButton+enLargedRect.h"
 #import <NSObject+YYModel.h>
+#import "IDMPhotoBrowser.h"
 @implementation PicGroupDetailRequest
 
 + (void)requestData:(NSString *)groupId  dataBlock:(DataBlock)block{
@@ -293,4 +294,23 @@
         
     }];
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

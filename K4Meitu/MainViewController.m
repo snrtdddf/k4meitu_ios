@@ -66,8 +66,8 @@
 
 - (void)refreshData{
     self.picTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    myWeakSelf;
     self.picTable.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-        myWeakSelf;
          [weakSelf.picTable.mj_header endRefreshing];
         weakSelf.curPage = 0;
         [weakSelf.dataArr removeAllObjects];
@@ -140,13 +140,15 @@
     [vc setPicDate:model.date];
     
     [self.navigationController pushViewController:vc animated:YES];
+    vc = nil;
 }
 
 - (void)requestData{
+     myWeakSelf;
     [RequestManager getMainPagePicListCurPage:[NSNumber numberWithInt:self.curPage] pCount:@10 success:^(NSData *data) {
         NSDictionary *resDict = myJsonSerialization;
         NSLog(@"resDict:%@",resDict);
-        myWeakSelf;
+       
         [weakSelf.picTable.mj_footer endRefreshing];
         
         if ([resDict[@"success"] boolValue]) {

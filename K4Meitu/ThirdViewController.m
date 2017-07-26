@@ -19,6 +19,10 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)dealloc{
+    NSLog(@"dealloc_3");
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

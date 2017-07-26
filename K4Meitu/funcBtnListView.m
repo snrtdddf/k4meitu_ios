@@ -59,7 +59,7 @@
                                                btnWidth,
                                                btnHeight
                                                );
-                self.funcBtn.tag = 1000 + i*lineCount+j;
+                self.funcBtn.tag = 500 + i*lineCount+j;
                 //按钮图片
                 self.image = [[UIImageView alloc]initWithFrame:CGRectMake(
                             (self.funcBtn.frame.size.width-btnHeight*0.7)/2,

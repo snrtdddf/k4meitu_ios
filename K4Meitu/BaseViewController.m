@@ -123,9 +123,9 @@
     [leftButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * leftButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     self.navigationItem.leftBarButtonItem = leftButtonItem;
-    if (sendNotification) {
-        [NotificationCenter postNotificationName:@"BackButtonNotification" object:nil];
-    }
+//    if (sendNotification) {
+//        [NotificationCenter postNotificationName:@"BackButtonNotification" object:nil];
+//    }
 }
 
 - (void)backButtonAction:(UIButton *)sender{
