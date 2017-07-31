@@ -61,6 +61,21 @@
     PostMethod;
 }
 
+/**
+ 获取囧图的图片
+ 
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)getJiongPicNewsListCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.main.getGifPicNewest",
+                               @"curPage":curPage,
+                               @"pCount":pCount,
+                               ParamDictNeed
+                               };
+    PostMethod;
+}
+
 
 /**
  获取图组图片详情

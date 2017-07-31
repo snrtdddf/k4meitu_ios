@@ -120,4 +120,12 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
  @param failed <#failed description#>
  */
 + (void)getGroupMenuBtnSuccess:(Succeed)succeed failed:(Failed)failed;
+
+/**
+ 获取囧图的图片
+ 
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)getJiongPicNewsListCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount requestBlock;
 @end

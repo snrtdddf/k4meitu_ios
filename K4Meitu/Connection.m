@@ -82,7 +82,7 @@
     
     if (self.isNetOK) {
         if (isShow) {
-           // [MBManager showLoading];
+            [MBManager showLoading];
         }
         // 设置超时时间
         [_manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
@@ -94,7 +94,7 @@
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if (isShow) {
-                //[MBManager hideAlert];
+                [MBManager hideAlert];
             }
             
             isSucceed(responseObject);
@@ -103,7 +103,7 @@
         }];
         
     } else {
-       // [MBManager showBriefAlert:@"网络连接失败，请检测网络连接"];
+        [MBManager showBriefAlert:@"网络连接失败，请检测网络连接"];
         
     }
 }

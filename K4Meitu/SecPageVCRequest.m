@@ -231,4 +231,17 @@
     return colHeaderView;
 }
 
+
++ (NSDictionary *)funcBtnControllerDictionary{
+    NSDictionary *dict = @{
+                           @"美臀":@{
+                                   @"className":@"JiongPicNewestVC",
+                                   @"property":@{@"groupId":@"22220172999",
+                                                 @"Title":@"第一个controller"
+                                                 },
+                                   @"method":@"requestData"
+                                   }
+                           };
+    return dict;
+}
 @end

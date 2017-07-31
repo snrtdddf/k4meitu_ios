@@ -23,6 +23,7 @@
 #import "PicGroupCollectionCell.h"
 #import "PicGroupDetailVC.h"
 #import "MJRefresh.h"
+#import "MBManager.h"
 @interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
 @property (strong, nonatomic) NSMutableArray *funcBtnArray;
@@ -156,7 +157,7 @@
     
     [SecPageVCRequest requestFromMenuBtnList:^(NSMutableArray *dataArr) {
         myWeakSelf;
-
+        [MBManager hideAlert];
         //取数据
         weakSelf.picUrlList = dataArr[0];
         weakSelf.funcBtnArray = dataArr[1];
@@ -209,7 +210,22 @@
 - (void)funcBtnAction:(UIButton *)btn{
     
     GroupMenuBtnModel *model = self.funcBtnArray[btn.tag-500];
-    NSLog(@"点击了:%@",model.title);
+   
+    NSString *vcName = [[SecPageVCRequest funcBtnControllerDictionary] valueForKey:[NSString stringWithFormat:@"%@",model.title]][@"className"];
+    Class clazz = NSClassFromString(vcName);
+    ViewController *vc = [[clazz alloc] init];
+    
+    NSDictionary *parameter = [[SecPageVCRequest funcBtnControllerDictionary] valueForKey:[NSString stringWithFormat:@"%@",model.title]][@"property"];
+    
+    
+    
+    [parameter enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([[parameter allKeys] containsObject:key]) {
+            [vc setValue:obj forKey:key];
+        }
+    }];
+    
+    [self.navigationController pushViewController:vc  animated:YES];
     
 }
 
@@ -362,10 +378,15 @@
     }];
 }
 
+- (void)dealloc{
+    NSLog(@"第二页主页Dealloc");
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

@@ -23,5 +23,5 @@ typedef void(^PicGroupDataBlock)(NSMutableArray *dataArr,NSInteger maxPage);
 + (SecPageMaxRecordView *)maxRecordViewFrame:(CGRect)frame dataModel:(GroupMenuBtnModel *)model;
 + (UIButton *)midderBannerADviewFrame:(CGRect)frame imgUrl:(NSString *)url;
 + (PicGroupColHeaderView *)colHeaderViewFrame:(CGRect)frame;
-
++ (NSDictionary *)funcBtnControllerDictionary;
 @end
