@@ -12,20 +12,24 @@
 #import "MJRefresh.h"
 #import "JiongPicNewestCell.h"
 #import "JiongPicNewestRequest.h"
+#import "PicGroupDetailRequest.h"
+#import <SDImageCache.h>
 @interface JiongPicNewestVC ()<UITableViewDelegate,UITableViewDataSource>
-@property (strong, nonatomic) UITableView *picTable;
-@property (nonatomic, strong) NSMutableArray *dataArr;
-@property (nonatomic, assign) int curPage;
-@property (nonatomic, assign) int maxPage;
+
 @end
 
 @implementation JiongPicNewestVC
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addBackButton:NO];
     [self addStatusBlackBackground];
-    [self addTitleWithName:@"今日囧图" wordNun:4];
+    [self addTitleWithName:@"搞笑GIF" wordNun:4];
     self.view.backgroundColor = lightGray_Color;
     self.curPage = 0;
     
@@ -45,7 +49,7 @@
     [self.picTable registerNib:[UINib nibWithNibName:@"JiongPicNewestCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.picTable];
     
-    if (self.dataArray == nil) {
+    if (self.dataArr == nil) {
         self.dataArr = [[NSMutableArray alloc] init];
     }
 
@@ -54,7 +58,7 @@
     myWeakSelf;
     self.picTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.curPage++;
-        if (weakSelf.curPage <= weakSelf.maxPage) {
+        if (weakSelf.curPage < weakSelf.maxPage) {
             [weakSelf requestData];
         }else{
             [weakSelf.picTable.mj_footer endRefreshingWithNoMoreData];
@@ -77,7 +81,10 @@
     [JiongPicNewestRequest requestCurPage:self.curPage dataBlock:^(NSMutableArray *dataArr, NSInteger maxPage) {
         
         //[weakSelf.dataArr addObject:dataArr];
-        weakSelf.dataArr = dataArr;
+        for (JiongPicNewestModel *model in dataArr) {
+            [weakSelf.dataArr addObject:model];
+        }
+        //weakSelf.dataArr = dataArr;
         weakSelf.maxPage = (int)maxPage;
         
         [weakSelf.picTable reloadData];
@@ -98,6 +105,7 @@
     return self.dataArr.count;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     JiongPicNewestCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -105,20 +113,109 @@
         cell = [[JiongPicNewestCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     JiongPicNewestModel *model = self.dataArr[indexPath.row];
-    cell = [JiongPicNewestRequest JiongCell:cell dataArr:model];
+    cell = [JiongPicNewestRequest JiongCell:cell dataArr:model IndexPath:(NSIndexPath *)indexPath];
+    [cell.likeCount addTarget:self action:@selector(likeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.dislikeCount addTarget:self action:@selector(dislikeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.cmtCount addTarget:self action:@selector(cmtBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.share addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    
     
+    
+}
+
+
+- (void)likeBtnClick:(UIButton *)btn{
+   JiongPicNewestModel *model = self.dataArr[btn.tag - 300];
+    model.isSetLike = YES;
+    model.likeCount += 1;
+    model.isSetDislike = NO;
+    [self.dataArray replaceObjectAtIndex:btn.tag - 300 withObject:model];
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 300 inSection:0];
+    
+     [self.picTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+    myWeakSelf;
+    [JiongPicNewestRequest requestAddLikeOrDislikeData:model.Gid like:@1 dislike:@0 groupId:model.groupId addLikeBlock:^(BOOL isSuccess) {
+        if (!isSuccess) {
+            JiongPicNewestModel *model = weakSelf.dataArr[btn.tag - 300];
+            model.isSetLike = NO;
+            model.likeCount -= 1;
+            model.isSetDislike = NO;
+            [weakSelf.dataArray replaceObjectAtIndex:btn.tag - 300 withObject:model];
+            NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 300 inSection:0];
+            
+            [weakSelf.picTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+
+        }
+    }];
+}
+
+- (void)dislikeBtnClick:(UIButton *)btn{
+    JiongPicNewestModel *model = self.dataArr[btn.tag - 400];
+    model.isSetDislike = YES;
+    model.dislikeCount += 1;
+    model.isSetLike = NO;
+    [self.dataArray replaceObjectAtIndex:btn.tag - 400 withObject:model];
+     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 400 inSection:0];
+     [self.picTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+    myWeakSelf;
+    [JiongPicNewestRequest requestAddLikeOrDislikeData:model.Gid like:@0 dislike:@1 groupId:model.groupId addLikeBlock:^(BOOL isSuccess) {
+        JiongPicNewestModel *model = weakSelf.dataArr[btn.tag - 400];
+        model.isSetDislike = NO;
+        model.dislikeCount -= 1;
+        model.isSetLike = NO;
+        [weakSelf.dataArray replaceObjectAtIndex:btn.tag - 400 withObject:model];
+        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 400 inSection:0];
+        [weakSelf.picTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+    }];
+}
+- (void)cmtBtnClick:(UIButton *)btn{
+    
+}
+
+- (void)shareBtnClick:(UIButton *)btn{
+    
+    myWeakSelf;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        JiongPicNewestModel *model = weakSelf.dataArr[btn.tag - 500];
+        //分享的标题
+        NSString *textToShare = model.Title;
+        //分享的图片
+        UIImage *imageToShare = [UIImage imageNamed:@"tmp0262246a"];
+        //分享的url
+        NSURL *urlToShare = [NSURL URLWithString:model.imgUrl];
+        //在这里呢 如果想分享图片 就把图片添加进去  文字什么的通上
+        NSArray *activityItems = @[textToShare,imageToShare, urlToShare];
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+        //不出现在活动项目
+        activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeCopyToPasteboard,UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll];
+        [weakSelf presentViewController:activityVC animated:YES completion:nil];
+       
+        // 分享之后的回调
+        activityVC.completionWithItemsHandler = ^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
+            if (completed) {
+                NSLog(@"completed");
+                //分享 成功
+            } else  {
+                NSLog(@"cancled");
+                //分享 取消
+            }
+        };
+  
+        
+    });
 }
 
 
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [[SDImageCache sharedImageCache] clearMemory];
 
-
-
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

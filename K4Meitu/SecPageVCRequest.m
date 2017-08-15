@@ -8,6 +8,7 @@
 
 #import "SecPageVCRequest.h"
 #import <NSObject+YYModel.h>
+#import <YYDiskCache.h>
 #import "RequestManager.h"
 #import "Header.h"
 #import "GroupKeywordModel.h"
@@ -175,9 +176,9 @@
     ccpView1.titleArray = titleArr1;
     ccpView2.titleArray = titleArr2;
     ccpView1.titleFont = 13;
-    ccpView1.titleColor = [UIColor blackColor];
+    ccpView1.titleColor = RGBACOLOR(50, 50, 50, 1);
     ccpView2.titleFont = 13;
-    ccpView2.titleColor = [UIColor blackColor];
+    ccpView2.titleColor = NickelColor;
     [ccpView1 clickTitleLabel:^(NSInteger index,NSString *titleString) {
         NSLog(@"%@--%ld",titleString,index);
     }];
@@ -233,13 +234,24 @@
 
 
 + (NSDictionary *)funcBtnControllerDictionary{
+    /*
+     @"搞笑GIF":@{
+                @"className":@"JiongPicNewestVC",
+                @"property":@{@"groupId":@"22220172999",
+                            @"Title":@"第一个controller"
+                },
+                @"method":@"requestData"
+     }
+     */
     NSDictionary *dict = @{
-                           @"美臀":@{
-                                   @"className":@"JiongPicNewestVC",
-                                   @"property":@{@"groupId":@"22220172999",
-                                                 @"Title":@"第一个controller"
-                                                 },
-                                   @"method":@"requestData"
+                           @"搞笑GIF":@{
+                                   @"className":@"JiongPicNewestVC"
+                                   },
+                           @"囧图":@{
+                                   @"className":@"JiongStaticImageVC"
+                                   },
+                           @"吐槽":@{
+                                   @"className":@"TuCaoPicVC"
                                    }
                            };
     return dict;

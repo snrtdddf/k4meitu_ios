@@ -74,6 +74,14 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
  */
 + (void)addPicGroupLikeDataGroupId:(NSString *)groupId  requestBlock;
 
+/**
+ 图组点倒
+ 
+ @param groupId <#groupId description#>
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)addPicGroupDislikeDataGroupId:(NSString *)groupId  success:(Succeed)succeed failed:(Failed)failed;
 
 /**
  是否已经点赞
@@ -122,10 +130,23 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
 + (void)getGroupMenuBtnSuccess:(Succeed)succeed failed:(Failed)failed;
 
 /**
- 获取囧图的图片
+ 获取搞笑GIF的图片
  
  @param succeed <#succeed description#>
  @param failed <#failed description#>
  */
 + (void)getJiongPicNewsListCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount requestBlock;
+
+// 获取囧图的图片
++ (void)getJiongStaticImageCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount type:(NSString *)type success:(Succeed)succeed failed:(Failed)failed;
+
+// 获取吐槽图组
++ (void)getTuCaoPicCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed;
+
+//gif图点赞
++ (void)addGifPicGroupLikeId:(NSNumber *)Gid Like:(NSNumber *)like dislike:(NSNumber *)dislike groupId:(NSString *)groupId success:(Succeed)succeed failed:(Failed)failed;
+
+//关键字查找图组
++ (void)getPicGroupByKeyword:(NSString *)keyword curPage:(NSNumber *)curPage pCount:(NSNumber *)pCount requestBlock;
+
 @end

@@ -10,11 +10,14 @@
 
 #import <Foundation/Foundation.h>
 @interface JiongPicNewestModel : NSObject
+@property (strong, nonatomic) NSNumber *Gid;
 @property (nonatomic, strong) NSString *groupId;
 @property (nonatomic, strong) NSString *Title;
 @property (nonatomic, assign) int count;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *imgUrl;
+@property (nonatomic, strong) NSString *linkUrl;
+@property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSString *imgCoverName;
 @property (nonatomic, assign) int imgCoverHeight;
@@ -25,5 +28,7 @@
 @property (assign, nonatomic) int browseCount;
 @property (assign, nonatomic) int shareCount;
 @property (assign, nonatomic) int score;
+@property (assign, nonatomic) BOOL isSetLike;
+@property (assign, nonatomic) BOOL isSetDislike;
 + (NSDictionary *)modelCustomPropertyMapper;
 @end

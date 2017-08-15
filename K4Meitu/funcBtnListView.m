@@ -62,10 +62,10 @@
                 self.funcBtn.tag = 500 + i*lineCount+j;
                 //按钮图片
                 self.image = [[UIImageView alloc]initWithFrame:CGRectMake(
-                            (self.funcBtn.frame.size.width-btnHeight*0.7)/2,
-                            (self.funcBtn.frame.size.height-btnHeight*0.7)/4, btnHeight*0.7,
-                                btnHeight*0.7)];
-                self.image.layer.cornerRadius = btnHeight*0.7/2;
+                            (self.funcBtn.frame.size.width-btnHeight*0.6)/2,
+                            (self.funcBtn.frame.size.height-btnHeight*0.6)/5, btnHeight*0.6,
+                                btnHeight*0.6)];
+                self.image.layer.cornerRadius = btnHeight*0.6/2;
                 self.image.clipsToBounds = YES;
                
                 if ([model.titleImgUrl hasPrefix:@"http"]) {
@@ -74,7 +74,7 @@
                     self.image.image = [UIImage imageNamed:@"photo"];
                 }
                 //按钮文字
-                self.title = [[UILabel alloc]initWithFrame:CGRectMake(0,  CGRectGetMaxY(self.image.frame), btnWidth, 0.2*btnHeight)];
+                self.title = [[UILabel alloc]initWithFrame:CGRectMake(0,  CGRectGetMaxY(self.image.frame)+5, btnWidth, 0.2*btnHeight)];
                 self.title.text = model.title;
                 self.title.font = (IS_Phone4S||IS_Phone5S) ? ([UIFont systemFontOfSize:13]) : ([UIFont systemFontOfSize:14]);
                 self.title.textColor = [UIColor grayColor];

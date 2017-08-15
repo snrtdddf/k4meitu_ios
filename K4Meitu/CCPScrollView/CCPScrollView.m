@@ -247,7 +247,7 @@
      */
     
     self.timer = [NSTimer timerWithTimeInterval:3 target:self selector:@selector(nextLabel) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
 }
 
 - (void)removeTimer {

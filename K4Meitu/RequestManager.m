@@ -58,6 +58,22 @@
                                @"pCount":pCount,
                                ParamDictNeed
                                };
+    PostMethod_NO_Indicator;
+}
+
+/**
+ 获取搞笑GIF的图片
+ 
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)getJiongPicNewsListCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.main.getGifPicNewest",
+                               @"curPage":curPage,
+                               @"pCount":pCount,
+                               @"type":@"gaoxiaoGIF",
+                               ParamDictNeed
+                               };
     PostMethod;
 }
 
@@ -67,15 +83,31 @@
  @param succeed <#succeed description#>
  @param failed <#failed description#>
  */
-+ (void)getJiongPicNewsListCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed{
++ (void)getJiongStaticImageCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount type:(NSString *)type success:(Succeed)succeed failed:(Failed)failed{
     NSDictionary *paraDict = @{@"method":@"p.main.getGifPicNewest",
                                @"curPage":curPage,
                                @"pCount":pCount,
+                               @"type":type,
                                ParamDictNeed
                                };
     PostMethod;
 }
 
+/**
+ 获取吐槽图组
+ 
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)getTuCaoPicCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.main.getGifPicNewest",
+                               @"curPage":curPage,
+                               @"pCount":pCount,
+                               @"type":@"tucao",
+                               ParamDictNeed
+                               };
+    PostMethod;
+}
 
 /**
  获取图组图片详情
@@ -133,7 +165,25 @@
     PostMethod_NO_Indicator;
 
 }
-
+/**
+ 图组点倒
+ 
+ @param groupId <#groupId description#>
+ @param succeed <#succeed description#>
+ @param failed <#failed description#>
+ */
++ (void)addPicGroupDislikeDataGroupId:(NSString *)groupId  success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.comment.addLike",
+                               @"groupId":groupId,
+                               @"userId":userID,
+                               @"imgLike":@0,
+                               @"imgDislike":@1,
+                               @"imgId":@1,
+                               ParamDictNeed
+                               };
+    PostMethod_NO_Indicator;
+    
+}
 
 + (void)isPicGroupLikeExistGroupId:(NSString *)groupId success:(Succeed)succeed failed:(Failed)failed{
     NSDictionary *paraDict = @{@"method":@"p.comment.isLikeExist",
@@ -181,8 +231,38 @@
     NSDictionary *paraDict = @{@"method":@"p.main.getMenuBtn",
                                ParamDictNeed
                                };
-    PostMethod;
+    PostMethod_NO_Indicator;
 }
+
++ (void)getPicGroupByKeyword:(NSString *)keyword curPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.main.findKeyword",
+                               @"curPage":curPage,
+                               @"pCount":pCount,
+                               @"keyword":keyword,
+                               ParamDictNeed
+                               };
+    PostMethod_NO_Indicator;
+}
+
+#pragma mark ------------------------------END---------------------------------
+
+#pragma mark
+#pragma mark ------------------------------GIF---------------------------------
++ (void)addGifPicGroupLikeId:(NSNumber *)Gid Like:(NSNumber *)like dislike:(NSNumber *)dislike groupId:(NSString *)groupId success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.comment.addGifPicGroupLike",
+                               @"like":like,
+                               @"dislike":dislike,
+                               @"id":Gid,
+                               @"userId":userID,
+                               @"groupId":groupId,
+                               ParamDictNeed
+                               };
+    PostMethod_NO_Indicator;
+    
+}
+
+
+
 #pragma mark ------------------------------END---------------------------------
 @end
 

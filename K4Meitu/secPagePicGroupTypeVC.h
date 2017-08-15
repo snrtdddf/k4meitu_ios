@@ -7,7 +7,6 @@
 //
 
 #import "YXViewPagerBaseViewController.h"
-#import "YXViewPagerBaseViewController.h"
 #import "YXViewPager.h"
 @interface secPagePicGroupTypeVC : YXViewPagerBaseViewController
 

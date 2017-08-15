@@ -18,13 +18,14 @@
 #import "mainPageRequest.h"
 #import "MainPicGroupCell.h"
 #import "PicGroupDetailVC.h"
+#import <YYCache.h>
+#import <YYDiskCache.h>
 
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, strong) UITableView *picTable;
-@property (nonatomic, strong) NSMutableArray *dataArr;
-@property (nonatomic, assign) int curPage;
-@property (nonatomic, assign) int maxPage;
+@property (strong, nonatomic) YYDiskCache *cache;
+@property (assign, nonatomic) int requestCount;
+
 
 @end
 
@@ -74,6 +75,8 @@
         [weakSelf requestData];
        
     }];
+    
+  
 }
 
 - (void)loadMoreData{
@@ -96,10 +99,21 @@
     [self.picTable registerNib:[UINib nibWithNibName:@"MainPicGroupCell" bundle:nil] forCellReuseIdentifier:@"picGroupCell"];
     [self.view addSubview:self.picTable];
     
-    if (self.dataArray == nil) {
+    if (self.cache == nil) {
+        self.cache = [YYCache cacheWithName:[NSString stringWithFormat:@"mainPageCache%@",self.keyword]].diskCache;
+        self.cache.ageLimit = 3*24*60*60;
+        self.cache.costLimit = 100556768;
+    }
+    
+    if (self.dataArr == nil) {
         self.dataArr = [[NSMutableArray alloc] init];
     }
+    if ([self.cache containsObjectForKey:@"dataArr"]) {
+        self.dataArr = (NSMutableArray *)[self.cache objectForKey:@"dataArr"];
+        [self.picTable reloadData];
+    }
 
+        //[self.dataArr removeAllObjects];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -122,9 +136,13 @@
     if (cell == nil) {
         cell = [[MainPicGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"picGroupCell"];
     }
+    cell = [mainPageRequest returnMainPicGroupCell:cell Model:model];
+    if ([cell.title.text containsString:self.keyword]) {
+        //RGBACOLOR(232, 93, 243, 1)
+        cell.title.attributedText = [commonTools setKeywordStyle:cell.title.text keyword:self.keyword Color:RGBACOLOR(248, 48, 146, 1) font:[UIFont systemFontOfSize:22.0f]];
+    }
     
-    
-    return [mainPageRequest returnMainPicGroupCell:cell Model:model];
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -145,14 +163,24 @@
 
 - (void)requestData{
      myWeakSelf;
+    
+    self.requestCount++;
+    
+   
+    
     [RequestManager getMainPagePicListCurPage:[NSNumber numberWithInt:self.curPage] pCount:@10 success:^(NSData *data) {
         NSDictionary *resDict = myJsonSerialization;
         NSLog(@"resDict:%@",resDict);
-       
+        
         [weakSelf.picTable.mj_footer endRefreshing];
+        
+        if (weakSelf.requestCount == 1) {
+            [weakSelf.dataArr removeAllObjects];
+        }
         
         if ([resDict[@"success"] boolValue]) {
             NSArray *resArr = resDict[@"res"][@"list"];
+           
             
             NSLog(@"count:%ld",resArr.count);
             if (resArr.count != 0) {
@@ -175,6 +203,7 @@
                 }
                 [weakSelf.picTable reloadData];
                 NSLog(@"count:%ld",weakSelf.dataArr.count);
+                [weakSelf.cache setObject:weakSelf.dataArr forKey:@"dataArr"];
             }
         }else{
             [commonTools showBriefAlert:resDict[@"ErrorMsg"]];
@@ -184,6 +213,9 @@
     }];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+   
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

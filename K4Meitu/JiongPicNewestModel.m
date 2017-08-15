@@ -43,11 +43,14 @@
 @implementation JiongPicNewestModel
 + (NSDictionary *)modelCustomPropertyMapper{
     return @{
+             @"Gid" : @"id",
              @"groupId" : @"groupId",
              @"Title" : @"title",
              @"count" : @"count",
              @"type" : @"type",
              @"imgUrl" : @"imgUrl",
+             @"content":@"content",
+             @"linkUrl" : @"linkUrl",
              @"date" : @"date",
              @"imgCoverName" : @"imgCoverName",
              @"imgCoverHeight" : @"imgCoverHeight",

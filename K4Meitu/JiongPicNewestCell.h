@@ -18,5 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *share;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consLeft;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consRight;
+@property (weak, nonatomic) IBOutlet UIImageView *likeImg;
+@property (weak, nonatomic) IBOutlet UIImageView *dislikeImg;
 
 @end

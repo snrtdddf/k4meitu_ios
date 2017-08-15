@@ -22,25 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-//    [NSTimer scheduledTimerWithTimeInterval:1.0F repeats:NO block:^(NSTimer * _Nonnull timer) {
-//        
-//        if (userID == nil) {
-//            [self registerUser];
-//            NSLog(@"用户不存在，正在注册");
-//        }else{
-//            [self loginUser];
-//            NSLog(@"正在登录");
-//        }
-//        
-//        
-//        
-//        MainTabBarViewController *rooterVC = [[MainTabBarViewController alloc]init];
-//        UINavigationController *rooterNav = [[UINavigationController alloc]initWithRootViewController:rooterVC];
-//        [UIApplication sharedApplication].keyWindow.rootViewController = rooterNav;
-//        MainViewController *VC = [[MainViewController alloc] init];
-//        [self.navigationController pushViewController:VC animated:YES];
-//        [timer invalidate];
-//    }];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerClick) userInfo:nil repeats:NO];
     

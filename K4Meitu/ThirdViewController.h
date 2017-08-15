@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-
-@interface ThirdViewController : ViewController
+#import "YXViewPagerBaseViewController.h"
+#import "YXViewPager.h"
+@interface ThirdViewController : YXViewPagerBaseViewController
 
 @end

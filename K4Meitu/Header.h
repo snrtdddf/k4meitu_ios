@@ -11,7 +11,8 @@
 #import "Connection.h"
 //*******************************网络请求相关宏**********************
 //网络请求 上传图片的地址也要换
-
+//@"http://www.51yunkong.com:8080/api.action?"
+//@"http://192.168.1.38:8080/api.action?"
 #define URLPrefix @"http://www.51yunkong.com:8080/api.action?"
 
 
@@ -81,6 +82,7 @@
 #define Gold_COLOR [UIColor colorWithRed:255.f/255.f green:165.f/255.f blue:44.f/255.f alpha:1]//默认金
 #define S_Light_Gray [UIColor colorWithRed:235.f/255.f green:235.f/255.f blue:235.f/255.f alpha:1]//默认灰
 #define Red_COLOR [UIColor colorWithRed:254.f/255.f green:90.f/255.f blue:61.f/255.f alpha:1]//默认红
+#define NickelColor RGBACOLOR(50, 50, 50, 1)
 #define White_COLOR [UIColor whiteColor]//白色
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]

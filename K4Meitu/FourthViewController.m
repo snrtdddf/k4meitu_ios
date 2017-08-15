@@ -7,6 +7,7 @@
 //
 
 #import "FourthViewController.h"
+#import <SDImageCache.h>
 
 @interface FourthViewController ()
 
@@ -29,7 +30,13 @@
 - (void)clearCache{
     NSString *path = [self getCachesPath];
     NSLog(@"%lf",[self getCacheSizeAtPath:path]);
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+        
+    }];
+    [[SDImageCache sharedImageCache] clearMemory];
     [self clearCacheAtPath:path];
+    //[[SDImageCache sharedImageCache] clearDisk];
+    
 }
 
 - (void)didReceiveMemoryWarning {

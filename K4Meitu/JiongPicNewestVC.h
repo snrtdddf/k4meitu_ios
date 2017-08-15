@@ -11,6 +11,11 @@
 @interface JiongPicNewestVC : BaseViewController
 @property (strong, nonatomic) NSString *groupId;
 @property (strong, nonatomic) NSString *Title;
-
-
+@property (strong, nonatomic) UITableView *picTable;
+@property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, assign) int curPage;
+@property (nonatomic, assign) int maxPage;
+- (void)requestData;
+- (void)initTableView;
+- (void)refreshData;
 @end

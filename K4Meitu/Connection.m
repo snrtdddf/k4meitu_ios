@@ -13,6 +13,8 @@
 #import "FMDB.h"
 #import "SDImageCache.h"
 #import "commonTools.h"
+#import "MBProgressHUD.h"
+#import <UIKit/UIKit.h>
 
 //typedef void (^TextResult)(NSProgress *downloadProgress, id response, NSError *err);
 
