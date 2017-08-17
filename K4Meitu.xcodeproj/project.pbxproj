@@ -158,6 +158,10 @@
 		7DE66E9E1F331195007D31A9 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7DE66E9B1F331195007D31A9 /* 2.jpg */; };
 		7DE66EB01F3DA6DD007D31A9 /* SexyPicGroupTypeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE66EAF1F3DA6DD007D31A9 /* SexyPicGroupTypeVC.m */; };
 		7DE66EB41F3EA19E007D31A9 /* SexyGirlPicGroupTypeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE66EB31F3EA19E007D31A9 /* SexyGirlPicGroupTypeRequest.m */; };
+		7DE66EBC1F43E86D007D31A9 /* ThirdTujianCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE66EBA1F43E86D007D31A9 /* ThirdTujianCell.m */; };
+		7DE66EBD1F43E86D007D31A9 /* ThirdTujianCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DE66EBB1F43E86D007D31A9 /* ThirdTujianCell.xib */; };
+		7DE66EC11F4429F8007D31A9 /* ThirdTujianMutiPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE66EBF1F4429F8007D31A9 /* ThirdTujianMutiPicCell.m */; };
+		7DE66EC21F4429F8007D31A9 /* ThirdTujianMutiPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DE66EC01F4429F8007D31A9 /* ThirdTujianMutiPicCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -398,6 +402,12 @@
 		7DE66EAF1F3DA6DD007D31A9 /* SexyPicGroupTypeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexyPicGroupTypeVC.m; sourceTree = "<group>"; };
 		7DE66EB21F3EA19E007D31A9 /* SexyGirlPicGroupTypeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SexyGirlPicGroupTypeRequest.h; sourceTree = "<group>"; };
 		7DE66EB31F3EA19E007D31A9 /* SexyGirlPicGroupTypeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SexyGirlPicGroupTypeRequest.m; sourceTree = "<group>"; };
+		7DE66EB91F43E86D007D31A9 /* ThirdTujianCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdTujianCell.h; sourceTree = "<group>"; };
+		7DE66EBA1F43E86D007D31A9 /* ThirdTujianCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdTujianCell.m; sourceTree = "<group>"; };
+		7DE66EBB1F43E86D007D31A9 /* ThirdTujianCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdTujianCell.xib; sourceTree = "<group>"; };
+		7DE66EBE1F4429F8007D31A9 /* ThirdTujianMutiPicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdTujianMutiPicCell.h; sourceTree = "<group>"; };
+		7DE66EBF1F4429F8007D31A9 /* ThirdTujianMutiPicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdTujianMutiPicCell.m; sourceTree = "<group>"; };
+		7DE66EC01F4429F8007D31A9 /* ThirdTujianMutiPicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdTujianMutiPicCell.xib; sourceTree = "<group>"; };
 		AE948F3247EA1E39FA33B34B /* Pods-K4Meitu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-K4Meitu.debug.xcconfig"; path = "Pods/Target Support Files/Pods-K4Meitu/Pods-K4Meitu.debug.xcconfig"; sourceTree = "<group>"; };
 		C273C1E1AFEEAE3A1B50BE7D /* libPods-K4Meitu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-K4Meitu.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -585,8 +595,7 @@
 		7D021A2F1F0E2BD9007C6617 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				7D021A4B1F0E34E3007C6617 /* SecPageVC1.h */,
-				7D021A4C1F0E34E3007C6617 /* SecPageVC1.m */,
+				7DE66EB51F43E52D007D31A9 /* 推荐 */,
 				7D021A4E1F0E3518007C6617 /* SecPageVC2.h */,
 				7D021A4F1F0E3518007C6617 /* SecPageVC2.m */,
 				7D021A511F0E3524007C6617 /* SecPageVC3.h */,
@@ -1234,6 +1243,45 @@
 			name = Request;
 			sourceTree = "<group>";
 		};
+		7DE66EB51F43E52D007D31A9 /* 推荐 */ = {
+			isa = PBXGroup;
+			children = (
+				7DE66EB81F43E545007D31A9 /* Controller */,
+				7DE66EB71F43E540007D31A9 /* View */,
+				7DE66EB61F43E53A007D31A9 /* Model */,
+			);
+			name = "推荐";
+			sourceTree = "<group>";
+		};
+		7DE66EB61F43E53A007D31A9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7DE66EB71F43E540007D31A9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7DE66EB91F43E86D007D31A9 /* ThirdTujianCell.h */,
+				7DE66EBA1F43E86D007D31A9 /* ThirdTujianCell.m */,
+				7DE66EBB1F43E86D007D31A9 /* ThirdTujianCell.xib */,
+				7DE66EBE1F4429F8007D31A9 /* ThirdTujianMutiPicCell.h */,
+				7DE66EBF1F4429F8007D31A9 /* ThirdTujianMutiPicCell.m */,
+				7DE66EC01F4429F8007D31A9 /* ThirdTujianMutiPicCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		7DE66EB81F43E545007D31A9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7D021A4B1F0E34E3007C6617 /* SecPageVC1.h */,
+				7D021A4C1F0E34E3007C6617 /* SecPageVC1.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		99EC9C89DE27D9554F45A0AE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1341,6 +1389,7 @@
 				7D64A1AC1F1654DC00A6E650 /* tmp0262246a.png in Resources */,
 				7DD3A0801F078D8800882271 /* banner_new.png in Resources */,
 				7DE66E7C1F31D421007D31A9 /* share@2x.png in Resources */,
+				7DE66EC21F4429F8007D31A9 /* ThirdTujianMutiPicCell.xib in Resources */,
 				7DD3A07E1F074CFE00882271 /* zan_fly.png in Resources */,
 				7DA206701EF504CF00AA4056 /* shopping_select.png in Resources */,
 				7DDDF4591EF4CE8500830CA8 /* Assets.xcassets in Resources */,
@@ -1369,6 +1418,7 @@
 				7DA2066E1EF504CF00AA4056 /* shopping_s.png in Resources */,
 				7DA206531EF5041000AA4056 /* mainPage_select@2x.png in Resources */,
 				7DA206721EF504CF00AA4056 /* shopping_un.png in Resources */,
+				7DE66EBD1F43E86D007D31A9 /* ThirdTujianCell.xib in Resources */,
 				7D11DCB71F0B99AD00713098 /* dislike_thumb_red@2x.png in Resources */,
 				7DA206D41EFCBBA600AA4056 /* Default-736h@2x.png in Resources */,
 				7DA2065D1EF5041D00AA4056 /* me_unselect@2x.png in Resources */,
@@ -1443,6 +1493,7 @@
 				7DA206041EF4D8DD00AA4056 /* NSArray+Log.m in Sources */,
 				7D021A391F0E2C54007C6617 /* UIColor+YX.m in Sources */,
 				7D64A1A31F15F2F900A6E650 /* SecPageVCRequest.m in Sources */,
+				7DE66EBC1F43E86D007D31A9 /* ThirdTujianCell.m in Sources */,
 				7DE66E6A1F29B86C007D31A9 /* JiongPicNewestModel.m in Sources */,
 				7D021A451F0E2C6A007C6617 /* YXViewPagerTopItemView.m in Sources */,
 				7DA2062A1EF4D92D00AA4056 /* VersionedImage.m in Sources */,
@@ -1456,6 +1507,7 @@
 				7D26C49C1F19C25200FD45BC /* GroupMenuBtnModel.m in Sources */,
 				7D64A1A81F1611E600A6E650 /* SecPageHotCmtView.m in Sources */,
 				7DA206DD1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m in Sources */,
+				7DE66EC11F4429F8007D31A9 /* ThirdTujianMutiPicCell.m in Sources */,
 				7D021A5C1F0E3777007C6617 /* SecPageVC6.m in Sources */,
 				7D021A491F0E2C78007C6617 /* YXViewPagerItemViewModel.m in Sources */,
 				7DA2060F1EF4D8DD00AA4056 /* NSString+fontSizeValue.m in Sources */,

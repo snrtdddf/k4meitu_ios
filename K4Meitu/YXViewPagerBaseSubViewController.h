@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "YXViewPagerEventDelegate.h"
-
-@interface YXViewPagerBaseSubViewController : UIViewController
+#import "BaseViewController.h"
+@interface YXViewPagerBaseSubViewController : BaseViewController
 
 /**
  RootVC向SubVC传递的消息参数

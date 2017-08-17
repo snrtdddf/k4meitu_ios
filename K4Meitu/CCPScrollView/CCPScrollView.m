@@ -22,7 +22,7 @@
 /**
  *  定时器
  */
-@property (nonatomic,strong) NSTimer *timer;
+
 /**
  *  记录滚动的页码
  */

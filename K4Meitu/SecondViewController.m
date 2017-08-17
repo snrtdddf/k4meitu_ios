@@ -28,6 +28,7 @@
 #import "SexyPicGroupTypeVC.h"
 #import <YYDiskCache.h>
 #import <YYCache.h>
+#import "CCPScrollView.h"
 @interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
 @property (strong, nonatomic) NSMutableArray *funcBtnArray;
@@ -62,6 +63,16 @@
     }
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.barTintColor = Black_COLOR;
+    
+    //防止timer被dealloc之后，出现不滚动的bug
+    for (UIView *view in self.hotCommentView.cmtView1.subviews) {
+        if ([view isKindOfClass:[CCPScrollView class]]) {
+            CCPScrollView *ccpView = (CCPScrollView *)view;
+            if (ccpView.timer == nil) {
+                [[NSRunLoop mainRunLoop] addTimer:ccpView.timer  forMode:NSDefaultRunLoopMode];
+            }
+        }
+    }
 }
 
 - (void)viewDidLoad {

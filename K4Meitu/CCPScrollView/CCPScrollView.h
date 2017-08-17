@@ -38,7 +38,7 @@ typedef void(^clickLabelBlock)(NSInteger index,NSString *titleString);
  */
 @property (nonatomic,assign) CGFloat titleFont;
 
-
+@property (nonatomic,strong) NSTimer *timer;
 
 /**
  *  关闭定时器
