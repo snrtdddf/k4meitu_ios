@@ -42,6 +42,9 @@
 		7D26C4FB1F287E6100FD45BC /* JiongPicNewestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D26C4FA1F287E5000FD45BC /* JiongPicNewestVC.m */; };
 		7D26C4FF1F28805F00FD45BC /* JiongPicNewestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D26C4FD1F28805F00FD45BC /* JiongPicNewestCell.m */; };
 		7D26C5001F28805F00FD45BC /* JiongPicNewestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D26C4FE1F28805F00FD45BC /* JiongPicNewestCell.xib */; };
+		7D5EDF421F4AB586003EBDE2 /* ArticleLatestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5EDF411F4AB586003EBDE2 /* ArticleLatestRequest.m */; };
+		7D5EDF461F4ABC9F003EBDE2 /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5EDF451F4ABC9F003EBDE2 /* ArticleModel.m */; };
+		7D5EDF4F1F4ACF34003EBDE2 /* ArticleLatestDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D5EDF4E1F4ACF34003EBDE2 /* ArticleLatestDetailVC.m */; };
 		7D64A1851F14BC2E00A6E650 /* funcBtnListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D64A1841F14BC2E00A6E650 /* funcBtnListView.m */; };
 		7D64A1A31F15F2F900A6E650 /* SecPageVCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D64A1A21F15F2F900A6E650 /* SecPageVCRequest.m */; };
 		7D64A1A51F16118B00A6E650 /* SecPageHotCmtView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D64A1A41F16118B00A6E650 /* SecPageHotCmtView.xib */; };
@@ -228,6 +231,12 @@
 		7D26C4FC1F28805F00FD45BC /* JiongPicNewestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JiongPicNewestCell.h; sourceTree = "<group>"; };
 		7D26C4FD1F28805F00FD45BC /* JiongPicNewestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JiongPicNewestCell.m; sourceTree = "<group>"; };
 		7D26C4FE1F28805F00FD45BC /* JiongPicNewestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JiongPicNewestCell.xib; sourceTree = "<group>"; };
+		7D5EDF401F4AB586003EBDE2 /* ArticleLatestRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleLatestRequest.h; sourceTree = "<group>"; };
+		7D5EDF411F4AB586003EBDE2 /* ArticleLatestRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLatestRequest.m; sourceTree = "<group>"; };
+		7D5EDF441F4ABC9F003EBDE2 /* ArticleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
+		7D5EDF451F4ABC9F003EBDE2 /* ArticleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleModel.m; sourceTree = "<group>"; };
+		7D5EDF4D1F4ACF34003EBDE2 /* ArticleLatestDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleLatestDetailVC.h; sourceTree = "<group>"; };
+		7D5EDF4E1F4ACF34003EBDE2 /* ArticleLatestDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLatestDetailVC.m; sourceTree = "<group>"; };
 		7D64A1831F14BC2E00A6E650 /* funcBtnListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = funcBtnListView.h; sourceTree = "<group>"; };
 		7D64A1841F14BC2E00A6E650 /* funcBtnListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = funcBtnListView.m; sourceTree = "<group>"; };
 		7D64A1A11F15F2F900A6E650 /* SecPageVCRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVCRequest.h; sourceTree = "<group>"; };
@@ -656,6 +665,67 @@
 				7D26C4FA1F287E5000FD45BC /* JiongPicNewestVC.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		7D5EDF431F4ABBBE003EBDE2 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				7D5EDF401F4AB586003EBDE2 /* ArticleLatestRequest.h */,
+				7D5EDF411F4AB586003EBDE2 /* ArticleLatestRequest.m */,
+			);
+			name = Request;
+			sourceTree = "<group>";
+		};
+		7D5EDF471F4ACEAB003EBDE2 /* 推荐首页 */ = {
+			isa = PBXGroup;
+			children = (
+				7D5EDF431F4ABBBE003EBDE2 /* Request */,
+				7DE66EB81F43E545007D31A9 /* Controller */,
+				7DE66EB71F43E540007D31A9 /* View */,
+				7DE66EB61F43E53A007D31A9 /* Model */,
+			);
+			name = "推荐首页";
+			sourceTree = "<group>";
+		};
+		7D5EDF481F4ACEC5003EBDE2 /* 推荐详情 */ = {
+			isa = PBXGroup;
+			children = (
+				7D5EDF4C1F4ACEF7003EBDE2 /* Request */,
+				7D5EDF4B1F4ACEED003EBDE2 /* Controller */,
+				7D5EDF4A1F4ACEE9003EBDE2 /* View */,
+				7D5EDF491F4ACEE2003EBDE2 /* Model */,
+			);
+			name = "推荐详情";
+			sourceTree = "<group>";
+		};
+		7D5EDF491F4ACEE2003EBDE2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7D5EDF4A1F4ACEE9003EBDE2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		7D5EDF4B1F4ACEED003EBDE2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7D5EDF4D1F4ACF34003EBDE2 /* ArticleLatestDetailVC.h */,
+				7D5EDF4E1F4ACF34003EBDE2 /* ArticleLatestDetailVC.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		7D5EDF4C1F4ACEF7003EBDE2 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Request;
 			sourceTree = "<group>";
 		};
 		7D64A1A01F15F2CB00A6E650 /* Request */ = {
@@ -1246,9 +1316,8 @@
 		7DE66EB51F43E52D007D31A9 /* 推荐 */ = {
 			isa = PBXGroup;
 			children = (
-				7DE66EB81F43E545007D31A9 /* Controller */,
-				7DE66EB71F43E540007D31A9 /* View */,
-				7DE66EB61F43E53A007D31A9 /* Model */,
+				7D5EDF481F4ACEC5003EBDE2 /* 推荐详情 */,
+				7D5EDF471F4ACEAB003EBDE2 /* 推荐首页 */,
 			);
 			name = "推荐";
 			sourceTree = "<group>";
@@ -1256,6 +1325,8 @@
 		7DE66EB61F43E53A007D31A9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7D5EDF441F4ABC9F003EBDE2 /* ArticleModel.h */,
+				7D5EDF451F4ABC9F003EBDE2 /* ArticleModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1512,6 +1583,7 @@
 				7D021A491F0E2C78007C6617 /* YXViewPagerItemViewModel.m in Sources */,
 				7DA2060F1EF4D8DD00AA4056 /* NSString+fontSizeValue.m in Sources */,
 				7DA2060E1EF4D8DD00AA4056 /* UIView+Line.m in Sources */,
+				7D5EDF4F1F4ACF34003EBDE2 /* ArticleLatestDetailVC.m in Sources */,
 				7D021A501F0E3518007C6617 /* SecPageVC2.m in Sources */,
 				7D021A401F0E2C61007C6617 /* YXViewPagerBaseViewController.m in Sources */,
 				7DA206341EF4D9DA00AA4056 /* GetIPAddress.m in Sources */,
@@ -1521,6 +1593,7 @@
 				7DA206C01EFB703400AA4056 /* PicGroupCommentModel.m in Sources */,
 				7DA205EC1EF4D8CE00AA4056 /* GetCurrentTime.m in Sources */,
 				7DA206C91EFBA6A600AA4056 /* PicGroupCommentCell.m in Sources */,
+				7D5EDF461F4ABC9F003EBDE2 /* ArticleModel.m in Sources */,
 				7DA206B91EFA56F400AA4056 /* PicGroupDetailModel.m in Sources */,
 				7DA206121EF4D8FD00AA4056 /* Header.m in Sources */,
 				7D021A531F0E3525007C6617 /* SecPageVC3.m in Sources */,
@@ -1552,6 +1625,7 @@
 				7DA206CD1EFCA23900AA4056 /* PicGroupDetailTitleView.m in Sources */,
 				7D26C4AC1F1CE22300FD45BC /* PicGroupCollectionCell.m in Sources */,
 				7DD3A0751F0738CE00882271 /* CatZanButton.m in Sources */,
+				7D5EDF421F4AB586003EBDE2 /* ArticleLatestRequest.m in Sources */,
 				7D021A3F1F0E2C61007C6617 /* YXViewPagerBaseSubViewController.m in Sources */,
 				7DA2061B1EF4D90700AA4056 /* SecureData.m in Sources */,
 				7DA206281EF4D92D00AA4056 /* TabBar.m in Sources */,

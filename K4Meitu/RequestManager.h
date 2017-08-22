@@ -149,4 +149,6 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
 //关键字查找图组
 + (void)getPicGroupByKeyword:(NSString *)keyword curPage:(NSNumber *)curPage pCount:(NSNumber *)pCount requestBlock;
 
+//最新的文章
++ (void)getArticleLatestCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed;
 @end

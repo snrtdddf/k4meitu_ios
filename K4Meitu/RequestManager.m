@@ -247,7 +247,7 @@
 #pragma mark ------------------------------END---------------------------------
 
 #pragma mark
-#pragma mark ------------------------------GIF---------------------------------
+#pragma mark ------------------------------动图---------------------------------
 + (void)addGifPicGroupLikeId:(NSNumber *)Gid Like:(NSNumber *)like dislike:(NSNumber *)dislike groupId:(NSString *)groupId success:(Succeed)succeed failed:(Failed)failed{
     NSDictionary *paraDict = @{@"method":@"p.comment.addGifPicGroupLike",
                                @"like":like,
@@ -262,6 +262,20 @@
 }
 
 
+
+#pragma mark ------------------------------END---------------------------------
+
+#pragma mark
+#pragma mark -----------------------------文章---------------------------------
+
++ (void)getArticleLatestCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.article.latest",
+                               @"curPage":curPage,
+                               @"pCount":pCount,
+                               ParamDictNeed
+                               };
+    PostMethod;
+}
 
 #pragma mark ------------------------------END---------------------------------
 @end
