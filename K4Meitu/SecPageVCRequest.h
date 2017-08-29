@@ -12,14 +12,18 @@
 #import "SecPageMaxRecordView.h"
 #import "GroupMenuBtnModel.h"
 #import "PicGroupColHeaderView.h"
+#import "SDCycleScrollView.h"
 typedef void(^DataBlock)(NSMutableArray *dataArr);
 typedef void(^PicGroupDataBlock)(NSMutableArray *dataArr,NSInteger maxPage);
+
 @interface SecPageVCRequest : NSObject
+
+//@property (strong, nonatomic) SDCycleScrollView *cycleScrollView;
 
 + (void)requestFromKeywordList:(DataBlock)block;
 + (void)requestFromMenuBtnList:(DataBlock)block;
 + (void)requestFromPicGroupListCurPage:(NSNumber *)curPage PageCount:(NSNumber *)pageCount dataBlock:(PicGroupDataBlock)block;
-+ (SecPageHotCmtView *)hotCommentViewFrame:(CGRect)frame dataArr:(NSMutableArray *)dataArr;
++ (SecPageHotCmtView *)hotCommentViewFrame:(CGRect)frame dataArr:(NSMutableArray *)dataArr cycleScrollView:(SDCycleScrollView *)cycleScrollView;
 + (SecPageMaxRecordView *)maxRecordViewFrame:(CGRect)frame dataModel:(GroupMenuBtnModel *)model;
 + (UIButton *)midderBannerADviewFrame:(CGRect)frame imgUrl:(NSString *)url;
 + (PicGroupColHeaderView *)colHeaderViewFrame:(CGRect)frame;

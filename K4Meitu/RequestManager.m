@@ -277,6 +277,17 @@
     PostMethod;
 }
 
++ (void)getArticleLatestByType:(NSString *)type subType:(NSString *)subType CurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed{
+    NSDictionary *paraDict = @{@"method":@"p.article.getArticleByType",
+                               @"type":type,
+                               @"subType":subType,
+                               @"curPage":curPage,
+                               @"pCount":pCount,
+                               ParamDictNeed
+                               };
+    PostMethod;
+}
+
 #pragma mark ------------------------------END---------------------------------
 @end
 

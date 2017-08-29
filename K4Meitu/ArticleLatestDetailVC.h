@@ -10,4 +10,5 @@
 #import "ArticleModel.h"
 @interface ArticleLatestDetailVC : BaseViewController
 @property (strong, nonatomic) ArticleModel *articleModel;
+
 @end

@@ -25,7 +25,10 @@
 #import "ThirdViewController.h"
 #import <YYCache.h>
 #import <YYDiskCache.h>
-@interface PicGroupDetailVC () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+
+#import "PYPhotosReaderController.h"
+
+@interface PicGroupDetailVC () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,PYPhotosViewDelegate>
 @property (strong, nonatomic) UITableView *commentTable;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) PicGroupDetailTitleDetailView *titleDetailView;
@@ -33,8 +36,8 @@
 @property (assign, nonatomic) int maxPage;
 @property (assign, nonatomic) int curPage;
 @property (assign, nonatomic) int likeCount;
-@property (strong, nonatomic) UICollectionView *collection;
-@property (strong, nonatomic) PYPhotoBrowseView *photoBroseView;
+
+//@property (strong, nonatomic) PYPhotoBrowseView *photoBroseView;
 @property (strong, nonatomic) PYPhotosView *photosView;
 
 @property (strong, nonatomic) UILabel *commentLab;
@@ -88,7 +91,7 @@
     }
     if (self.cache == nil) {
         self.cache = [YYCache cacheWithName:@"PicGroupDetail"].diskCache;
-        self.cache.ageLimit = 1*24*60*60;
+        self.cache.ageLimit = 3*24*60*60;
         self.cache.costLimit = 100556768;
         
     }
@@ -112,11 +115,10 @@
          self.imgUrls = (NSMutableArray *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailImgs%@",self.groupId]];
          self.maxPage = [(NSNumber *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailMaxPage%@",self.groupId]] intValue];
           self.curPage = [(NSNumber *)[self.cache objectForKey:[NSString stringWithFormat:@"picGroupDetailCurPage%@",self.groupId]] intValue];
-//         if (self.collection == nil) {
-//              [self initCollectionViewWithFrame:CGRectMake(0, 100+25, IPHONE_WIDTH, 114*4+25)];
-//          }
+
           if (self.photosView == nil) {
               self.photosView = [PicGroupDetailRequest imgScrollView:self.imgUrls];
+              self.photosView.delegate = self;
           }
           [self initHeaderView:self.photosView];
           [self.commentTable reloadData];
@@ -140,11 +142,9 @@
         [weakSelf.cache setObject:weakSelf.imgUrls forKey:[NSString stringWithFormat:@"picGroupDetailImgs%@",weakSelf.groupId]];
      
         
-//        if (weakSelf.collection == nil) {
-//            [weakSelf initCollectionViewWithFrame:CGRectMake(0, 100+15, IPHONE_WIDTH, 114*4+25)];
-//        }
         if (weakSelf.photosView == nil) {
             weakSelf.photosView = [PicGroupDetailRequest imgScrollView:weakSelf.imgUrls];
+            weakSelf.photosView.delegate = self;
         }
         [weakSelf initHeaderView:weakSelf.photosView];
         [weakSelf requestCommentData];
@@ -529,77 +529,35 @@
 
 }
 
-- (void)initCollectionViewWithFrame:(CGRect)frame{
-    //此处必须要有创见一个UICollectionViewFlowLayout的对象
-    UICollectionViewFlowLayout *layout = nil;
-    layout=[[UICollectionViewFlowLayout alloc]init];
-    //同一行相邻两个cell的最小间距
-    layout.minimumInteritemSpacing = 5;
-    //最小两行之间的间距
-    layout.minimumLineSpacing = 5;
-    if (self.collection == nil) {
-        self.collection=[[UICollectionView alloc]initWithFrame:frame collectionViewLayout:layout];
-    }
-    self.collection.backgroundColor=[UIColor darkGrayColor];
-    self.collection.delegate=self;
-    self.collection.dataSource=self;
-    //这个是横向滑动
-    layout.scrollDirection=UICollectionViewScrollDirectionHorizontal;
-    [self.headerView addSubview: self.collection];
-    
-    UINib *cellNib=[UINib nibWithNibName:@"PicGroupDetailCell" bundle:nil];
-    [self.collection registerNib:cellNib forCellWithReuseIdentifier:@"colCell"];
-    if (self.photoBroseView == nil) {
-        self.photoBroseView = [[PYPhotoBrowseView alloc] init];
-    }
-    
+
+//图片已经显示时调用
+- (void)photosView:(PYPhotosView *)photosView didShowWithPhotos:(NSArray<PYPhoto *> *)photos index:(NSInteger)index{
+    /*
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, 40)];
+    lab.backgroundColor = Red_COLOR;
+    lab.text = @"哈哈哈哈哈哈";
    
     
+    NSArray *windows = [[UIApplication sharedApplication] windows];
+    for(UIWindow * tmpWin in windows)
+    {
+        NSLog(@"%lf",tmpWin.windowLevel);
+        if (tmpWin.windowLevel == 2000.000000) {
+            [tmpWin addSubview:lab];
+        }
+    }
+     */
+    NSLog(@"已经显示%ld",index);
 }
-//一共有多少个组
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 1;
-}
-//每一组有多少个cell
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.imgUrls.count;
-}
-//每一个cell是什么
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (void)photosView:(PYPhotosView *)photosView didHiddenWithPhotos:(NSArray<PYPhoto *> *)photos index:(NSInteger)index{
+    NSLog(@"已经隐藏%ld",index);
     
-    
-    PicGroupDetailCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"colCell" forIndexPath:indexPath];
-    [commonTools sd_setImg:cell.img imgUrl:self.imgUrls[indexPath.item] placeHolderImgName:@"photo"];
-    cell.img.contentMode = UIViewContentModeScaleAspectFill;
-    
-    return cell;
-}
-//每一个分组的上左下右间距
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(5, 5, 5, 5);
 }
 
-//定义每一个cell的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(114, 114);
-}
-
-//cell的点击事件
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%ld",indexPath.item);
-    
-  
-    self.photoBroseView.currentIndex = indexPath.item;
-    // 3.显示(浏览)
-    [self.photoBroseView show];
-}
 
 - (void)dealloc{
    
     self.titleDetailView = nil;
-    self.collection = nil;
     self.commentTable = nil;
     self.headerView = nil;
     self.cache = nil;

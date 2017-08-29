@@ -6,8 +6,8 @@
 //  Copyright © 2017 YangLei. All rights reserved.
 //
 
-#import "YXViewPagerBaseSubViewController.h"
+#import "SecPageVC1.h"
 
-@interface SecPageVC4 : YXViewPagerBaseSubViewController
+@interface SecPageVC4 : SecPageVC1
 
 @end

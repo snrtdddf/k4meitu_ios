@@ -9,6 +9,7 @@
 #import "ArticleLatestDetailVC.h"
 #import "Header.h"
 #import "MJRefresh.h"
+#import "RequestManager.h"
 @interface ArticleLatestDetailVC ()
 
 @property (strong, nonatomic) UIScrollView *scroll;
@@ -23,7 +24,7 @@
     self.view.backgroundColor = White_COLOR;
     [self addBackButton:NO];
     [self addStatusBlackBackground];
-    [self addTitleWithName:@"详情" wordNun:4];
+    [self addTitleWithName:[NSString stringWithFormat:@"%@",self.articleModel.subType] wordNun:4];
     
     if (self.scroll == nil) {
         self.scroll = [[UIScrollView alloc] init];
@@ -37,8 +38,10 @@
     UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake(10, 0, IPHONE_WIDTH-20, IPHONE_HEIGHT);
     label.font = [UIFont systemFontOfSize:15.0f];
-    NSString *str = [NSString stringWithFormat:@"<font  style='font-size:17px;color:black'>%@</font>",self.articleModel.content];
-    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[str dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,NSFontAttributeName : [UIFont systemFontOfSize:17.0f] } documentAttributes:nil error:nil];
+    NSString *str = [NSString stringWithFormat:@"<font  style='font-size:17px'>%@</font>",self.articleModel.content];
+    str = [str stringByReplacingOccurrencesOfString:@"<img" withString:@"<br"];
+    str = [str stringByReplacingOccurrencesOfString:@"</div>" withString:@"</div><br>"];
+    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[str dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     label.attributedText=attrStr;
     label.numberOfLines = 0;
     [label sizeToFit];
@@ -49,6 +52,13 @@
     [self.scroll addSubview:label];
     self.scroll.contentSize = CGSizeMake(IPHONE_WIDTH, height+64);
     
+    
+    [RequestManager getArticleLatestByType:@"性爱宝典" subType:@"性爱技巧" CurPage:@1 pCount:@10 success:^(NSData *data) {
+        NSDictionary *dict = myJsonSerialization;
+        NSLog(@"dict+++++++=%@",dict);
+    } failed:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

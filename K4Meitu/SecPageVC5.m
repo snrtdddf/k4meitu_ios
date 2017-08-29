@@ -7,7 +7,9 @@
 //
 
 #import "SecPageVC5.h"
-
+#import "Header.h"
+#import "SexySkillArticleRequest.h"
+#import "ArticleModel.h"
 @interface SecPageVC5 ()
 
 @end
@@ -16,8 +18,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor orangeColor];
+}
 
+- (void)requestData{
+    
+    myWeakSelf;
+    [SexySkillArticleRequest   requestType: @"性爱宝典" subType:@"两性健康" CurPage:self.curPage pCount:10 dataBlock:^(NSMutableArray *dataArr, NSInteger maxPage) {
+        for (ArticleModel *model in dataArr) {
+            [weakSelf.dataArr addObject:model];
+        }
+        weakSelf.maxPage = (int)maxPage;
+        
+        [weakSelf.tableView reloadData];
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

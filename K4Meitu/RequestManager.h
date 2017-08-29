@@ -151,4 +151,7 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
 
 //最新的文章
 + (void)getArticleLatestCurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed;
+
+//分类获取最新的文章
++ (void)getArticleLatestByType:(NSString *)type subType:(NSString *)subType CurPage:(NSNumber *)curPage pCount:(NSNumber *)pCount success:(Succeed)succeed failed:(Failed)failed;
 @end

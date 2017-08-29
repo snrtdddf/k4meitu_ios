@@ -40,7 +40,7 @@
                                  @"topViewBgColor":@"#FFFFFF",
                                  @"maskColor":@"#FEEDB1",
                                  @"dataArray":@[@{
-                                                    @"itemType":@2,
+                                                    @"itemType":@0,
                                                     @"title":@"推荐",
                                                     @"normalTitleColor":@"#666666",
                                                     @"selectTitleColor":@"#3d3d3d",
@@ -49,7 +49,7 @@
                                                     @"vcName":@"SecPageVC1"
                                                     },
                                                 @{
-                                                    @"itemType":@2,
+                                                    @"itemType":@0,
                                                     @"title":@"旅行机票",
                                                     @"normalTitleColor":@"#666666",
                                                     @"selectTitleColor":@"#3d3d3d",
@@ -58,7 +58,7 @@
                                                     @"vcName":@"SecPageVC2"
                                                     },
                                                 @{
-                                                    @"itemType":@2,
+                                                    @"itemType":@0,
                                                     @"title":@"签证",
                                                     @"normalTitleColor":@"#666666",
                                                     @"selectTitleColor":@"#3d3d3d",
@@ -67,7 +67,7 @@
                                                     @"vcName":@"SecPageVC3"
                                                     },
                                                 @{
-                                                    @"itemType":@2,
+                                                    @"itemType":@0,
                                                     @"title":@"酒店",
                                                     @"normalTitleColor":@"#666666",
                                                     @"selectTitleColor":@"#3d3d3d",
@@ -76,7 +76,7 @@
                                                     @"vcName":@"SecPageVC4"
                                                     },
                                                 @{
-                                                    @"itemType":@2,
+                                                    @"itemType":@0,
                                                     @"title":@"租车包车",
                                                     @"normalTitleColor":@"#666666",
                                                     @"selectTitleColor":@"#3d3d3d",

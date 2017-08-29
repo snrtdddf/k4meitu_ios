@@ -18,6 +18,7 @@
 #import "CCPScrollView.h"
 #import "MainPagePicModel.h"
 #import "GetCurrentTime.h"
+#import "SDCycleScrollView.h"
 @implementation SecPageVCRequest
 + (void)requestFromKeywordList:(DataBlock)block{
     [RequestManager getKeyWordListIsOrderByCount:@"NO" CurPage:@0 pCount:@10 success:^(NSData *data) {
@@ -44,8 +45,6 @@
         NSMutableArray *hotCmtArr = [NSMutableArray array];
         NSMutableArray *maxRecordArr = [NSMutableArray array];
         NSMutableArray *bannerADArr = [NSMutableArray array];
-        NSMutableArray *hotCmtSubArr1 = [[NSMutableArray alloc] init];
-        NSMutableArray *hotCmtSubArr2 = [[NSMutableArray alloc] init];
         
         NSDictionary *resDict = myJsonSerialization;
         NSArray *resArr = resDict[@"res"][@"list"];
@@ -58,11 +57,7 @@
                 }else if ([model.type isEqualToString:@"scrollAD"]){
                     [scrollAdArr addObject:model.titleImgUrl];
                 }else if ([model.type isEqualToString:@"hotComment"]){
-                    if ([model.groupId isEqualToString:@"1"]) {
-                        [hotCmtSubArr1 addObject:model];
-                    }else if([model.groupId isEqualToString:@"2"]){
-                        [hotCmtSubArr2 addObject:model];
-                    }
+                    [hotCmtArr addObject:model];
                 }else if ([model.type isEqualToString:@"maxRecord"]){
                     [maxRecordArr addObject:model];
                 }else if ([model.type isEqualToString:@"bannerAD"]){
@@ -79,8 +74,7 @@
                     }
                 }
             }
-            [hotCmtArr addObject:hotCmtSubArr1];
-            [hotCmtArr addObject:hotCmtSubArr2];
+            
             [dataArr addObject:scrollAdArr];
             [dataArr addObject:menuBtnArr];
             [dataArr addObject:hotCmtArr];
@@ -133,62 +127,46 @@
 
 }
 
-+ (SecPageHotCmtView *)hotCommentViewFrame:(CGRect)frame dataArr:(NSMutableArray *)dataArr{
++ (SecPageHotCmtView *)hotCommentViewFrame:(CGRect)frame dataArr:(NSMutableArray *)dataArr cycleScrollView:(SDCycleScrollView *)cycleScrollView{
    
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"SecPageHotCmtView" owner:nil options:nil];
     
     SecPageHotCmtView *hotCmtView = [nibContents lastObject];
     hotCmtView.frame = frame;
-    hotCmtView.hotCmtLab1.layer.borderColor = Red_COLOR.CGColor;
-    hotCmtView.hotCmtLab2.layer.borderColor = Red_COLOR.CGColor;
-    hotCmtView.hotCmtLab1.layer.borderWidth = 1;
-    hotCmtView.hotCmtLab2.layer.borderWidth = 1;
-    hotCmtView.hotCmtLab1.layer.cornerRadius = 3;
-    hotCmtView.hotCmtLab2.layer.cornerRadius = 3;
-    hotCmtView.hotCmtLab1.clipsToBounds = YES;
-    hotCmtView.hotCmtLab2.clipsToBounds = YES;
-    hotCmtView.hotCmtLab1.textColor = Red_COLOR;
-    hotCmtView.hotCmtLab2.textColor = Red_COLOR;
-    hotCmtView.cmtView1.frame = CGRectMake(0, 2, IPHONE_WIDTH*0.65, 20);
-    hotCmtView.cmtView2.frame = CGRectMake(0, 24, IPHONE_WIDTH*0.65, 20);
-    
-    CCPScrollView *ccpView1 = [[CCPScrollView alloc] initWithFrame:CGRectMake(0, 0, hotCmtView.cmtView1.frame.size.width, hotCmtView.cmtView1.frame.size.height)];
-    CCPScrollView *ccpView2 = [[CCPScrollView alloc] initWithFrame:CGRectMake(0, 0, hotCmtView.cmtView2.frame.size.width, hotCmtView.cmtView2.frame.size.height)];
-   
     
     //取标题数据
-    NSMutableArray *arr1 = dataArr[0];
-    NSMutableArray *arr2 = dataArr[1];
-    NSMutableArray *titleArr1 = [NSMutableArray array];
-    for (GroupMenuBtnModel *model in dataArr[0]) {
-        [titleArr1 addObject:model.subTitle];
+   
+    NSMutableArray *imgUrls = [NSMutableArray array];
+    NSMutableArray *titles = [NSMutableArray array];
+    for (GroupMenuBtnModel *model in dataArr) {
+        [imgUrls addObject:model.titleImgUrl];
+        [titles addObject:model.subTitle];
     }
-    NSMutableArray *titleArr2 = [NSMutableArray array];
-    for (GroupMenuBtnModel *model in dataArr[1]) {
-        [titleArr2 addObject:model.subTitle];
-    }
+    //网络加载 --- 创建带标题的图片轮播器
     
-    GroupMenuBtnModel *model1 = arr1[0];
-    hotCmtView.hotCmtLab1.text = model1.title;
-    GroupMenuBtnModel *model2 = arr2[0];
-    hotCmtView.hotCmtLab2.text = model2.title;
+    cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+    cycleScrollView.showPageControl = NO;
+    cycleScrollView.scrollDirection = UICollectionViewScrollDirectionVertical;
+   // cycleScrollView.bannerImageViewContentMode = UIViewContentModeCenter;
+    cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
+    cycleScrollView.autoScrollTimeInterval = 3.0;
+    cycleScrollView.titleLabelTextColor = Black_COLOR;
+    cycleScrollView.titleLabelBackgroundColor = [UIColor clearColor];
+    cycleScrollView.titleLabelTextAlignment = NSTextAlignmentLeft;
+    cycleScrollView.titleLabelTextFont = [UIFont systemFontOfSize:12.0f];
+    cycleScrollView.titleLabelHeight = 22;
+    //cycleScrollView.imageURLStringsGroup = imgUrls;
+    cycleScrollView.titlesGroup = titles;
+    cycleScrollView.onlyDisplayText = YES;
+    //自定义分页控件小圆标颜色
+    [hotCmtView.scrollImg addSubview:cycleScrollView];
     
-    ccpView1.titleArray = titleArr1;
-    ccpView2.titleArray = titleArr2;
-    ccpView1.titleFont = 13;
-    ccpView1.titleColor = RGBACOLOR(50, 50, 50, 1);
-    ccpView2.titleFont = 13;
-    ccpView2.titleColor = NickelColor;
-    [ccpView1 clickTitleLabel:^(NSInteger index,NSString *titleString) {
-        NSLog(@"%@--%ld",titleString,index);
-    }];
-    [ccpView2 clickTitleLabel:^(NSInteger index,NSString *titleString) {
-        NSLog(@"%@--%ld",titleString,index);
-    }];
-    [hotCmtView.cmtView1 addSubview:ccpView1];
-    [hotCmtView.cmtView2 addSubview:ccpView2];
-
     return hotCmtView;
+}
+
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+    NSLog(@"-点击了第%ld张图片", (long)index);
 }
 
 + (SecPageMaxRecordView *)maxRecordViewFrame:(CGRect)frame dataModel:(GroupMenuBtnModel *)model{

@@ -17,11 +17,7 @@
 #import "MJRefresh.h"
 @interface SecPageVC1 ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) UIScrollView *scroll;
-@property (strong, nonatomic) NSMutableArray *dataArr;
-@property (assign, nonatomic) int curPage;
-@property (assign, nonatomic) int maxPage;
+
 
 @end
 
@@ -121,7 +117,7 @@
         NSString *str = model.title;
         NSString *imgurl =[imgs[0] componentsSeparatedByString:@"("][0];
         [commonTools sd_setImg:cell.img imgUrl:imgurl placeHolderImgName:@"photo"];
-        cell.Title.text = [str stringByAppendingString:@"\n"];
+        cell.Title.text = [str stringByAppendingString:@"\n\n"];
         
         return cell;
 

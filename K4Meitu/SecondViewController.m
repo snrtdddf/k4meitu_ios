@@ -39,6 +39,7 @@
 @property (strong, nonatomic) NSMutableArray *colDataArray;
 @property (strong, nonatomic) SecPageHotCmtView *hotCommentView;
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView;
+@property (strong, nonatomic) SDCycleScrollView *hotCmtScrollView;
 @property (strong, nonatomic) SecPageMaxRecordView *maxRecordView;
 @property (strong, nonatomic) PicGroupColHeaderView *colHeaderView;
 @property (strong, nonatomic) UICollectionView *collection;
@@ -64,15 +65,6 @@
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.barTintColor = Black_COLOR;
     
-    //防止timer被dealloc之后，出现不滚动的bug
-    for (UIView *view in self.hotCommentView.cmtView1.subviews) {
-        if ([view isKindOfClass:[CCPScrollView class]]) {
-            CCPScrollView *ccpView = (CCPScrollView *)view;
-            if (ccpView.timer == nil) {
-                [[NSRunLoop mainRunLoop] addTimer:ccpView.timer  forMode:NSDefaultRunLoopMode];
-            }
-        }
-    }
 }
 
 - (void)viewDidLoad {
@@ -93,7 +85,7 @@
 - (void)initCache{
     if (self.cache == nil) {
         self.cache = [YYCache cacheWithName:@"secMainPage"].diskCache;
-        self.cache.ageLimit = 1*24*60*60;
+        self.cache.ageLimit = 3*24*60*60;
         self.cache.costLimit = 100556768;
     }
 }
@@ -157,6 +149,7 @@
     self.cycleScrollView.pageDotColor = [UIColor lightGrayColor];
     self.cycleScrollView.pageControlDotSize = CGSizeMake(8, 8);
     self.cycleScrollView.delegate = self;
+    self.cycleScrollView.tag = 600;
     self.cycleScrollView.bannerImageViewContentMode = UIViewContentModeCenter;
     self.cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
     self.cycleScrollView.autoScrollTimeInterval = 3.0;
@@ -172,9 +165,12 @@
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
-    NSLog(@"---点击了第%ld张图片", (long)index);
+    if (cycleScrollView.tag == 600) {
+        NSLog(@"*****点击了第%ld张图片", (long)index);
+    }else if (cycleScrollView.tag == 601){
+        NSLog(@"---点击了第%ld张图片", (long)index);
+    }
 }
-
 - (void)requestData{
     if ([self.cache containsObjectForKey:@"dataArr"]) {
          NSMutableArray *dataArr = (NSMutableArray *)[self.cache objectForKey:@"dataArr"];
@@ -199,7 +195,7 @@
         self.cycleScrollView.imageURLStringsGroup = self.picUrlList;
         
         //hotComment
-        [self initHotCmtView:CGRectMake(0, CGRectGetMaxY(self.funcBtnView.frame)+5, IPHONE_WIDTH, 70) dataArr:self.hotCmtArray];
+        [self initHotCmtView:CGRectMake(0, CGRectGetMaxY(self.funcBtnView.frame)+5, IPHONE_WIDTH, 24) dataArr:self.hotCmtArray];
         
         //maxRecordView
         [self initMaxRecordView];
@@ -260,7 +256,7 @@
         
         //hotComment
         weakSelf.hotCommentView = nil;
-        [weakSelf initHotCmtView:CGRectMake(0, CGRectGetMaxY(weakSelf.funcBtnView.frame)+5, IPHONE_WIDTH, 70) dataArr:weakSelf.hotCmtArray];
+        [weakSelf initHotCmtView:CGRectMake(0, CGRectGetMaxY(weakSelf.funcBtnView.frame)+5, IPHONE_WIDTH, 24) dataArr:weakSelf.hotCmtArray];
 
         //maxRecordView
         [weakSelf initMaxRecordView];
@@ -329,23 +325,23 @@
 
 - (void)initHotCmtView:(CGRect)frame dataArr:(NSMutableArray *)dataArr{
     
-    if (self.hotCommentView== nil) {
-        self.hotCommentView  = [SecPageVCRequest hotCommentViewFrame:frame dataArr:dataArr];
+    if (self.hotCmtScrollView == nil) {
+        self.hotCmtScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, IPHONE_WIDTH-30, 20) delegate:self placeholderImage:nil];
+        self.hotCmtScrollView.tag = 601;
     }
-    [self.hotCommentView.cmtBtn1 addTarget:self action:@selector(hotCmtBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.hotCommentView.cmtBtn1.tag = 101;
-    [self.hotCommentView.cmtBtn2 addTarget:self action:@selector(hotCmtBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.hotCommentView.cmtBtn2.tag = 102;
+    self.hotCommentView  = [SecPageVCRequest hotCommentViewFrame:frame dataArr:dataArr cycleScrollView:self.hotCmtScrollView];
+    //self.hotCommentView.layer.cornerRadius = 12;
+    //self.hotCommentView.clipsToBounds = YES;
+    self.hotCmtScrollView.delegate  = self;
+    self.hotCommentView.typeLabel.layer.cornerRadius = 5;
+    self.hotCommentView.typeLabel.clipsToBounds = YES;
+    self.hotCommentView.typeLabel.layer.borderColor = Red_COLOR.CGColor;
+    self.hotCommentView.typeLabel.layer.borderWidth = 1;
     [self.scroll addSubview:self.hotCommentView];
+    [self.scroll bringSubviewToFront:self.hotCmtScrollView];
 }
 
-- (void)hotCmtBtnClick:(UIButton *)btn{
-    if (btn.tag == 101) {
-        NSLog(@"101");
-    }else{
-        NSLog(@"102");
-    }
-}
+
 
 
 - (void)initMaxRecordView{
