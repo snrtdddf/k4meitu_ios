@@ -29,6 +29,7 @@
 #import <YYDiskCache.h>
 #import <YYCache.h>
 #import "CCPScrollView.h"
+#import "SecPageH5Controller.h"
 @interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
 @property (strong, nonatomic) NSMutableArray *funcBtnArray;
@@ -168,6 +169,10 @@
     if (cycleScrollView.tag == 600) {
         NSLog(@"*****点击了第%ld张图片", (long)index);
     }else if (cycleScrollView.tag == 601){
+        GroupMenuBtnModel *model = self.hotCmtArray[index];
+        SecPageH5Controller *vc = [[SecPageH5Controller alloc] init];
+        vc.url = model.linkUrl;
+        [self.navigationController pushViewController:vc animated:YES];
         NSLog(@"---点击了第%ld张图片", (long)index);
     }
 }
@@ -326,7 +331,7 @@
 - (void)initHotCmtView:(CGRect)frame dataArr:(NSMutableArray *)dataArr{
     
     if (self.hotCmtScrollView == nil) {
-        self.hotCmtScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, IPHONE_WIDTH-30, 20) delegate:self placeholderImage:nil];
+        self.hotCmtScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, IPHONE_WIDTH-30, 20) delegate:self placeholderImage:[UIImage new]];
         self.hotCmtScrollView.tag = 601;
     }
     self.hotCommentView  = [SecPageVCRequest hotCommentViewFrame:frame dataArr:dataArr cycleScrollView:self.hotCmtScrollView];
@@ -445,8 +450,6 @@
 
 //cell的点击事件
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    //cell被电击后移动的动画
-   // [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionTop];
     MainPagePicModel *model = self.colDataArray[indexPath.item];
     PicGroupDetailVC *vc = [[PicGroupDetailVC alloc] init];
     vc.groupId = model.groupId;
@@ -456,7 +459,6 @@
     vc.picCount = model.count;
     [self.navigationController pushViewController:vc animated:YES];
     vc = nil;
-    
 }
 
 - (void)refreshCollectionData{

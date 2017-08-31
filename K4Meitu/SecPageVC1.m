@@ -15,9 +15,11 @@
 #import "commonTools.h"
 #import "ArticleLatestDetailVC.h"
 #import "MJRefresh.h"
+#import "SecPageH5Controller.h"
+
 @interface SecPageVC1 ()<UITableViewDelegate,UITableViewDataSource>
 
-
+@property (assign, nonatomic) int requestCount;
 
 @end
 
@@ -27,9 +29,18 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self initCache];
     [self initTableView];
-    [self requestData];
     [self refreshData];
+    [self requestData];
+}
+
+- (void)initCache{
+    if (self.cache == nil) {
+        self.cache = [YYCache cacheWithName:@"thirdMainPage"].diskCache;
+        self.cache.ageLimit = 3*24*60*60;
+        self.cache.costLimit = 100556768;
+    }
 }
 
 - (void)initTableView{
@@ -40,6 +51,7 @@
     self.scroll.frame = CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT);
     self.scroll.showsVerticalScrollIndicator = NO;
     self.scroll.showsHorizontalScrollIndicator = NO;
+    self.scroll.scrollEnabled = NO;
     [self.view addSubview:self.scroll];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT) style:UITableViewStylePlain];
@@ -54,6 +66,12 @@
     
     if (self.dataArr == nil) {
         self.dataArr = [[NSMutableArray alloc] init];
+    }
+    
+    if ([self.cache containsObjectForKey:@"dataArr"]) {
+        self.dataArr = (NSMutableArray *)[self.cache objectForKey:@"dataArr"];
+        self.maxPage = [(NSString *)[self.cache objectForKey:@"maxPage"] intValue];
+        [self.tableView reloadData];
     }
 }
 
@@ -75,18 +93,28 @@
         [weakSelf.dataArr removeAllObjects];
         [weakSelf requestData];
     }];
-
+  
 }
 
 - (void)requestData{
     
+ 
+    
+    self.requestCount++;
+    
     myWeakSelf;
     [ArticleLatestRequest requestCurPage:self.curPage pCount:10 dataBlock:^(NSMutableArray *dataArr, NSInteger maxPage) {
+        
+        if (weakSelf.requestCount == 1) {
+            [weakSelf.dataArr removeAllObjects];
+        }
+        
         for (ArticleModel *model in dataArr) {
             [weakSelf.dataArr addObject:model];
         }
         weakSelf.maxPage = (int)maxPage;
-        
+        [weakSelf.cache setObject:weakSelf.dataArr forKey:@"dataArr"];
+        [weakSelf.cache setObject:[NSString stringWithFormat:@"%ld",maxPage] forKey:@"maxPage"];
         [weakSelf.tableView reloadData];
     }];
 }
@@ -151,8 +179,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ArticleModel *model = self.dataArr[indexPath.row];
-    ArticleLatestDetailVC *vc = [[ArticleLatestDetailVC alloc] init];
-    vc.articleModel = model;
+    SecPageH5Controller *vc = [[SecPageH5Controller alloc] init];
+    vc.url = model.linkUrl;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

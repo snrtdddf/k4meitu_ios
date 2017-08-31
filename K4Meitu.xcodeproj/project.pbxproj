@@ -20,7 +20,6 @@
 		7D021A531F0E3525007C6617 /* SecPageVC3.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A521F0E3524007C6617 /* SecPageVC3.m */; };
 		7D021A561F0E3534007C6617 /* SecPageVC4.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A551F0E3534007C6617 /* SecPageVC4.m */; };
 		7D021A591F0E3541007C6617 /* SecPageVC5.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A581F0E3541007C6617 /* SecPageVC5.m */; };
-		7D021A5C1F0E3777007C6617 /* SecPageVC6.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D021A5B1F0E3777007C6617 /* SecPageVC6.m */; };
 		7D07239F1F13A5D300A9931D /* secPagePicGroupTypeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D07239E1F13A5D300A9931D /* secPagePicGroupTypeVC.m */; };
 		7D11DCB21F0B97C000713098 /* like_thumb_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB01F0B97C000713098 /* like_thumb_gray@2x.png */; };
 		7D11DCB31F0B97C000713098 /* like_thumb_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB11F0B97C000713098 /* like_thumb_red@2x.png */; };
@@ -58,6 +57,7 @@
 		7D665F631F034C5B007414DD /* commentLike@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D665F611F034C5B007414DD /* commentLike@3x.png */; };
 		7D665F661F034C69007414DD /* like_thumb_pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D665F641F034C69007414DD /* like_thumb_pink.png */; };
 		7D665F671F034C69007414DD /* like_thumb_pink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D665F651F034C69007414DD /* like_thumb_pink@2x.png */; };
+		7D8B35971F5658620080FDEF /* SecPageH5Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8B35961F5658620080FDEF /* SecPageH5Controller.m */; };
 		7DA205E11EF4D76D00AA4056 /* MBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA205E01EF4D76D00AA4056 /* MBManager.m */; };
 		7DA205E51EF4D79100AA4056 /* SPUncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA205E41EF4D79100AA4056 /* SPUncaughtExceptionHandler.m */; };
 		7DA205EC1EF4D8CE00AA4056 /* GetCurrentTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DA205EB1EF4D8CE00AA4056 /* GetCurrentTime.m */; };
@@ -200,8 +200,6 @@
 		7D021A551F0E3534007C6617 /* SecPageVC4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC4.m; sourceTree = "<group>"; };
 		7D021A571F0E3541007C6617 /* SecPageVC5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVC5.h; sourceTree = "<group>"; };
 		7D021A581F0E3541007C6617 /* SecPageVC5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC5.m; sourceTree = "<group>"; };
-		7D021A5A1F0E3777007C6617 /* SecPageVC6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageVC6.h; sourceTree = "<group>"; };
-		7D021A5B1F0E3777007C6617 /* SecPageVC6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageVC6.m; sourceTree = "<group>"; };
 		7D07239D1F13A5D300A9931D /* secPagePicGroupTypeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secPagePicGroupTypeVC.h; sourceTree = "<group>"; };
 		7D07239E1F13A5D300A9931D /* secPagePicGroupTypeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secPagePicGroupTypeVC.m; sourceTree = "<group>"; };
 		7D11DCB01F0B97C000713098 /* like_thumb_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like_thumb_gray@2x.png"; sourceTree = "<group>"; };
@@ -257,6 +255,8 @@
 		7D665F611F034C5B007414DD /* commentLike@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "commentLike@3x.png"; sourceTree = "<group>"; };
 		7D665F641F034C69007414DD /* like_thumb_pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like_thumb_pink.png; sourceTree = "<group>"; };
 		7D665F651F034C69007414DD /* like_thumb_pink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like_thumb_pink@2x.png"; sourceTree = "<group>"; };
+		7D8B35951F5658620080FDEF /* SecPageH5Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecPageH5Controller.h; sourceTree = "<group>"; };
+		7D8B35961F5658620080FDEF /* SecPageH5Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecPageH5Controller.m; sourceTree = "<group>"; };
 		7DA205DF1EF4D76D00AA4056 /* MBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBManager.h; sourceTree = "<group>"; };
 		7DA205E01EF4D76D00AA4056 /* MBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBManager.m; sourceTree = "<group>"; };
 		7DA205E31EF4D79100AA4056 /* SPUncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUncaughtExceptionHandler.h; sourceTree = "<group>"; };
@@ -614,8 +614,6 @@
 				7D5EDF621F500717003EBDE2 /* sex话题 */,
 				7D5EDF541F4FFE11003EBDE2 /* sex技巧 */,
 				7DE66EB51F43E52D007D31A9 /* 推荐 */,
-				7D021A5A1F0E3777007C6617 /* SecPageVC6.h */,
-				7D021A5B1F0E3777007C6617 /* SecPageVC6.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -832,6 +830,15 @@
 			name = Request;
 			sourceTree = "<group>";
 		};
+		7D8B35941F5657FD0080FDEF /* H5网页 */ = {
+			isa = PBXGroup;
+			children = (
+				7D8B35951F5658620080FDEF /* SecPageH5Controller.h */,
+				7D8B35961F5658620080FDEF /* SecPageH5Controller.m */,
+			);
+			name = "H5网页";
+			sourceTree = "<group>";
+		};
 		7DA205DE1EF4D76D00AA4056 /* MBManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -946,6 +953,7 @@
 		7DA2063E1EF4DA5900AA4056 /* 第二页 */ = {
 			isa = PBXGroup;
 			children = (
+				7D8B35941F5657FD0080FDEF /* H5网页 */,
 				7DE66EAA1F3DA681007D31A9 /* 美女类型 */,
 				7DE66E7E1F31E796007D31A9 /* 囧图 */,
 				7D26C4F51F287A9E00FD45BC /* 搞笑GIF */,
@@ -1677,7 +1685,6 @@
 				7D64A1A81F1611E600A6E650 /* SecPageHotCmtView.m in Sources */,
 				7DA206DD1F00FF4300AA4056 /* PicGroupDetailTitleDetailView.m in Sources */,
 				7DE66EC11F4429F8007D31A9 /* ThirdTujianMutiPicCell.m in Sources */,
-				7D021A5C1F0E3777007C6617 /* SecPageVC6.m in Sources */,
 				7D021A491F0E2C78007C6617 /* YXViewPagerItemViewModel.m in Sources */,
 				7DA2060F1EF4D8DD00AA4056 /* NSString+fontSizeValue.m in Sources */,
 				7DA2060E1EF4D8DD00AA4056 /* UIView+Line.m in Sources */,
@@ -1737,6 +1744,7 @@
 				7DA206061EF4D8DD00AA4056 /* UIButton+ImageTitleSpacing.m in Sources */,
 				7DA206091EF4D8DD00AA4056 /* NullSafe.m in Sources */,
 				7D26C4FB1F287E6100FD45BC /* JiongPicNewestVC.m in Sources */,
+				7D8B35971F5658620080FDEF /* SecPageH5Controller.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

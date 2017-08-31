@@ -32,7 +32,7 @@
     [super viewDidLoad];
     [self addStatusBlackBackground];
     self.view.backgroundColor = S_Light_Gray;
-    
+    self.view.userInteractionEnabled = NO;
     [self renderUI];
 }
 - (NSDictionary *)getPageConfigInfo{

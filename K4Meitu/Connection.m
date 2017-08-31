@@ -92,7 +92,7 @@
             [MBProgressHUD hideHUDForView:app.window.rootViewController.view animated:NO];
             MBProgressHUD *hud = nil;
             hud = [MBProgressHUD showHUDAddedTo:app.window.rootViewController.view animated:NO];
-            //[hud hide:YES afterDelay:8];
+            [hud hide:YES afterDelay:8];
         }
         // 设置超时时间
         [_manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];

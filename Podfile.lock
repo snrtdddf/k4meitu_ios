@@ -29,7 +29,7 @@ PODS:
   - IQKeyboardManager (3.3.5)
   - LGAlertView (2.0.13)
   - MBProgressHUD (0.9.2)
-  - MJRefresh (3.0.8)
+  - MJRefresh (3.1.12)
   - pop (1.0.9)
   - PYPhotoBrowser (1.5.0):
     - DACircularProgress
@@ -56,7 +56,7 @@ DEPENDENCIES:
   - IQKeyboardManager (= 3.3.5)
   - LGAlertView (= 2.0.13)
   - MBProgressHUD (= 0.9.2)
-  - MJRefresh (= 3.0.8)
+  - MJRefresh (= 3.1.12)
   - PYPhotoBrowser (= 1.5.0)
   - SDCycleScrollView (~> 1.66)
   - SDWebImage (= 4.0.0)
@@ -72,13 +72,13 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 128bcb96b3ec03ff87942cdd7fa7f44491aa3d08
   LGAlertView: 9a5dcbf4f81b02b718083539d7f222280adc9547
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  MJRefresh: fafde8f18f4afd66b434331a9beb67a6c0264056
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   PYPhotoBrowser: eb140689619b10843beaad9e532581825ad7f542
   SDCycleScrollView: e3ade90e9b3159bec04330b208fbfd81c3f3b671
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 09b03ec3db08bfdf27d917545e97c0230683cf05
+PODFILE CHECKSUM: b6e724bef3f2e5d57a7b8a7d9d9d0e4983099dbd
 
 COCOAPODS: 1.1.1

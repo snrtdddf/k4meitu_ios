@@ -151,14 +151,14 @@
     cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
     cycleScrollView.autoScrollTimeInterval = 3.0;
     cycleScrollView.titleLabelTextColor = Black_COLOR;
-    cycleScrollView.titleLabelBackgroundColor = [UIColor clearColor];
+    cycleScrollView.titleLabelBackgroundColor = [UIColor whiteColor];
     cycleScrollView.titleLabelTextAlignment = NSTextAlignmentLeft;
     cycleScrollView.titleLabelTextFont = [UIFont systemFontOfSize:12.0f];
     cycleScrollView.titleLabelHeight = 22;
     //cycleScrollView.imageURLStringsGroup = imgUrls;
     cycleScrollView.titlesGroup = titles;
     cycleScrollView.onlyDisplayText = YES;
-    //自定义分页控件小圆标颜色
+
     [hotCmtView.scrollImg addSubview:cycleScrollView];
     
     return hotCmtView;

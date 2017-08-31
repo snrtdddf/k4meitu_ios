@@ -11,7 +11,7 @@
 #import "SexySkillArticleRequest.h"
 #import "ArticleModel.h"
 @interface SecPageVC2 ()
-
+@property (assign, nonatomic) int requestCount;
 @end
 
 @implementation SecPageVC2
@@ -19,16 +19,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
-
+- (void)initCache{
+    if (self.cache == nil) {
+        self.cache = [YYCache cacheWithName:@"thirdMainPage2"].diskCache;
+        self.cache.ageLimit = 3*24*60*60;
+        self.cache.costLimit = 100556768;
+    }
+}
 - (void)requestData{
    
+    self.requestCount++;
     myWeakSelf;
     [SexySkillArticleRequest   requestType: @"性爱宝典" subType:@"性爱技巧" CurPage:self.curPage pCount:10 dataBlock:^(NSMutableArray *dataArr, NSInteger maxPage) {
+        if (weakSelf.requestCount == 1) {
+            [weakSelf.dataArr removeAllObjects];
+        }
         for (ArticleModel *model in dataArr) {
             [weakSelf.dataArr addObject:model];
         }
         weakSelf.maxPage = (int)maxPage;
-        
+        [weakSelf.cache setObject:weakSelf.dataArr forKey:@"dataArr"];
+        [weakSelf.cache setObject:[NSString stringWithFormat:@"%ld",maxPage] forKey:@"maxPage"];
         [weakSelf.tableView reloadData];
     }];
     

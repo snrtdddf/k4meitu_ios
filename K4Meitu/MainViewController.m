@@ -162,11 +162,9 @@
 }
 
 - (void)requestData{
+    
      myWeakSelf;
-    
     self.requestCount++;
-    
-   
     
     [RequestManager getMainPagePicListCurPage:[NSNumber numberWithInt:self.curPage] pCount:@10 success:^(NSData *data) {
         NSDictionary *resDict = myJsonSerialization;

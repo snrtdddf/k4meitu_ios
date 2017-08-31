@@ -90,7 +90,7 @@
     //------------------------------------------------------------------
     
     
-    InstallUncaughtExceptionHandler();//异常捕捉，防闪退
+    //InstallUncaughtExceptionHandler();//异常捕捉，防闪退
     
 
     return YES;
