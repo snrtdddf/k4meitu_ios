@@ -15,6 +15,9 @@
 #import "MBProgressHUD+PYExtension.h"
 #import "PYPhotoBrowseView.h"
 
+// 是否正常显示动画，内部使用不建议修改此参数
+static BOOL _showOrHiddenAnimating;
+
 // cell的宽
 #define PYPhotoCellW (_photoCell.py_width > 0 ? _photoCell.py_width : PYScreenW)
 // cell的高
@@ -103,7 +106,7 @@
         // 取消自动布局
         self.autoresizingMask = UIViewAutoresizingNone;
         // 设置图片为默认图片
-        self.image = PYPlaceholderImage;
+        self.image = self.photosView.placeholderImage ?: PYPlaceholderImage;
     }
     return self;
 }
@@ -493,6 +496,13 @@ static CGSize originalSize;
 // 单击手势
 - (void)imageDidClicked:(UITapGestureRecognizer *)sender
 {
+    // 避免同时点击两张图片时，创建两个浏览窗口，详情见：https://github.com/iphone5solo/PYPhotoBrowser/issues/90
+    if (_showOrHiddenAnimating) return;
+     _showOrHiddenAnimating = YES;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.photosView.showDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _showOrHiddenAnimating = NO;
+    });
+    
     if ([self.delegate respondsToSelector:@selector(didSingleClick:)]) { // 自定义 自己管理点击事件
         [self.delegate didSingleClick:self];
         return;
@@ -555,10 +565,10 @@ static CGSize originalSize;
     
     // 设置链接(默认设置为缩略图)
     NSString *urlStr = photo.thumbnail_pic ? photo.thumbnail_pic : photo.original_pic;
-    UIImage *placeholdeerImage = PYPlaceholderImage;
+    UIImage *placeholdeerImage = self.photosView.placeholderImage ?: PYPlaceholderImage;
     if (self.isBig) { // 图片浏览（放大）, 原图具有优先级
         // 获取缩略图
-        placeholdeerImage = self.photo.thumbnailImage ? self.photo.thumbnailImage : PYPlaceholderImage;
+        placeholdeerImage = self.photo.thumbnailImage ? self.photo.thumbnailImage : self.photosView.placeholderImage ?: PYPlaceholderImage;
         urlStr = photo.original_pic ? photo.original_pic : photo.thumbnail_pic;
     } else {
         if (self.photo.originalImage || self.photo.animatedImage) { // 原图下载了
@@ -566,7 +576,14 @@ static CGSize originalSize;
         }
     }
     
+    
     NSURL *url = [NSURL URLWithString:urlStr];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir;
+    if ([fileManager fileExistsAtPath:urlStr isDirectory:&isDir]) { // isDir判断是否为文件夹
+        url = [NSURL fileURLWithPath:urlStr];
+    }
     
     [self sd_setImageWithURL:url placeholderImage:placeholdeerImage options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
         if (self.isBig) {
@@ -623,7 +640,9 @@ static CGSize originalSize;
 {
     _images = images;
     
-    self.deleteImageView.hidden = images.count == 0;
+    if (!self.photosView.hideDeleteView) {
+        self.deleteImageView.hidden = images.count == 0;
+    }
 }
 
 // 删除图片
@@ -631,6 +650,9 @@ static CGSize originalSize;
 {
     [self.images removeObjectAtIndex:self.tag];
     self.photosView.images = self.images;
+    if ([self.photosView.delegate respondsToSelector:@selector(photosView:didDeleteImageIndex:)]) { // 自定义 自己管理删除事件
+        [self.photosView.delegate photosView:self.photosView didDeleteImageIndex:self.tag];
+    }
 }
 
 - (void)layoutSubviews

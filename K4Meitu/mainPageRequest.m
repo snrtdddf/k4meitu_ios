@@ -35,6 +35,12 @@
         //cell.bannerImg = nil;
     }
     
+    if (model.vip) {
+        cell.isVIP.hidden = NO;
+    }else{
+        cell.isVIP.hidden = YES;
+    }
+    
     cell.picCount.text = [NSString stringWithFormat:@"%d张",model.count];
     
     return cell;

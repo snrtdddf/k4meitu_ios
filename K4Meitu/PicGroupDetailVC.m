@@ -28,7 +28,7 @@
 
 #import "PYPhotosReaderController.h"
 
-@interface PicGroupDetailVC () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,PYPhotosViewDelegate>
+@interface PicGroupDetailVC () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,PYPhotosViewDelegate>
 @property (strong, nonatomic) UITableView *commentTable;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) PicGroupDetailTitleDetailView *titleDetailView;
@@ -92,7 +92,7 @@
     if (self.cache == nil) {
         self.cache = [YYCache cacheWithName:@"PicGroupDetail"].diskCache;
         self.cache.ageLimit = 3*24*60*60;
-        self.cache.costLimit = 100556768;
+        self.cache.costLimit = 1000556768;
         
     }
 }
@@ -134,7 +134,7 @@
     
     myWeakSelf;
     [PicGroupDetailRequest requestData:self.groupId dataBlock:^(NSMutableArray *dataArr,NSNumber *maxPage, NSNumber *commentCount, NSNumber *likeCount) {
-        
+        [weakSelf.commentTable.mj_header endRefreshing];
         for (PicGroupDetailModel *model in dataArr) {
             [weakSelf.imgUrls addObject:model.imgUrl];
         }
@@ -212,7 +212,7 @@
     
     myWeakSelf;
     [PicGroupDetailRequest requestCommentData:self.groupId CurPage:[NSNumber numberWithInt:self.curPage] pcout:@10 dataBlock:^(NSMutableArray *dataArr, NSNumber *maxPage, NSNumber *commentCount, NSNumber *likeCount) {
-        
+        [weakSelf.commentTable.mj_footer endRefreshing];
         [weakSelf.dataArray addObjectsFromArray:dataArr];
         [weakSelf.cache setObject:commentCount forKey:[NSString stringWithFormat:@"picGroupDetailCmtCount%@",weakSelf.groupId] withBlock:^{
             
@@ -341,7 +341,7 @@
     myWeakSelf;
     self.commentTable.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
         
-        [weakSelf.commentTable.mj_header endRefreshing];
+        
         weakSelf.curPage = 0;
         [weakSelf.dataArray removeAllObjects];
         [weakSelf.imgUrls removeAllObjects];
@@ -351,7 +351,7 @@
     self.commentTable.mj_footer  = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.curPage++;
         if (weakSelf.curPage <= weakSelf.maxPage) {
-            [weakSelf.commentTable.mj_footer endRefreshing];
+            
             [weakSelf requestCommentData];
             [weakSelf.cache setObject:[NSNumber numberWithInt:weakSelf.curPage] forKey:[NSString stringWithFormat:@"picGroupDetailCurPage%@",weakSelf.groupId] withBlock:^{
                 
@@ -410,6 +410,12 @@
         [cell.cmtLikeBtn setImage:[UIImage imageNamed:model.isSetCmtLike?@"like_thumb_red":@"like_thumb_gray"] forState:UIControlStateNormal];
         [cell.cmtLikeBtn setEnlargEdgeWithTop:10 right:10 bottom:25 left:25];
         cell.cmtLikeBtn.tag = 1000+indexPath.row;
+        if (model.commentId == 999999999) {
+            cell.cmtLikeBtn.hidden = YES;
+            cell.cmtLikeCount.hidden = YES;
+            cell.cmtDislikeCount.hidden = YES;
+            cell.cmtDislikeBtn.hidden = YES;
+        }
 
         
     }
@@ -419,25 +425,27 @@
 
 - (void)cmtDislikeBtnClick:(UIButton *)btn{
     PicGroupCommentModel *model = self.dataArray[btn.tag-100];
-    model.commentDislike += 1;
-    model.isSetDiscmtLike = YES;
-    model.isSetCmtLike = NO;
-    [self.dataArray replaceObjectAtIndex:btn.tag - 100 withObject:model];
-    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 100 inSection:0];
-    [self.cache setObject:self.dataArray forKey:[NSString stringWithFormat:@"picGroupDetail%@",self.groupId] withBlock:^{
-        
-    }];
-     myWeakSelf;
+    
+    myWeakSelf;
     if (model.commentId != 999999999) {
-        [PicGroupDetailRequest requestAddCommentLike:[NSNumber numberWithInt:model.commentId] commentLike:@0 commentDislike:@1 resBlock:^(BOOL isSuccess) {
-            if (isSuccess) {
-               
-                [commonTools showBriefAlert:@"踩成功"];
-                [weakSelf.commentTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
-            }else{
-                
-            }
-        }];
+        if (model.userId != userID) {
+            [PicGroupDetailRequest requestAddCommentLike:[NSNumber numberWithInt:model.commentId] commentLike:@0 groupId:model.groupId cmtUserId:model.userId commentDislike:@1 resBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [commonTools showBriefAlert:@"踩成功"];
+                    model.commentDislike += 1;
+                    model.isSetDiscmtLike = YES;
+                    model.isSetCmtLike = NO;
+                    [weakSelf.dataArray replaceObjectAtIndex:btn.tag - 100 withObject:model];
+                    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 100 inSection:0];
+                    [weakSelf.cache setObject:self.dataArray forKey:[NSString stringWithFormat:@"picGroupDetail%@",self.groupId] withBlock:^{
+                        
+                    }];
+                    [weakSelf.commentTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+                }
+            }];
+        }else{//不能给自己点赞
+            [commonTools showBriefAlert:@"不能踩自己的评论"];
+        }
     }else{
         [commonTools showBriefAlert:@"不能踩自己的评论"];
     }
@@ -448,26 +456,29 @@
    
     
     PicGroupCommentModel *model = self.dataArray[btn.tag-1000];
-    model.commentLike += 1;
-    model.isSetCmtLike = YES;
-    model.isSetDiscmtLike = NO;
-    [self.dataArray replaceObjectAtIndex:btn.tag - 1000 withObject:model];
-    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 1000 inSection:0];
-    [self.cache setObject:self.dataArray forKey:[NSString stringWithFormat:@"picGroupDetail%@",self.groupId] withBlock:^{
-        
-    }];
     
-    
+ 
     if (model.commentId != 999999999) {
         myWeakSelf;
-        [PicGroupDetailRequest requestAddCommentLike:[NSNumber numberWithInt:model.commentId] commentLike:@1 commentDislike:@0 resBlock:^(BOOL isSuccess) {
-            if (isSuccess) {
-                [commonTools showBriefAlert:@"顶成功"];
-                [weakSelf.commentTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
-            }else{
-                
-            }
-        }];
+        if (model.userId != userID) {
+            [PicGroupDetailRequest requestAddCommentLike:[NSNumber numberWithInt:model.commentId] commentLike:@1 groupId:model.groupId cmtUserId:model.userId commentDislike:@0 resBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [commonTools showBriefAlert:@"点赞成功"];
+                    model.commentLike += 1;
+                    model.isSetCmtLike = YES;
+                    model.isSetDiscmtLike = NO;
+                    [weakSelf.dataArray replaceObjectAtIndex:btn.tag - 1000 withObject:model];
+                    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 1000 inSection:0];
+                    [weakSelf.commentTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+                    [weakSelf.cache setObject:weakSelf.dataArray forKey:[NSString stringWithFormat:@"picGroupDetail%@",self.groupId] withBlock:^{
+                        
+                    }];
+
+                }
+            }];
+        }else{//不能给自己点赞
+            [commonTools showBriefAlert:@"不能踩自己的评论"];
+        }
     } else {
         [commonTools showBriefAlert:@"不能给自己评论点赞"];
     }
@@ -575,6 +586,7 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    [self.cache trimToCost:50556768];
     NSLog(@"内存警告");
 }
 

@@ -69,11 +69,12 @@
     self.picTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     myWeakSelf;
     self.picTable.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-         [weakSelf.picTable.mj_header endRefreshing];
+        
         weakSelf.curPage = 0;
         [weakSelf.dataArr removeAllObjects];
+        
         [weakSelf requestData];
-       
+        //[weakSelf.picTable.mj_header endRefreshing];
     }];
     
   
@@ -102,7 +103,7 @@
     if (self.cache == nil) {
         self.cache = [YYCache cacheWithName:[NSString stringWithFormat:@"mainPageCache%@",self.keyword]].diskCache;
         self.cache.ageLimit = 3*24*60*60;
-        self.cache.costLimit = 100556768;
+        self.cache.costLimit = 500556768;
     }
     
     if (self.dataArr == nil) {
@@ -130,19 +131,22 @@
 
 - (MainPicGroupCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MainPagePicModel *model = self.dataArr[indexPath.row];
-    
-    MainPicGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"picGroupCell"];
-    if (cell == nil) {
-        cell = [[MainPicGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"picGroupCell"];
+    if (self.dataArr != 0) {
+        MainPagePicModel *model = self.dataArr[indexPath.row];
+        
+        MainPicGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"picGroupCell"];
+        if (cell == nil) {
+            cell = [[MainPicGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"picGroupCell"];
+        }
+        cell = [mainPageRequest returnMainPicGroupCell:cell Model:model];
+        if ([cell.title.text containsString:self.keyword]) {
+            //RGBACOLOR(232, 93, 243, 1)
+            cell.title.attributedText = [commonTools setKeywordStyle:cell.title.text keyword:self.keyword Color:RGBACOLOR(248, 48, 146, 1) font:[UIFont systemFontOfSize:22.0f]];
+        }
+        
+        return cell;
     }
-    cell = [mainPageRequest returnMainPicGroupCell:cell Model:model];
-    if ([cell.title.text containsString:self.keyword]) {
-        //RGBACOLOR(232, 93, 243, 1)
-        cell.title.attributedText = [commonTools setKeywordStyle:cell.title.text keyword:self.keyword Color:RGBACOLOR(248, 48, 146, 1) font:[UIFont systemFontOfSize:22.0f]];
-    }
-    
-    return cell;
+    return NULL;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -169,7 +173,7 @@
     [RequestManager getMainPagePicListCurPage:[NSNumber numberWithInt:self.curPage] pCount:@10 success:^(NSData *data) {
         NSDictionary *resDict = myJsonSerialization;
         NSLog(@"resDict:%@",resDict);
-        
+        [weakSelf.picTable.mj_header endRefreshing];
         [weakSelf.picTable.mj_footer endRefreshing];
         
         if (weakSelf.requestCount == 1) {
@@ -195,12 +199,14 @@
                     model.imgCoverName = dict[@"imgCoverName"];
                     model.imgCoverHeight = [dict[@"imgCoverHeight"] intValue];
                     model.imgCoverWidth = [dict[@"imgCoverWidth"] intValue];
+                    model.vip = [dict[@"vip"] intValue];
                     
                     [weakSelf.dataArr addObject:model];
                     
                 }
-                [weakSelf.picTable reloadData];
                 NSLog(@"count:%ld",weakSelf.dataArr.count);
+                [weakSelf.picTable reloadData];
+                [weakSelf.cache removeObjectForKey:@"dataArr"];
                 [weakSelf.cache setObject:weakSelf.dataArr forKey:@"dataArr"];
             }
         }else{

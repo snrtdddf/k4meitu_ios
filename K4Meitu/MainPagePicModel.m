@@ -29,6 +29,7 @@
     [coder encodeInt:_count forKey:@"count"];
     [coder encodeInt:_imgCoverHeight forKey:@"imgCoverHeight"];
     [coder encodeInt:_imgCoverWidth forKey:@"imgCoverWidth"];
+    [coder encodeInt:_vip forKey:@"vip"];
     
     [coder encodeObject:_groupId forKey:@"groupId"];
     [coder encodeObject:_title forKey:@"title"];
@@ -54,6 +55,7 @@
         _count = [coder decodeIntForKey:@"count"];
         _imgCoverHeight = [coder decodeIntForKey:@"imgCoverHeight"];
         _imgCoverWidth = [coder decodeIntForKey:@"imgCoverWidth"];
+        _vip = [coder decodeIntForKey:@"vip"];
         
         _groupId = [coder decodeObjectForKey:@"groupId"];
         _title = [coder decodeObjectForKey:@"title"];

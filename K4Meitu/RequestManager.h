@@ -108,7 +108,7 @@ http://snrtdddf.hopto.org:8080/pic/api.action?method=p.main.getGroup&title=1&typ
  @param commentLike <#commentLike description#>
  @param commentDislike <#cmtDislike description#>
  */
-+ (void)addPicGroupCommentLike:(NSNumber *)commentId cmtLike:(NSNumber *)commentLike cmtDislike:(NSNumber *)commentDislike requestBlock;
++ (void)addPicGroupCommentLike:(NSNumber *)commentId cmtLike:(NSNumber *)commentLike cmtDislike:(NSNumber *)commentDislike groupId:(NSString *)groupId cmtUserId:(NSString *)cmtUserId requestBlock;
 
 
 /**

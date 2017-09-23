@@ -85,7 +85,7 @@
             }else{
                 PicGroupCommentModel *model = [[PicGroupCommentModel alloc] init];
                 model.isCmtShow = 1;
-                model.commentId = 6;
+                model.commentId = 999999999;
                 model.imgComment = @"赞";
                 model.date = [GetCurrentTime GetCurrentBeijingTimeandReturnTimeType:YYYY_MM_DD_and_HH_MM_SS];
                 
@@ -277,8 +277,8 @@
 }
 
 
-+ (void)requestAddCommentLike:(NSNumber *)commentId commentLike:(NSNumber *)commentLike commentDislike:(NSNumber *)commentDislike resBlock:(addCommentLikeBlock)block{
-    [RequestManager addPicGroupCommentLike:commentId cmtLike:commentLike cmtDislike:commentDislike success:^(NSData *data) {
++ (void)requestAddCommentLike:(NSNumber *)commentId commentLike:(NSNumber *)commentLike groupId:(NSString *)groupId cmtUserId:(NSString *)cmtUserId commentDislike:(NSNumber *)commentDislike resBlock:(addCommentLikeBlock)block{
+    [RequestManager addPicGroupCommentLike:commentId cmtLike:commentLike cmtDislike:commentDislike  groupId:groupId cmtUserId:cmtUserId success:^(NSData *data) {
         NSDictionary *resDict = myJsonSerialization;
         if (requestSuccess) {
             if ([resDict[@"res"][@"success"] boolValue]) {

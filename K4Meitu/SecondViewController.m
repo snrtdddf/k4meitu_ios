@@ -28,8 +28,8 @@
 #import "SexyPicGroupTypeVC.h"
 #import <YYDiskCache.h>
 #import <YYCache.h>
-#import "CCPScrollView.h"
 #import "SecPageH5Controller.h"
+#import "UIView+Line.h"
 @interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
 @property (strong, nonatomic) NSMutableArray *funcBtnArray;
@@ -100,8 +100,8 @@
     self.scroll.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:self.scroll];
     
+    myWeakSelf;
     self.scroll.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-        myWeakSelf;
         [weakSelf.scroll.mj_header endRefreshing];
         [self.bannerADBtn removeFromSuperview];
         self.bannerADBtn = nil;
@@ -127,8 +127,6 @@
         [weakSelf requestData];
         [weakSelf refreshCollectionData];
     }];
-;
-    
 }
 
 -(void)initAdView{
@@ -191,7 +189,7 @@
         self.funcBtnArray.count/5 + 1 :
         self.funcBtnArray.count/5;
         
-        self.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:self.funcBtnArray CountPerline:5];
+        self.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.cycleScrollView.frame)+5, IPHONE_WIDTH, 70*row) funcBtnList:self.funcBtnArray CountPerline:5];
         self.funcBtnView.delegate = self;
         [self.scroll addSubview:self.funcBtnView];
         
@@ -200,7 +198,7 @@
         self.cycleScrollView.imageURLStringsGroup = self.picUrlList;
         
         //hotComment
-        [self initHotCmtView:CGRectMake(0, CGRectGetMaxY(self.funcBtnView.frame)+5, IPHONE_WIDTH, 24) dataArr:self.hotCmtArray];
+        [self initHotCmtView:CGRectMake(0, CGRectGetMaxY(self.funcBtnView.frame)+5, IPHONE_WIDTH, 30) dataArr:self.hotCmtArray];
         
         //maxRecordView
         [self initMaxRecordView];
@@ -251,7 +249,7 @@
          weakSelf.funcBtnArray.count/5;
         
         weakSelf.funcBtnView = nil;
-        weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 60*row) funcBtnList:weakSelf.funcBtnArray CountPerline:5];
+        weakSelf.funcBtnView = [[funcBtnListView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(weakSelf.cycleScrollView.frame)+5, IPHONE_WIDTH, 70*row) funcBtnList:weakSelf.funcBtnArray CountPerline:5];
         weakSelf.funcBtnView.delegate = weakSelf;
         [weakSelf.scroll addSubview:weakSelf.funcBtnView];
         
@@ -261,7 +259,7 @@
         
         //hotComment
         weakSelf.hotCommentView = nil;
-        [weakSelf initHotCmtView:CGRectMake(0, CGRectGetMaxY(weakSelf.funcBtnView.frame)+5, IPHONE_WIDTH, 24) dataArr:weakSelf.hotCmtArray];
+        [weakSelf initHotCmtView:CGRectMake(0, CGRectGetMaxY(weakSelf.funcBtnView.frame)+5, IPHONE_WIDTH, 30) dataArr:weakSelf.hotCmtArray];
 
         //maxRecordView
         [weakSelf initMaxRecordView];
@@ -331,7 +329,8 @@
 - (void)initHotCmtView:(CGRect)frame dataArr:(NSMutableArray *)dataArr{
     
     if (self.hotCmtScrollView == nil) {
-        self.hotCmtScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, IPHONE_WIDTH-30, 20) delegate:self placeholderImage:[UIImage new]];
+        self.hotCmtScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, IPHONE_WIDTH-30, 30) delegate:self placeholderImage:[UIImage new]];
+        [self.hotCmtScrollView disableScrollGesture];
         self.hotCmtScrollView.tag = 601;
     }
     self.hotCommentView  = [SecPageVCRequest hotCommentViewFrame:frame dataArr:dataArr cycleScrollView:self.hotCmtScrollView];
@@ -362,11 +361,13 @@
     for (int i=0; i<2; i++) {
         for (int j=0; j<2; j++) {
             if (IPHONE_WIDTH <= 540) {
-                self.maxRecordView = [SecPageVCRequest maxRecordViewFrame:CGRectMake(IPHONE_WIDTH/2*j, CGRectGetMaxY(self.hotCommentView.frame)+101*i+5, IPHONE_WIDTH/2-1, 100) dataModel:self.maxRecordArray[i*2 + j]];
+                self.maxRecordView = [SecPageVCRequest maxRecordViewFrame:CGRectMake(IPHONE_WIDTH/2*j, CGRectGetMaxY(self.hotCommentView.frame)+121*i+5, IPHONE_WIDTH/2-1, 120) dataModel:self.maxRecordArray[i*2 + j]];
                 self.maxRecordView.btn.tag = 200 + i*2 + j;
+                [self.maxRecordView addLineWithLineType:GYLineTypeRight];
+                [self.maxRecordView addLineWithLineType:GYLineTypeBottom];
                 [self.maxRecordView.btn addTarget:self action:@selector(maxBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             }else{
-                self.maxRecordView = [SecPageVCRequest maxRecordViewFrame:CGRectMake(IPHONE_WIDTH/4*(j+i*2), CGRectGetMaxY(self.hotCommentView.frame)+5, IPHONE_WIDTH/4-4, 100) dataModel:self.maxRecordArray[i*2 + j]];
+                self.maxRecordView = [SecPageVCRequest maxRecordViewFrame:CGRectMake(IPHONE_WIDTH/4*(j+i*2), CGRectGetMaxY(self.hotCommentView.frame)+5, IPHONE_WIDTH/4-4, 120) dataModel:self.maxRecordArray[i*2 + j]];
                 self.maxRecordView.btn.tag = 200 + i*2 + j;
                 [self.maxRecordView.btn addTarget:self action:@selector(maxBtnClick:) forControlEvents:UIControlEventTouchUpInside];
             }

@@ -32,6 +32,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *bannerImg;
 @property (weak, nonatomic) IBOutlet UILabel *latestLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *isVIP;
 
 
 @end

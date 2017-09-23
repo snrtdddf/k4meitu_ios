@@ -71,6 +71,7 @@ static NSInteger _photosViewCount;
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
     self.autoRotateImage = YES;
+    self.autoSetPhotoState = YES;
     self.pageType = PYPhotosViewPageTypeControll;
     self.originalX = 0;
     self.pagingEnabled = NO;
@@ -134,12 +135,22 @@ static NSInteger _photosViewCount;
 }
 
 #pragma mark - setter
+- (void)setPlaceholderImage:(UIImage *)placeholderImage
+{
+    _placeholderImage = placeholderImage;
+    
+    // 刷新
+    self.photos = self.photos;
+}
+
 - (void)setAutoLayoutWithWeChatSytle:(BOOL)autoLayoutWithWeChatSytle
 {
     _autoLayoutWithWeChatSytle = autoLayoutWithWeChatSytle;
     
     // 刷新
-    self.photos = self.photos;
+    if (self.photos.count > 0) {
+        self.photos = self.photos;
+    }
 }
 
 - (void)setImagesMaxCountWhenWillCompose:(NSInteger)imagesMaxCountWhenWillCompose
@@ -210,18 +221,32 @@ static NSInteger _photosViewCount;
 
 - (void)setPhotos:(NSArray<PYPhoto *> *)photos
 {
-    _photos = photos;
     // 设置图片状态
-    self.photosState = PYPhotosViewStateDidCompose;
+    if (self.autoSetPhotoState) {
+        self.photosState = PYPhotosViewStateDidCompose;
+    }
+    if (self.photosState == PYPhotosViewStateWillCompose) {
+        // 图片大于规定数字（取前九张）
+        if (photos.count > self.imagesMaxCountWhenWillCompose) {
+            NSRange range = NSMakeRange(0, self.imagesMaxCountWhenWillCompose);
+            NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:range];
+            photos = [NSMutableArray arrayWithArray:[photos objectsAtIndexes:set]];
+        };
+        _images = [photos mutableCopy]; // 本地图片和网络图片混用
+    }
+    
+    _photos = photos;
     // 移除添加图片按钮
     [self.addImageButton removeFromSuperview];
     
     NSInteger photoCount = self.photos.count;
     // 添加相应的图片
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     while (self.subviews.count < photoCount) { // UIImageView不够，需要创建
         PYPhotoView *photoView = [[PYPhotoView alloc] init];
         photoView.photosView = self;
         photoView.photos = self.photos;
+        photoView.images = self.images; // 本地图片和网络图片混用
         [self addSubview:photoView];
     }
     
@@ -236,6 +261,7 @@ static NSInteger _photosViewCount;
         // 设置标记
         photoView.tag = i;
         photoView.photos = self.photos;
+        photoView.images = self.images; // 本地图片和网络图片混用
         if (i < photoCount) {
             photoView.hidden = NO;
             // 设置图片
@@ -267,7 +293,9 @@ static NSInteger _photosViewCount;
     // 移除添加图片按钮
     [self.addImageButton removeFromSuperview];
     
-    self.photosState = PYPhotosViewStateWillCompose;
+    if (self.autoSetPhotoState) {
+        self.photosState = PYPhotosViewStateWillCompose;
+    }
     
     NSInteger imageCount = images.count;
     
@@ -292,7 +320,12 @@ static NSInteger _photosViewCount;
         if (i < imageCount) {
             photoView.hidden = NO;
             // 设置图片
-            photoView.image = images[i];
+            UIImage *image = images[i];
+            if ([image isKindOfClass:[UIImage class]]) {
+                photoView.image = image;
+            } else if ([image isKindOfClass:[PYPhoto class]]) {
+                photoView.photo = (PYPhoto *)image;
+            }
         }else{
             photoView.hidden = YES;
         }
@@ -384,6 +417,19 @@ static NSInteger _photosViewCount;
     [self setImages:images];
 }
 
+/** 根据图片个数刷新界面尺寸 */
+- (void)refreshContentSizeWithPhotoCount:(NSInteger)photoCount {
+    // 设置contentSize和 self.size
+    // 取出size
+    CGSize size = [self sizeWithPhotoCount:photoCount photosState:self.photosState];
+    self.contentSize = size;
+    CGFloat width = size.width + self.py_x > PYScreenW ? PYScreenW - self.py_x : size.width;
+    self.py_size = CGSizeMake(width, size.height);
+    
+    // 刷新
+    [self layoutSubviews];
+}
+
 /** 根据图片个数和图片状态自动计算出大小 */
 - (CGSize)sizeWithPhotoCount:(NSInteger)count photosState:(NSInteger)state
 {
@@ -420,7 +466,7 @@ static NSInteger _photosViewCount;
     
     // 取消内边距
     self.contentInset = UIEdgeInsetsZero;
-    NSInteger photosCount = self.photos.count > 0 ?  self.photos.count : self.images.count;
+    NSInteger photosCount = self.photosState == PYPhotosViewStateDidCompose ?  self.photos.count : self.images.count;
     
     NSInteger maxCol = self.photosMaxCol;
     

@@ -207,11 +207,15 @@
 }
 
 
-+ (void)addPicGroupCommentLike:(NSNumber *)commentId cmtLike:(NSNumber *)commentLike cmtDislike:(NSNumber *)commentDislike success:(Succeed)succeed failed:(Failed)failed{
++ (void)addPicGroupCommentLike:(NSNumber *)commentId cmtLike:(NSNumber *)commentLike cmtDislike:(NSNumber *)commentDislike groupId:(NSString *)groupId cmtUserId:(NSString *)cmtUserId success:(Succeed)succeed failed:(Failed)failed{
     NSDictionary *paraDict = @{@"method":@"p.comment.commentLike",
                                @"commentLike":commentLike,
                                @"commentDislike":commentDislike,
                                @"id":commentId,
+                               @"groupId":groupId,
+                               @"imgId":@"1",
+                               @"likeUserId":userID,
+                               @"userId":cmtUserId,
                                ParamDictNeed
                                };
     PostMethod_NO_Indicator;

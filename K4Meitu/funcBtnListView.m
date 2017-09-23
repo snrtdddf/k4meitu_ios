@@ -62,10 +62,10 @@
                 self.funcBtn.tag = 500 + i*lineCount+j;
                 //按钮图片
                 self.image = [[UIImageView alloc]initWithFrame:CGRectMake(
-                            (self.funcBtn.frame.size.width-btnHeight*0.6)/2,
-                            (self.funcBtn.frame.size.height-btnHeight*0.6)/5, btnHeight*0.6,
-                                btnHeight*0.6)];
-                self.image.layer.cornerRadius = btnHeight*0.6/2;
+                            (self.funcBtn.frame.size.width-btnHeight*0.5)/2,
+                            (self.funcBtn.frame.size.height-btnHeight*0.5)/5, btnHeight*0.5,
+                                btnHeight*0.5)];
+                self.image.layer.cornerRadius = btnHeight*0.5/2;
                 self.image.clipsToBounds = YES;
                
                 if ([model.titleImgUrl hasPrefix:@"http"]) {

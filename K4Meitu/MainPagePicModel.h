@@ -19,5 +19,7 @@
 @property (nonatomic, strong) NSString *imgCoverName;
 @property (nonatomic, assign) int imgCoverHeight;
 @property (nonatomic, assign) int imgCoverWidth;
+@property (assign, nonatomic) int vip;
+
 
 @end

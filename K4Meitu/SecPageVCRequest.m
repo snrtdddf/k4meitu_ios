@@ -15,10 +15,11 @@
 #import "GroupMenuBtnModel.h"
 #import <UIImageView+WebCache.h>
 #import "commonTools.h"
-#import "CCPScrollView.h"
 #import "MainPagePicModel.h"
 #import "GetCurrentTime.h"
 #import "SDCycleScrollView.h"
+#import "FLAnimatedImage.h"
+#import <FLAnimatedImageView+WebCache.h>
 @implementation SecPageVCRequest
 + (void)requestFromKeywordList:(DataBlock)block{
     [RequestManager getKeyWordListIsOrderByCount:@"NO" CurPage:@0 pCount:@10 success:^(NSData *data) {
@@ -133,7 +134,14 @@
     
     SecPageHotCmtView *hotCmtView = [nibContents lastObject];
     hotCmtView.frame = frame;
+    hotCmtView.scrollImg.image = [UIImage imageNamed:@"hotCmtInit"];
     
+    //FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://ys-l.ys168.com/342481650/m4J4U742XKKM5mtpxyi/speaker.gif"]]];
+    //FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
+    //imageView.animatedImage = image;
+    //imageView.frame = CGRectMake(0.0, 0.0, 100.0, 100.0);
+    //hotCmtView.leftImg.animatedImage=image;
+    [hotCmtView.leftImg sd_setImageWithURL:[NSURL URLWithString:@"http://ys-l.ys168.com/342481650/m4J4U742XKKM5mtpxyi/speaker.gif"] placeholderImage:[UIImage imageNamed:@"speaker"]];
     //取标题数据
    
     NSMutableArray *imgUrls = [NSMutableArray array];
@@ -154,7 +162,7 @@
     cycleScrollView.titleLabelBackgroundColor = [UIColor whiteColor];
     cycleScrollView.titleLabelTextAlignment = NSTextAlignmentLeft;
     cycleScrollView.titleLabelTextFont = [UIFont systemFontOfSize:12.0f];
-    cycleScrollView.titleLabelHeight = 22;
+    cycleScrollView.titleLabelHeight = 30;
     //cycleScrollView.imageURLStringsGroup = imgUrls;
     cycleScrollView.titlesGroup = titles;
     cycleScrollView.onlyDisplayText = YES;

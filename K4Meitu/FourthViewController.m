@@ -8,30 +8,207 @@
 
 #import "FourthViewController.h"
 #import <SDImageCache.h>
+#import "MainTabBarViewController.h"
+#import "Header.h"
+#import <YYDiskCache.h>
+#import <YYCache.h>
+#import "MJRefresh.h"
+#import "FourthPageCell.h"
+#import "FourthPageCell_1.h"
+#import "FourthPageRequest.h"
+#import "FourthPageHeaderView.h"
+#import "commonTools.h"
+@interface FourthViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@interface FourthViewController ()
+@property (strong, nonatomic) UIScrollView *scroll;
+@property (strong, nonatomic) YYDiskCache *cache;
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *menuArr;
+@property (strong, nonatomic) FourthPageHeaderView *headerBgView;
+@property (assign, nonatomic) CGFloat cacheSize;
 
 @end
 
 @implementation FourthViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor grayColor];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(100, 200, 100, 100);
-    [btn setTitle:@"清除缓存" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(clearCache) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    UINavigationController *nav = (UINavigationController*)[UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    MainTabBarViewController *mainTabBarVC = (MainTabBarViewController*)(nav.childViewControllers[0]);
+    NSArray *array = mainTabBarVC.tabBar.subviews;
+    for (UIView *view in array) {
+        if ([view isKindOfClass:NSClassFromString(@"UITabBarButton")]) {
+            [view removeFromSuperview];
+        }
+    }
+    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.barTintColor = Black_COLOR;
+    [self.navigationController.navigationBar removeFromSuperview];
     
 }
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self addStatusBlackBackground];
+    
+    [self initCache];
+    [self initHeaderView];
+    [self initScrollView];
+    [self initTableView];
+    [self requestData];
+    [self getCacheSize];
+}
+
+- (void)initHeaderView{
+    self.headerBgView = [[FourthPageHeaderView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT*0.4)];
+}
+
+- (void)initCache{
+    if (self.cache == nil) {
+        self.cache = [YYCache cacheWithName:@"FourthPage"].diskCache;
+        self.cache.ageLimit = 3*24*60*60;
+        self.cache.costLimit = 100556768;
+    }
+}
+
+- (void)initScrollView{
+    if (self.scroll == nil) {
+        self.scroll = [[UIScrollView alloc] init];
+    }
+    self.scroll.frame = CGRectMake(0, -64, IPHONE_WIDTH, IPHONE_HEIGHT);
+    self.scroll.showsVerticalScrollIndicator = NO;
+    self.scroll.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:self.scroll];
+    
+    myWeakSelf;
+    self.scroll.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [weakSelf.scroll.mj_header endRefreshing];
+        
+    }];
+}
+
+- (void)initTableView{
+        if (self.tableView == nil) {
+            self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT) style:UITableViewStylePlain];
+        }
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+    
+        if (IPHONE_WIDTH <= 540) {
+            [self.tableView registerNib:[UINib nibWithNibName:@"FourthPageCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+        }else{
+            [self.tableView registerNib:[UINib nibWithNibName:@"FourthPageCell_1" bundle:nil] forCellReuseIdentifier:@"cell1"];
+        }
+    
+        self.tableView.tableHeaderView = self.headerBgView;
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+        [self.scroll addSubview:self.tableView];
+    
+        
+        if (self.menuArr == nil) {
+            self.menuArr = [[NSMutableArray alloc] initWithArray:@[
+                                                                   @[@"share",@"设置"],                                                                   
+                                                                   @[@"share",@"收藏"],
+                                                                   @[@"share",@"分享"],
+                                                                   @[@"share",@"清除缓存"],
+                                                                   @[@"share",@"意见反馈"],
+                                                                   @[@"share",@"关于我们"]
+                                                                   ]];
+        }
+    
+    
+        if ([self.cache containsObjectForKey:@"dataArr"]) {
+            self.menuArr = (NSMutableArray *)[self.cache objectForKey:@"dataArr"];
+            [self.tableView reloadData];
+        }
+
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return IPHONE_WIDTH <= 540?40:60;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.menuArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (IPHONE_WIDTH <= 540) {
+        FourthPageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (cell == nil) {
+            cell = [[FourthPageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.img.image = [UIImage imageNamed:self.menuArr[indexPath.row][0]];
+        cell.title.text = self.menuArr[indexPath.row][1];
+        cell.titleDetail.hidden = YES;
+        if ([cell.title.text isEqualToString:@"清除缓存"]) {
+            if (self.cacheSize > 100) {
+                cell.titleDetail.hidden = NO;
+                cell.titleDetail.text = [NSString stringWithFormat:@"%.1fM",self.cacheSize];
+            }
+        }
+        return cell;
+    }else{
+        FourthPageCell_1 *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
+        if (cell == nil) {
+            cell = [[FourthPageCell_1 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+        }
+        cell.img.image = [UIImage imageNamed:self.menuArr[indexPath.row][0]];
+        cell.title.text = self.menuArr[indexPath.row][1];
+        cell.titleDetail.hidden = YES;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if ([cell.title.text isEqualToString:@"清除缓存"]) {
+            if (self.cacheSize > 100) {
+                cell.titleDetail.hidden = NO;
+                cell.titleDetail.text = [NSString stringWithFormat:@"%.1fM",self.cacheSize];
+            }
+        }
+
+        return cell;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([self.menuArr[indexPath.row][1] isEqualToString:@"清除缓存"] ) {
+        [self clearCache];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (IPHONE_WIDTH <= 540) {
+        if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+            [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 40, 0, 0)];
+        }
+    }else{
+        if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+            [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, -10, 0, 0)];
+        }
+    }
+    
+}
+
+- (void)getCacheSize{
+    myWeakSelf;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        weakSelf.cacheSize = [weakSelf getCacheSizeAtPath:[weakSelf getCachesPath]];
+        [weakSelf.tableView reloadData];
+    });
+}
+
+- (void)requestData{
+   
+}
+
 
 - (void)clearCache{
     NSString *path = [self getCachesPath];
     NSLog(@"%lf",[self getCacheSizeAtPath:path]);
+    myWeakSelf;
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
-        
+        [commonTools showBriefAlert:@"清除完成"];
+        weakSelf.cacheSize = 0;
+        [weakSelf.tableView reloadData];
     }];
     [[SDImageCache sharedImageCache] clearMemory];
     [self clearCacheAtPath:path];

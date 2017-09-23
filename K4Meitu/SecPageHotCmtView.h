@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FLAnimatedImage.h"
 @interface SecPageHotCmtView : UIView
 @property (weak, nonatomic) IBOutlet UIImageView *leftImg;
-
 @property (weak, nonatomic) IBOutlet UIImageView *scrollImg;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 

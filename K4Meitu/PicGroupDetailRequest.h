@@ -27,7 +27,7 @@ typedef void(^addCommentLikeBlock)(BOOL isSuccess);
 + (void)requestIsLikeExistGroupID:(NSString *)groupId isLike:(isLikeBlock)block;
 + (UIButton *)addCommentBtn;
 + (void)requestAddComment:(NSString *)comment imgId:(NSNumber *)imgId groupId:(NSString *)groupId resblock:(addCommentBlock)block;
-+ (void)requestAddCommentLike:(NSNumber *)commentId commentLike:(NSNumber *)commentLike commentDislike:(NSNumber *)commentDislike resBlock:(addCommentLikeBlock)block;
++ (void)requestAddCommentLike:(NSNumber *)commentId commentLike:(NSNumber *)commentLike groupId:(NSString *)groupId cmtUserId:(NSString *)cmtUserId commentDislike:(NSNumber *)commentDislike resBlock:(addCommentLikeBlock)block;
 
 
 @end
