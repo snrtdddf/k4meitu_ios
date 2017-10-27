@@ -257,8 +257,10 @@
                                @"like":like,
                                @"dislike":dislike,
                                @"id":Gid,
-                               @"userId":userID,
                                @"groupId":groupId,
+                               @"imgId":@"1",
+                               @"likeUserId":userID,
+                               @"userId":@"adminadminadminadminadminadminad",
                                ParamDictNeed
                                };
     PostMethod_NO_Indicator;

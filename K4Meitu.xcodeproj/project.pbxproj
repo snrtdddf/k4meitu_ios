@@ -25,6 +25,7 @@
 		7D11DCB31F0B97C000713098 /* like_thumb_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB11F0B97C000713098 /* like_thumb_red@2x.png */; };
 		7D11DCB61F0B99AD00713098 /* dislike_thumb_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB41F0B99AD00713098 /* dislike_thumb_gray@2x.png */; };
 		7D11DCB71F0B99AD00713098 /* dislike_thumb_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D11DCB51F0B99AD00713098 /* dislike_thumb_red@2x.png */; };
+		7D1962A01FA2C67F003BBC76 /* TYCyclePagerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D19629E1FA2C67E003BBC76 /* TYCyclePagerViewCell.m */; };
 		7D26C4991F19C1E500FD45BC /* GroupKeywordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D26C4981F19C1E500FD45BC /* GroupKeywordModel.m */; };
 		7D26C49C1F19C25200FD45BC /* GroupMenuBtnModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D26C49B1F19C25200FD45BC /* GroupMenuBtnModel.m */; };
 		7D26C4A61F1CA1B500FD45BC /* test1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D26C4A51F1CA1B500FD45BC /* test1.jpg */; };
@@ -218,6 +219,8 @@
 		7D11DCB41F0B99AD00713098 /* dislike_thumb_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike_thumb_gray@2x.png"; sourceTree = "<group>"; };
 		7D11DCB51F0B99AD00713098 /* dislike_thumb_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike_thumb_red@2x.png"; sourceTree = "<group>"; };
 		7D11DCBF1F0CD70B00713098 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		7D19629E1FA2C67E003BBC76 /* TYCyclePagerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYCyclePagerViewCell.m; sourceTree = "<group>"; };
+		7D19629F1FA2C67E003BBC76 /* TYCyclePagerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYCyclePagerViewCell.h; sourceTree = "<group>"; };
 		7D26C4971F19C1E500FD45BC /* GroupKeywordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupKeywordModel.h; sourceTree = "<group>"; };
 		7D26C4981F19C1E500FD45BC /* GroupKeywordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupKeywordModel.m; sourceTree = "<group>"; };
 		7D26C49A1F19C25200FD45BC /* GroupMenuBtnModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMenuBtnModel.h; sourceTree = "<group>"; };
@@ -497,6 +500,8 @@
 		7D021A221F0E2B17007C6617 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7D19629F1FA2C67E003BBC76 /* TYCyclePagerViewCell.h */,
+				7D19629E1FA2C67E003BBC76 /* TYCyclePagerViewCell.m */,
 				7D64A1831F14BC2E00A6E650 /* funcBtnListView.h */,
 				7D64A1841F14BC2E00A6E650 /* funcBtnListView.m */,
 				7D64A1A41F16118B00A6E650 /* SecPageHotCmtView.xib */,
@@ -1762,6 +1767,7 @@
 				7D5EDF4F1F4ACF34003EBDE2 /* ArticleLatestDetailVC.m in Sources */,
 				7D021A501F0E3518007C6617 /* SecPageVC2.m in Sources */,
 				7D021A401F0E2C61007C6617 /* YXViewPagerBaseViewController.m in Sources */,
+				7D1962A01FA2C67F003BBC76 /* TYCyclePagerViewCell.m in Sources */,
 				7DA5FF841F725D580003A8E2 /* FourthPageCell_1.m in Sources */,
 				7DA206341EF4D9DA00AA4056 /* GetIPAddress.m in Sources */,
 				7DDDF4541EF4CE8400830CA8 /* ViewController.m in Sources */,

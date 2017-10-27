@@ -18,6 +18,7 @@
 #import "FourthPageRequest.h"
 #import "FourthPageHeaderView.h"
 #import "commonTools.h"
+#import "MBProgressHUD.h"
 @interface FourthViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) UIScrollView *scroll;
@@ -189,6 +190,7 @@
 }
 
 - (void)getCacheSize{
+    
     myWeakSelf;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         weakSelf.cacheSize = [weakSelf getCacheSizeAtPath:[weakSelf getCachesPath]];
@@ -204,8 +206,20 @@
 - (void)clearCache{
     NSString *path = [self getCachesPath];
     NSLog(@"%lf",[self getCacheSizeAtPath:path]);
+    
+    [MBProgressHUD hideHUDForView:self.scroll animated:NO];
+    
+    MBProgressHUD *hud = nil;
+    hud = [MBProgressHUD showHUDAddedTo:self.scroll animated:NO];
+    hud.mode = MBProgressHUDModeIndeterminate;
+   
+    
     myWeakSelf;
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+        
+        [MBProgressHUD hideHUDForView:weakSelf.scroll animated:YES];
+        [hud setRemoveFromSuperViewOnHide:YES];
+        [hud removeFromSuperview];
         [commonTools showBriefAlert:@"清除完成"];
         weakSelf.cacheSize = 0;
         [weakSelf.tableView reloadData];

@@ -93,7 +93,6 @@
         self.cache = [YYCache cacheWithName:@"PicGroupDetail"].diskCache;
         self.cache.ageLimit = 3*24*60*60;
         self.cache.costLimit = 1000556768;
-        
     }
 }
 
@@ -392,7 +391,7 @@
     }
     if (self.dataArray.count != 0) {
         PicGroupCommentModel *model = self.dataArray[indexPath.row];
-        cell.userName.text = model.userId.length == 32?[NSString stringWithFormat:@"用户:***%@",[model.userId substringFromIndex:28]]:@"游客:****";
+        cell.userName.text = model.userId.length == 32?[NSString stringWithFormat:@"用户:***%@",[model.userId substringFromIndex:28]]:@"系统管理员";
         cell.userName.numberOfLines = 0;
         [cell.userName sizeToFit];
         cell.date.text = model.date;
@@ -410,9 +409,11 @@
         [cell.cmtLikeBtn setImage:[UIImage imageNamed:model.isSetCmtLike?@"like_thumb_red":@"like_thumb_gray"] forState:UIControlStateNormal];
         [cell.cmtLikeBtn setEnlargEdgeWithTop:10 right:10 bottom:25 left:25];
         cell.cmtLikeBtn.tag = 1000+indexPath.row;
-        if (model.commentId == 999999999) {
+        if (model.commentId == 999999999 || [model.userId isEqualToString:userID]) {
             cell.cmtLikeBtn.hidden = YES;
+            cell.cmtLikeBtn.enabled = NO;
             cell.cmtLikeCount.hidden = YES;
+            cell.cmtDislikeBtn.enabled = NO;
             cell.cmtDislikeCount.hidden = YES;
             cell.cmtDislikeBtn.hidden = YES;
         }

@@ -15,6 +15,7 @@ pod 'FLAnimatedImage'
 pod 'DateTools'
 pod 'YYKit'
 pod 'IDMPhotoBrowser'
+
 end
 target 'K4Meitu' do
   pods

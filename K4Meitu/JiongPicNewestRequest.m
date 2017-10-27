@@ -104,9 +104,10 @@
     [RequestManager addGifPicGroupLikeId:Gid Like:like dislike:dislike groupId:groupId success:^(NSData *data) {
         NSDictionary *resDict = myJsonSerialization;
         if (requestSuccess) {
-            if([resDict[@"res"][@"AlertMsg"] isEqualToString:@"like_success"]){
-                [commonTools showBriefAlert:@"踩成功"];
+            if ([resDict[@"res"][@"success"] boolValue]) {
                 block(YES);
+            }else{
+                block(NO);
             }
         }else{
             [commonTools showBriefAlert:ErrorMsg];

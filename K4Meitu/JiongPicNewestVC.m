@@ -131,46 +131,34 @@
 
 - (void)likeBtnClick:(UIButton *)btn{
    JiongPicNewestModel *model = self.dataArr[btn.tag - 300];
-    model.isSetLike = YES;
-    model.likeCount += 1;
-    model.isSetDislike = NO;
-    [self.dataArray replaceObjectAtIndex:btn.tag - 300 withObject:model];
-    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 300 inSection:0];
     
-     [self.picTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
     myWeakSelf;
     [JiongPicNewestRequest requestAddLikeOrDislikeData:model.Gid like:@1 dislike:@0 groupId:model.groupId addLikeBlock:^(BOOL isSuccess) {
-        if (!isSuccess) {
-            JiongPicNewestModel *model = weakSelf.dataArr[btn.tag - 300];
-            model.isSetLike = NO;
-            model.likeCount -= 1;
+        if (isSuccess) {
+            model.isSetLike = YES;
+            model.likeCount += 1;
             model.isSetDislike = NO;
             [weakSelf.dataArray replaceObjectAtIndex:btn.tag - 300 withObject:model];
             NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 300 inSection:0];
             
             [weakSelf.picTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
-
         }
     }];
 }
 
 - (void)dislikeBtnClick:(UIButton *)btn{
     JiongPicNewestModel *model = self.dataArr[btn.tag - 400];
-    model.isSetDislike = YES;
-    model.dislikeCount += 1;
-    model.isSetLike = NO;
-    [self.dataArray replaceObjectAtIndex:btn.tag - 400 withObject:model];
-     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 400 inSection:0];
-     [self.picTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+   
     myWeakSelf;
     [JiongPicNewestRequest requestAddLikeOrDislikeData:model.Gid like:@0 dislike:@1 groupId:model.groupId addLikeBlock:^(BOOL isSuccess) {
-        JiongPicNewestModel *model = weakSelf.dataArr[btn.tag - 400];
-        model.isSetDislike = NO;
-        model.dislikeCount -= 1;
-        model.isSetLike = NO;
-        [weakSelf.dataArray replaceObjectAtIndex:btn.tag - 400 withObject:model];
-        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 400 inSection:0];
-        [weakSelf.picTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+        if (isSuccess) {
+            model.isSetDislike = YES;
+            model.dislikeCount += 1;
+            model.isSetLike = NO;
+            [weakSelf.dataArray replaceObjectAtIndex:btn.tag - 400 withObject:model];
+            NSIndexPath *indexPath=[NSIndexPath indexPathForRow:btn.tag - 400 inSection:0];
+            [weakSelf.picTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+        }
     }];
 }
 - (void)cmtBtnClick:(UIButton *)btn{

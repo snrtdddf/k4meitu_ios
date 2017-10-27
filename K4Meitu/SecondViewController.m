@@ -30,6 +30,7 @@
 #import <YYCache.h>
 #import "SecPageH5Controller.h"
 #import "UIView+Line.h"
+
 @interface SecondViewController ()<funcBtnListDelegate,SDCycleScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) funcBtnListView *funcBtnView;
 @property (strong, nonatomic) NSMutableArray *funcBtnArray;
@@ -48,6 +49,8 @@
 @property (strong, nonatomic) UIScrollView *scroll;
 @property (assign, nonatomic) NSInteger curPage;
 @property (strong, nonatomic) YYDiskCache *cache;
+
+
 @end
 
 @implementation SecondViewController
@@ -159,9 +162,10 @@
 //        myWeakSelf;
 //        weakSelf.cycleScrollView.imageURLStringsGroup = weakSelf.picUrlList;
 //    });
-//
-    
 }
+
+
+
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     if (cycleScrollView.tag == 600) {
@@ -256,6 +260,7 @@
         
         //scrollAD
         weakSelf.cycleScrollView.imageURLStringsGroup = weakSelf.picUrlList;
+        
         
         //hotComment
         weakSelf.hotCommentView = nil;
@@ -505,5 +510,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
 
 @end

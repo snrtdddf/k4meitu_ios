@@ -86,7 +86,7 @@
                 PicGroupCommentModel *model = [[PicGroupCommentModel alloc] init];
                 model.isCmtShow = 1;
                 model.commentId = 999999999;
-                model.imgComment = @"赞";
+                model.imgComment = @"老铁，不点评一下吗？";
                 model.date = [GetCurrentTime GetCurrentBeijingTimeandReturnTimeType:YYYY_MM_DD_and_HH_MM_SS];
                 
                 [dataArr addObject:model];

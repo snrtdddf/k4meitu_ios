@@ -13,7 +13,7 @@
 //网络请求 上传图片的地址也要换
 //@"http://www.51yunkong.com:8080/api.action?"
 //@"http://192.168.1.38:8080/pic/api.action?"
-#define URLPrefix @"http://192.168.1.38:8080/pic/api.action?"
+#define URLPrefix @"http://www.51yunkong.com:8080/api.action?"
 
 
 //渠道编号
