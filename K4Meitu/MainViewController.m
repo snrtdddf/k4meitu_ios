@@ -18,6 +18,7 @@
 #import "mainPageRequest.h"
 #import "MainPicGroupCell.h"
 #import "PicGroupDetailVC.h"
+#import "SexyPicGroupTypeVC.h"
 #import <YYCache.h>
 #import <YYDiskCache.h>
 
@@ -25,6 +26,8 @@
 
 @property (strong, nonatomic) YYDiskCache *cache;
 @property (assign, nonatomic) int requestCount;
+@property (strong, nonatomic) UIButton *searchBtn;
+
 
 
 @end
@@ -48,6 +51,8 @@
     nav = nil;
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.barTintColor = Black_COLOR;
+    
+    [self initSearchView];
 }
 
 - (void)viewDidLoad {
@@ -56,7 +61,7 @@
     
     
     self.curPage = 0;
-   
+    
     [self picTableInit];
     
     [self requestData];
@@ -65,11 +70,40 @@
     
 }
 
+- (void)initSearchView{
+    if (self.searchBtn == nil) {
+        self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    }
+    self.searchBtn.frame = CGRectMake(10, 8, IPHONE_WIDTH-20, 28);
+    self.searchBtn.backgroundColor = White_COLOR;
+    self.searchBtn.layer.cornerRadius = 14;
+    self.searchBtn.clipsToBounds = YES;
+    self.searchBtn.tag = 101;
+    [self.searchBtn setTitle:@"🔍搜索" forState:UIControlStateNormal];
+    [self.searchBtn setTitleColor:lightGray_Color forState:UIControlStateNormal];
+    [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:self.searchBtn];
+}
+
+- (void)searchBtnClick{
+    SexyPicGroupTypeVC *vc = [[SexyPicGroupTypeVC alloc] init];
+    //vc.keyword = @"妹子";
+   
+    [self.navigationController pushViewController:vc animated:NO];
+}
+
 - (void)refreshData{
-    self.picTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     myWeakSelf;
+
+    self.picTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        weakSelf.curPage++;
+        if (weakSelf.curPage <= weakSelf.maxPage) {
+            [weakSelf requestData];
+        }else{
+            [weakSelf.picTable.mj_footer endRefreshingWithNoMoreData];
+        }
+    }];
     self.picTable.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-        
         weakSelf.curPage = 0;
         [weakSelf.dataArr removeAllObjects];
         
@@ -78,16 +112,6 @@
     }];
     
   
-}
-
-- (void)loadMoreData{
-    self.curPage++;
-    if (self.curPage <= self.maxPage) {
-        [self requestData];
-    }else{
-        [self.picTable.mj_footer endRefreshingWithNoMoreData];
-    }
-    
 }
 
 - (void)picTableInit{
@@ -218,7 +242,8 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-   
+    [self.searchBtn removeFromSuperview];
+    self.searchBtn = nil;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -83,7 +83,7 @@
     myWeakSelf;
     self.scroll.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
         [weakSelf.scroll.mj_header endRefreshing];
-        
+        [weakSelf getCacheSize];
     }];
 }
 

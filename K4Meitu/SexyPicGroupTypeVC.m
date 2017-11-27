@@ -15,9 +15,10 @@
 #import "GetCurrentTime.h"
 #import <YYCache.h>
 #import <YYDiskCache.h>
-@interface SexyPicGroupTypeVC ()
+@interface SexyPicGroupTypeVC ()<UITextFieldDelegate>
 @property (strong, nonatomic) YYDiskCache *cache;
 @property (assign, nonatomic) int requestCount;
+@property (strong, nonatomic) UITextField *searchTF;
 @end
 
 @implementation SexyPicGroupTypeVC
@@ -25,6 +26,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    for (UIView *view in self.navigationController.navigationBar.subviews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            if (view.tag == 101) {
+                 [view removeFromSuperview];
+            }
+        }
+    }
 }
 
 
@@ -43,16 +51,90 @@
     }
 }
 
-- (void)requestData{
+- (void)searchPicTFInit{
+    if (self.searchTF == nil) {
+        self.searchTF = [[UITextField alloc] initWithFrame:CGRectMake(IPHONE_WIDTH*0.12, 6, IPHONE_WIDTH*0.7, 30)];
+    }
+    self.searchTF.placeholder = @"请输入要搜索的内容";
+    self.searchTF.backgroundColor = White_COLOR;
+    self.searchTF.borderStyle = UITextBorderStyleRoundedRect;
+    self.searchTF.layer.cornerRadius = 15;
+    self.searchTF.clipsToBounds = YES;
+    self.searchTF.delegate = self;
+    self.searchTF.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.searchTF.textColor = Red_COLOR;
+    [self.navigationController.navigationBar addSubview:self.searchTF];
+    
+    myWeakSelf;
+    [self addRightButtonWithName:@"搜索" wordNum:2 actionBlock:^{
+        weakSelf.curPage = 0;
+        [weakSelf.dataArr removeAllObjects];
+        [weakSelf.searchTF resignFirstResponder];
+        if (weakSelf.searchTF.text.length > 0) {
+            weakSelf.keyword = weakSelf.searchTF.text;
+           [weakSelf request];
+        } else {
+            [commonTools showBriefAlert:@"搜索关键字为空"];
+        }
+        
+        
+    }];
+    
+    [self addLeftCloseBtnWithName:@"" wordNum:3];
+    
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    NSString *text = textField.text;
+    if ([NSString isContainsEmoji:text]) {
+        textField.text = @"";
+        [commonTools showBriefAlert:@"请勿输入表情"];
+    }else if (text.length > 7){
+        [commonTools showBriefAlert:@"限制7个字符以内"];
+    }
+}
+
+- (void)refreshData{
     myWeakSelf;
     
-    self.requestCount++;
-
+    self.picTable.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        weakSelf.curPage++;
+        if (weakSelf.curPage <= weakSelf.maxPage) {
+            [weakSelf requestData];
+        }else{
+            [weakSelf.picTable.mj_footer endRefreshingWithNoMoreData];
+        }
+    }];
+    self.picTable.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        weakSelf.curPage = 0;
+        [weakSelf.dataArr removeAllObjects];
+        
+        [weakSelf request];
+        
+    }];
     
+    
+}
+
+- (void)requestData{
+    
+    NSLog(@"keyword=%@",self.keyword);
+    
+    if ((self.keyword == nil)||[self.keyword isEqualToString:@""]||[self.keyword isKindOfClass:[NSNull class]]) {
+         [self searchPicTFInit];
+        [self.searchTF becomeFirstResponder];
+    }else{
+        [self request];
+    }
+}
+
+- (void)request{
+    myWeakSelf;
+    self.requestCount++;
     [RequestManager getPicGroupByKeyword:self.keyword curPage:[NSNumber numberWithInt:self.curPage] pCount:@10 success:^(NSData *data) {
         NSDictionary *resDict = myJsonSerialization;
         NSLog(@"resDict:%@",resDict);
-        
+        [weakSelf.picTable.mj_header endRefreshing];
         [weakSelf.picTable.mj_footer endRefreshing];
         //清除缓存
         if (weakSelf.requestCount == 1) {
@@ -84,16 +166,31 @@
                 [weakSelf.picTable reloadData];
                 NSLog(@"count:%ld",weakSelf.dataArr.count);
                 [weakSelf.cache setObject:weakSelf.dataArr forKey:@"dataArr"];
+            }else{
+                [weakSelf.dataArr removeAllObjects];
+                [weakSelf.picTable reloadData];
+               // [commonTools showBriefAlert:@"已找到0张图片"];
+                [commonTools showStatusWithMessage:@"已找到0张图片" toView:self.picTable];
             }
         }else{
             [commonTools showBriefAlert:resDict[@"ErrorMsg"]];
         }
-
+        
     } failed:^(NSError *error) {
         
     }];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    for (UIView *view in self.navigationController.navigationBar.subviews) {
+        if ([view isKindOfClass:[UITextField class]]) {
+            [view removeFromSuperview];
+        }
+        if ([view isKindOfClass:[UIButton class]]) {
+            [view removeFromSuperview];
+        }
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

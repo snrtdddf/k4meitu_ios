@@ -497,7 +497,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // Dispose of any resources that can be recreated.http://www.51yunkong.com/?from=koubei&merchantType=MERCHANT
 }
 
 
